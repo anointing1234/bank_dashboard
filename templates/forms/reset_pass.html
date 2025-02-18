@@ -141,14 +141,13 @@
             });
     
             const formData = new FormData(document.getElementById('resetPasswordForm'));
-            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-
+            
             fetch("{% url 'reset_password_view' %}", {  // Adjust the URL to your reset password view
                 method: 'POST',
                 body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': csrfToken
+                    'X-CSRFToken': '{{ csrf_token }}'
                 }
             })
             .then((response) => response.json())

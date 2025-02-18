@@ -283,8 +283,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-  const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-
+  
   $(document).ready(function() {
     $("#initiateDeposit").on("click", function(e) {
       e.preventDefault();
@@ -358,7 +357,7 @@
                 url: " {% url 'create_deposit' %}",  // Your Django endpoint
                 method: "POST",
                 data: {
-                  csrfmiddlewaretoken: csrfToken,
+                  csrfmiddlewaretoken: "{{ csrf_token }}",
                   network: selectedNetwork,
                   amount: depositAmount
                 },

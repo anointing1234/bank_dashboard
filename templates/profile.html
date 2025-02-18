@@ -272,13 +272,11 @@
 
       // Use AJAX to submit the form
       const formData = new FormData(this);
-      const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-
       fetch("{% url 'update_fullname' %}", {  // Ensure this URL is correct
           method: 'POST',
           body: formData,
           headers: {
-              'X-CSRFToken': csrfToken  // Include CSRF token for security
+              'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token for security
           }
       })
       .then(response => {
