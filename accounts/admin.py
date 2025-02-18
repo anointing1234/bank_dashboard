@@ -20,6 +20,7 @@ from django.core.mail import send_mail
 from django import forms
 from django.urls import path
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (
     Account, AccountBalance, Card, LoanRequest, 
@@ -27,10 +28,37 @@ from .models import (
     ExchangeRate
 )
 from django.db import transaction
+from unfold.admin import ModelAdmin as UnfoldModelAdmin
+
+
+
 User = get_user_model()  # Get the custom user model
 
 
-class AccountAdmin(BaseUserAdmin):
+
+class AccountCreationForm(forms.ModelForm):
+    password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_("Confirm Password"), widget=forms.PasswordInput)
+
+    class Meta:
+        model = Account
+        fields = ('email', 'first_name', 'last_name', 'phone_number', 'account_type')
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError(_("Passwords do not match"))
+        return password2
+
+    def save(self, commit=True):
+        account = super().save(commit=False)
+        account.set_password(self.cleaned_data["password1"])  # Hash the password
+        if commit:
+            account.save()
+        return account
+
+class AccountAdmin(BaseUserAdmin,UnfoldModelAdmin):
     ordering = ('email',)
     list_display = ('email', 'first_name', 'last_name', 'phone_number', 'account_type', 'is_staff', 'is_active')
     list_filter = ('is_staff', 'is_active', 'account_type')
@@ -50,21 +78,27 @@ class AccountAdmin(BaseUserAdmin):
     search_fields = ('email', 'first_name', 'last_name')
     filter_horizontal = ('groups', 'user_permissions',)
 
+    # Use the custom form for adding new users
+    add_form = AccountCreationForm
+
 admin.site.register(Account, AccountAdmin)
 
 
+
+
+
 @admin.register(AccountBalance)
-class AccountBalanceAdmin(admin.ModelAdmin):
+class AccountBalanceAdmin(UnfoldModelAdmin):
     list_display = ('account', 'available_balance', 'loan_balance', 'total_credits', 'total_debits','gbp','eur')
     search_fields = ('account__email',)
 
 @admin.register(Card)
-class CardAdmin(admin.ModelAdmin):
+class CardAdmin(UnfoldModelAdmin):
     list_display = ('user', 'vendor', 'card_type', 'account', 'status')
     search_fields = ('user__email', 'account')
 
 
-class LoanRequestAdmin(admin.ModelAdmin):
+class LoanRequestAdmin(UnfoldModelAdmin):
     list_display = ('user', 'amount', 'currency', 'loan_type', 'status', 'date', 'approval_date', 'disbursement_date')
     list_filter = ('status', 'loan_type', 'currency')
     search_fields = ('user__email', 'loan_type', 'status', 'reason')
@@ -107,23 +141,23 @@ class LoanRequestAdmin(admin.ModelAdmin):
 admin.site.register(LoanRequest, LoanRequestAdmin)
 
 @admin.register(Exchange)
-class ExchangeAdmin(admin.ModelAdmin):
+class ExchangeAdmin(UnfoldModelAdmin):
     list_display = ('user', 'amount', 'from_currency', 'to_currency', 'status', 'date')
     search_fields = ('user',)
     list_filter = ('status', 'from_currency', 'to_currency', 'date')
 
 
 @admin.register(ResetPassword)
-class ResetPasswordAdmin(admin.ModelAdmin):
+class ResetPasswordAdmin(UnfoldModelAdmin):
     list_display = ('email','reset_code','created_at')
 
 @admin.register(TransferCode)
-class TransferCodeAdmin(admin.ModelAdmin):
+class TransferCodeAdmin(UnfoldModelAdmin):
     list_display = ('transfer_code',)
 
 
 @admin.register(Transaction)
-class TransactionAdmin(admin.ModelAdmin):
+class TransactionAdmin(UnfoldModelAdmin):
     list_display = (
         'user', 
         'transaction_date', 
@@ -153,7 +187,7 @@ class TransactionAdmin(admin.ModelAdmin):
 
 
 @admin.register(Deposit)
-class DepositAdmin(admin.ModelAdmin):
+class DepositAdmin(UnfoldModelAdmin):
     list_display = ('user', 'amount', 'TNX', 'network', 'rate', 'date', 'status', 'confirm_button', 'cancel_button')
     search_fields = ('user__email', 'TNX', 'network')
     list_filter = ('status', 'network', 'date')
@@ -253,7 +287,7 @@ class DepositAdmin(admin.ModelAdmin):
 
 
 @admin.register(Transfer)
-class TransferAdmin(admin.ModelAdmin):
+class TransferAdmin(UnfoldModelAdmin):
     list_display = (
         "reference", "user", "amount", "currency", "bank_name",
         "bank_account", "status", "date", "confirm_button", "cancel_button"
@@ -368,7 +402,7 @@ class TransferAdmin(admin.ModelAdmin):
 
 
 @admin.register(PaymentGateway)
-class PaymentGatewayAdmin(admin.ModelAdmin):
+class PaymentGatewayAdmin(UnfoldModelAdmin):
     list_display = ('network', 'deposit_address', 'instructions')
     search_fields = ('network', 'deposit_address')
     list_filter = ('network',)
@@ -379,7 +413,7 @@ class PaymentGatewayAdmin(admin.ModelAdmin):
 
 
 @admin.register(ExchangeRate)
-class ExchangeRateAdmin(admin.ModelAdmin):
+class ExchangeRateAdmin(UnfoldModelAdmin):
     list_display = ('eur_usd', 'gbp_usd', 'eur_gbp', 'updated_at')
     search_fields = ('eur_usd', 'gbp_usd', 'eur_gbp')
     list_filter = ('updated_at',)

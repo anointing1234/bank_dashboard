@@ -42,7 +42,8 @@ ALLOWED_HOSTS = ["mayb2uc.com"]
 AUTH_USER_MODEL = 'accounts.Account'
 
 INSTALLED_APPS = [
-    'jazzmin', 
+    "unfold",  # before django.contrib.admin
+    "unfold.contrib.filters",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -176,85 +177,145 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 
-JAZZMIN_SETTINGS = {
-    "site_title": "Bank Admin",
-    "site_header": "Bank Admin Portal",
-    "site_brand": "Admin Dashboard",
-    "site_logo": "assets/img/bank_logo.png",
-    "login_logo": "assets/img/bank_logo.png",
-    "welcome_sign": "Welcome to the Bank Admin Portal",
-    "copyright": "© 2025 My Bank",
-    "search_model": ["accounts.Account", "auth.Group", "accounts.Transaction"],  # Ensure Transaction is included
-    "topmenu_links": [
-        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Support", "url": "https://support.mybank.com", "new_window": True},
-        {"model": "accounts.Account"},
-        {"app": "accounts"},
+
+
+
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
+UNFOLD = {
+    "SITE_TITLE": "mybcplc",
+    "SITE_HEADER": "mybcplc",
+    "SITE_SUBHEADER": "mybcplc",
+    "SITE_DROPDOWN": [
+        {
+            "icon": "dashboard",  # Google Material icon
+            "title": _("mybcplc"),
+            "link": "https://example.com",
+        },
     ],
-  
-    "show_sidebar": True,
-    "navigation_expanded": True,
-    "order_with_respect_to": [
-        "accounts", 
-        "accounts.transaction",  # Ensure this matches your model name
+    "SITE_URL": "/",
+    "SITE_ICON": {
+        "light": lambda request: static("assets/img/bank_logo.png"),
+        "dark": lambda request: static("assets/img/bank_logo.png"),
+    },
+    "SITE_LOGO": {
+        "light": lambda request: static("assets/img/bank_logo.png"),
+        "dark": lambda request: static("assets/img/bank_logo.png"),
+    },
+    "SITE_SYMBOL": "speed",
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/svg+xml",
+            "href": lambda request: static("assets/img/bank_logo.png"),
+        },
     ],
-    "icons": {
-        # Django Auth Models
-        "auth.user": "fa fa-user",
-        "auth.group": "fa fa-users",
-        # Accounts App Models
-        "accounts.account": "fa fa-user",
-        "accounts.accountbalance": "fa fa-balance-scale",
-        "accounts.card": "fa fa-credit-card",
-        "accounts.loanrequest": "fa fa-hand-holding-usd",
-        "accounts.exchange": "fa fa-exchange-alt",
-        "accounts.resetpassword": "fa fa-key",
-        "accounts.transfercode": "fa fa-lock",
-        "accounts.transaction": "fa fa-file-invoice-dollar",
-        "accounts.deposit": "fa fa-download",
-        "accounts.transfer": "fa fa-share-square",
-        "accounts.paymentgateway": "fa fa-money-bill-wave",
-        "accounts.exchangerate": "fa fa-chart-line",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "SHOW_BACK_BUTTON": True,
+    "BORDER_RADIUS": "6px",
+    "COLORS": {
+        "base": {
+            "50": "249 250 251",
+            "100": "243 244 246",
+            "200": "229 231 235",
+            "300": "209 213 219",
+            "400": "156 163 175",
+            "500": "107 114 128",
+            "600": "75 85 99",
+            "700": "55 65 81",
+            "800": "31 41 55",
+            "900": "17 24 39",
+            "950": "3 7 18",
+        },
+        "primary": {
+            "50": "250 245 255",
+            "100": "243 232 255",
+            "200": "233 213 255",
+            "300": "216 180 254",
+            "400": "192 132 252",
+            "500": "168 85  247",
+            "600": "147 51 234",
+            "700": "126 34 206",
+            "800": "107 33 168",
+            "900": "88 28 135",
+            "950": "59 7 100",
+        },
+        "font": {
+            "subtle-light": "var(--color-base-500)",
+            "subtle-dark": "var(--color-base-400)",
+            "default-light": "var(--color-base-600)",
+            "default-dark": "var(--color-base-300)",
+            "important-light": "var(--color-base-900)",
+            "important-dark": "var(--color-base-100)",
+        },
     },
-    "default_icon_parents": "fa fa-chevron-circle-right",
-    "default_icon_children": "fa fa-circle",
-    "related_modal_active": True,
-    "custom_css": "assets/css/custom.css",
-    "custom_js": "js/custom.js",
-    "use_google_fonts_cdn": True,
-    "show_ui_builder": True,
-    "changeform_format": "horizontal_tabs",
-    "changeform_format_overrides": {
-        "auth.user": "vertical_tabs",
-        "auth.group": "vertical_tabs",
+    
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": _("menu"),
+                "separator": True,  
+                "icon": "dashboard",  # Google Material icon
+                "collapsible": False,
+                "items": [
+                    {
+                        "title": _("Users"),
+                        "icon": "person",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_account_changelist"),
+                    },
+                    {
+                        "title": _("Exchanges"),
+                        "icon": "swap_horiz",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_exchange_changelist"),
+                    },
+                    {
+                        "title": _("Exchange Rates"),
+                        "icon": "show_chart",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_exchangerate_changelist"),
+                    },
+                    {
+                        "title": _("Transfers"),
+                        "icon": "arrow_forward",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_transfer_changelist"),
+                    },
+                    {
+                        "title": _("Deposits"),
+                        "icon": "account_balance",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_deposit_changelist"),
+                    },
+                    {
+                        "title": _("Account Balances"),
+                        "icon": "account_balance_wallet",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_accountbalance_changelist"),
+                    },
+                    {
+                        "title": _("Loan Requests"),
+                        "icon": "request_quote",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_loanrequest_changelist"),
+                    },
+                    {
+                        "title": _("Payment Gateways"),
+                        "icon": "payment",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_paymentgateway_changelist"),
+                    },
+                    {
+                        "title": _("Transactions"),
+                        "icon": "receipt",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_transaction_changelist"),
+                    },
+                    {
+                        "title": _("Cards"),
+                        "icon": "credit_card",  # Google Material icon
+                        "link": reverse_lazy("admin:accounts_card_changelist"),
+                    },
+                ],
+            },
+        ],
     },
-}
-
-
-
-
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": True,
-    "brand_small_text": False,
-    "brand_colour": False,
-    "accent": "accent-warning",
-    "navbar": "navbar-light",
-    "no_navbar_border": False,
-    "navbar_fixed": False,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
-    "sidebar": "sidebar-dark-orange",
-    "theme": "darkly",
-    "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    },
-    "actions_sticky_top": True
 }
