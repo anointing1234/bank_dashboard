@@ -353,8 +353,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
   
 <script>
-  const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-
   document.addEventListener("DOMContentLoaded", function () {
     const exchangeRates = {
       eur_usd: {{ exchange_rates.eur_usd }},
@@ -398,7 +396,7 @@
         const amount = parseFloat(amountInput.value) || 0;
         const rate = getExchangeRate(fromCurrency.value, toCurrency.value);
         document.querySelectorAll(".swap-box input")[1].value = (amount * rate).toFixed(2);
-        
+  
         swapButton.classList.remove("animate"); // Remove rotation effect
       }, 500);
     });
