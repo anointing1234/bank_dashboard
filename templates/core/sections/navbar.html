@@ -4,7 +4,7 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="white">
-            <a href="index.html" class="logo">
+            <a href="{% url 'my-1' %}" class="logo">
               <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="70" />
               MYBCPIC
 
@@ -26,33 +26,33 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
-              <li class="nav-item {% if request.path == "/" or request.path == "/home/" %}active{% endif %}">
-                <a href="{% url 'home' %}">
+              <li class="nav-item {% if request.path == "/" or request.path == "/my-1/" %}active{% endif %}">
+                <a href="{% url 'my-1' %}">
                   <i class="fas fa-home"></i>
                   <p>Overview</p>
                 
                 </a>
               </li>
              
-              <li class="nav-item">
-                <a href="{% url 'profile' %}" class="nav-item {% if request.path == "/profile/" %}active{% endif %}">
+              <li class="nav-item {% if request.path == "/profile/" %}active{% endif %}">
+                <a href="{% url 'profile' %}">
                     <i class="fa-solid fa-user"></i>
                   <p>Profile</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% if request.path == "/loan_view/" %}active{% endif %}">
                 <a href="{% url 'loan_view' %}">
                     <i class="fa-solid fa-landmark"></i>
                   <p>Loans</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% if request.path == "/cards/" %}active{% endif %}">
                 <a  href="{% url 'cards' %}">
                     <i class="fas fa-credit-card"></i>
                   <p>cards</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% if request.path == "/exchange/" %}active{% endif %}">
                 <a  href="{% url 'exchange' %}">
                     <i class="fas fa-exchange-alt"></i>
                   <p>Exchanges</p>
@@ -66,7 +66,7 @@
                 </a>
                 <div class="collapse" id="charts">
                   <ul class="nav nav-collapse">
-                    <li>
+                    <li class="{% if request.path == "/deposit/" or request.path == "/transfer/" %}active{% endif %}">
                       <a href="{% url 'deposit' %}">
                         <span class="sub-item">Deposit</span>
                       </a>

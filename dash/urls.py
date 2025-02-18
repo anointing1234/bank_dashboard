@@ -7,7 +7,7 @@ from django.conf.urls import handler404, handler500
 
 
 urlpatterns = [
-    path('',views.home_view,name='home'),
+    path('',views.home_view,name='my-1'),
     path('profile/',views.profile_view,name='profile'),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
