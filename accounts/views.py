@@ -111,28 +111,40 @@ def register(request):
 
 
 
-
-
 def login_Account(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
+        
         if login_form.is_valid():
-            user = login_form.get_user()
-            auth_login(request, user)
-            return JsonResponse({
-                'success': True,
-                'message': 'Login successful!',
-                'redirect_url': '/'
-            })
-        else:
-            return JsonResponse({
-                'success': False,
-                'message': 'Invalid email  or password.'
-            })
+            email = login_form.cleaned_data.get('email')
+            password = login_form.cleaned_data.get('password')
+            
+            # Authenticate the user
+            user = authenticate(request, username=email, password=password)
+            
+            if user is not None:
+                auth_login(request, user)
+                return JsonResponse({
+                    'success': True,
+                    'message': 'Login successful!',
+                    'redirect_url': '/'
+                })
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Invalid email or password. Please try again.'
+                })
+        
+        return JsonResponse({
+            'success': False,
+            'message': 'Invalid form submission. Please check your details.'
+        })
+    
     else:
         form = LoginForm()
-    return render(request,'forms/login.html',{'form':form})
-
+    
+    return render(request, 'forms/login.html', {'form': form})
+    
 
 
 def logout_view(request):
