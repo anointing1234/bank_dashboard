@@ -63,85 +63,85 @@
     </style>
   </head>
   <body>
-    <!-- Full viewport height section -->
     <section class="vh-100">
-      <!-- Full-width container -->
       <div class="container-fluid h-100">
         <div class="row h-100">
-          <!-- Left Column: Full-screen image (hidden on small devices) -->
-          <div class="col-xl-6 d-none d-xl-block p-0">
-            <img
-              src="{% static 'assets/img/bank_registeration.jpeg' %}"
-              alt="Bank Registration"
-              class="img-cover"
-            />
+          <!-- Left Image (Hidden on Small Screens) -->
+          <div class="col-md-6 d-none d-md-block p-0">
+            <img src="{% static 'assets/img/bank_registeration.jpeg' %}" alt="Bank Registration" class="img-cover" />
           </div>
+          
           <!-- Right Column: Registration Form -->
-          <div
-            class="col-xl-6 d-flex align-items-center justify-content-center"
-          >
+          <div class="col-md-6 d-flex align-items-center justify-content-center">
             <div class="card w-100 h-100 no-border-radius">
-              <div class="card-body p-5">
-                <h4 class="mb-4 text-uppercase">CREATE AN ACCOUNT</h4>
-                <form id="signup"  method="POST" onsubmit="return  registration(event);">
-                 <!-- Email -->
+              <div class="card-body p-4">
+                <h4 class="mb-2 text-uppercase text-center">
+                  <img src="{% static 'assets/img/bank_logo.png' %}" alt="Bank Logo" height="70" />
+                </h4>
+                <h4 class="mb-4 text-uppercase text-center">Create an Account</h4>
+                
+                <form id="signup" method="POST" onsubmit="return registration(event);">
                   {% csrf_token %}
-                  <div data-mdb-input-init class="form-outline">
-                    {{ form.email}}
-                    <label class="form-label" for="email">Email</label>
-                  </div>
-                  <!-- Password -->
-                  <div data-mdb-input-init class="form-outline">
-                    {{ form.password}}
-                    <label class="form-label" for="password">Password</label>
-                  </div>
-                  <!-- Confirm Password -->
-                  <div data-mdb-input-init class="form-outline">
-                    {{ form.confirm_password}}
-                    <label class="form-label" for="confirmPassword"
-                      >Confirm Password</label
-                    >
-                  </div>
-                  <!-- First and Last Name -->
+                  
                   <div class="row">
+                    <div class="col-12">
+                      <div class="form-outline">
+                        {{ form.email }}
+                        <label class="form-label" for="email">Email</label>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <div class="form-outline">
+                        {{ form.password }}
+                        <label class="form-label" for="password">Password</label>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <div class="form-outline">
+                        {{ form.confirm_password }}
+                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                      </div>
+                    </div>
+                    
                     <div class="col-md-6">
-                      <div data-mdb-input-init class="form-outline">
-                        {{ form.first_name}}
+                      <div class="form-outline">
+                        {{ form.first_name }}
                         <label class="form-label" for="firstName">First Name</label>
                       </div>
                     </div>
                     
                     <div class="col-md-6">
-                      <div data-mdb-input-init class="form-outline">
-                       {{ form.last_name }}
+                      <div class="form-outline">
+                        {{ form.last_name }}
                         <label class="form-label" for="lastName">Last Name</label>
                       </div>
                     </div>
-                  </div>
-                  <!-- Phone Number -->
-                   
-                  <div data-mdb-input-init class="form-outline">
-                   {{ form.phone_number }}
-                    <label class="form-label" for="phoneNumber">Phone Number</label>
-                  </div>
-                  <!-- Account Type -->
-                  <div class="col-md-6">
-                  <div class="form-outline mb-4">
-                  {{ form.account_type }}
-                  </div>
-                </div>
-                <a href="{% url 'login' %}" class="text-dark me-3">Already have an account? click here</a>
-                  
-                  <!-- Buttons -->
-                  <div class="d-flex justify-content-center pt-3">
-                    <button
-                      type="submit"
-                      class="btn btn-warning btn-lg ms-2 w-100"
-                    >
-                      Register
-                    </button>
+                    
+                    <div class="col-12">
+                      <div class="form-outline">
+                        {{ form.phone_number }}
+                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <div class="form-outline">
+                        {{ form.account_type }}
+                      </div>
+                    </div>
+                    
+                    <div class="col-12 text-center">
+                      <a href="{% url 'login' %}" class="text-dark">Already have an account? Click here</a>
+                    </div>
+                    
+                    <div class="col-12 d-flex justify-content-center pt-3">
+                      <button type="submit" class="btn btn-warning btn-lg w-100">Register</button>
+                    </div>
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>
@@ -149,7 +149,6 @@
         </div>
       </div>
     </section>
-    
 
     <!-- MDB UI Kit JS -->
     <script
