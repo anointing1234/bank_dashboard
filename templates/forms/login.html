@@ -144,13 +144,15 @@
     })
   
     const formData = new FormData(document.getElementById('LoginForm'))
-  
+       // Retrieve CSRF token dynamically from the hidden input field
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
     fetch("{% url 'login_Account' %}", {
       method: 'POST',
       body: formData,
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRFToken': '{{ csrf_token }}'
+        'X-CSRFToken': csrfToken
       }
     })
       .then((response) => response.json())

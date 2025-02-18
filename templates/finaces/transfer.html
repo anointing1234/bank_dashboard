@@ -240,6 +240,8 @@
 
 
 <script>
+   const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
     $(document).ready(function() {
         $("#transferForm").on("submit", function(e) {
             e.preventDefault();
@@ -261,7 +263,7 @@
                 url: "{% url 'send_transfer_code' %}",
                 method: "POST",
                 data: {
-                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                    csrfmiddlewaretoken: csrfToken
                 },
                 success: function(response) {
                     if (response.success) {

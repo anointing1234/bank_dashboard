@@ -125,13 +125,14 @@
             });
     
             const formData = new FormData(document.getElementById('sendmailform'));
-    
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
             fetch("{% url 'send_reset_code_view' %}", {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'X-CSRFToken': csrfToken
                 }
             })
             .then((response) => response.json())

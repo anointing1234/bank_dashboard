@@ -179,14 +179,15 @@
         // Collect form data
         const form = document.getElementById('signup');
         const formData = new FormData(form);
-    
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
         // Send data to the server
         fetch("{% url 'register_view' %}", {
           method: 'POST',
           body: formData,
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': '{{ csrf_token }}'
+            'X-CSRFToken': csrfToken
           }
         })
           .then((response) => {

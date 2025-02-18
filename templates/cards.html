@@ -254,6 +254,8 @@
 <!-- SweetAlert2 JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script>
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
     document.getElementById('addCardBtn')?.addEventListener('click', function() {
         Swal.fire({
             title: 'Add New Card',
@@ -303,7 +305,7 @@
                 return fetch("{% url 'add_card' %}", {
                     method: 'POST',
                     headers: { 
-                        'X-CSRFToken': '{{ csrf_token }}', 
+                        'X-CSRFToken': csrfToken, 
                         'Content-Type': 'application/json' 
                     },
                     body: JSON.stringify({
