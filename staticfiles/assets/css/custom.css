@@ -1,0 +1,14 @@
+/* Limit the login logo size */
+/* Target Jazzmin login logo containers */
+.login-logo img,
+.jazzmin-login-logo img {
+    max-width: 150px !important;  /* Adjust this value as needed */
+    height: auto !important;
+}
+
+
+/* Optionally, adjust the site logo displayed in the header */
+.jazzmin-branding .brand-logo img {
+    max-height: 50px !important;  /* Adjust as needed */
+    width: auto !important;
+}

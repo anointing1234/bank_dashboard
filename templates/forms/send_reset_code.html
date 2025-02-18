@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Bank Login Page</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'assets/img/favicon.ico'%}" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <!-- MDB UI Kit CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+    />
+    <style>
+      /* Ensure full height and no scrollbars */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      /* Full viewport height */
+      .vh-100 {
+        height: 100vh;
+      }
+
+      /* Full-width container without extra padding/margin */
+      .container-fluid {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+      }
+
+      /* Make image cover its container */
+      .img-cover {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Remove border radius for a seamless look */
+      .no-border-radius {
+        border-radius: 0 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="vh-100 bg-dark">
+      <div class="container-fluid h-100">
+        <div class="row h-100">
+          <!-- Left Column: Full-screen image (hidden on smaller screens) -->
+          <div class="col-xl-6 d-none d-xl-block p-0">
+            <img
+              src="{% static 'assets/img/bank_registeration.jpeg' %}"
+              alt="Bank Login"
+              class="img-cover"
+            />
+          </div>
+          <!-- Right Column: Login Form -->
+          <div class="col-xl-6 d-flex align-items-center justify-content-center">
+            <div class="card no-border-radius w-100 h-100">
+              <div class="card-body p-5 mt-5 p-2">
+                <h3 class="mb-5 text-uppercase text-center">Send Reset code </h3>
+                <form id="sendmailform"  method="POST"  onsubmit="return  handleSendMail(event);">
+                  <!-- Email Field -->
+                  {% csrf_token %}
+                  <div class="form-outline mb-4">
+                    {{ form.email }}
+                    <label class="form-label" for="email">Email Address</label>
+                  </div>
+             
+           
+               
+                  <!-- Login Button and Forgot Password Link -->
+                  <div class="d-flex justify-content-end pt-3">
+                
+                    <button type="submit" class="btn btn-warning btn-lg ms-2 w-100">
+                    Send code
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End Right Column -->
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- MDB UI Kit JS -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+    ></script>
+
+     <!-- SweetAlert2 CSS -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+     <!-- SweetAlert2 JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+     <script>
+        function handleSendMail(event) {
+            event.preventDefault();
+    
+            // Show loading spinner
+            Swal.fire({
+                title: 'Sending mail...',
+                text: 'Please wait while we verify the email',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+    
+            const formData = new FormData(document.getElementById('sendmailform'));
+    
+            fetch("{% url 'send_reset_code_view' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                Swal.close(); // Close the loading message
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Email Sent!',
+                        text: data.message || 'A password reset code has been sent to your email.',
+                        confirmButtonText: 'Okay'
+                    }).then(() => {
+                        // Redirect to the reset password page
+                        window.location.href = "{% url 'reset_password_view' %}"; // Replace with your actual reset password URL
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Email Not Sent',
+                        text: data.message || 'This email address is not registered.',
+                        confirmButtonText: 'Okay'
+                    });
+                }
+            })
+            .catch((error) => {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while sending the email. Please try again later.',
+                    confirmButtonText: 'Okay'
+                });
+            });
+        }
+    </script>
+    
+    
+
+    
+
+  </body>
+</html>

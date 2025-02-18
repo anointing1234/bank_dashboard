@@ -1,0 +1,355 @@
+{% extends 'core/base/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block contents %}
+
+<style>
+  .row.align-items-stretch {
+    display: flex;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-body {
+    flex: 1; /* This allows the card body to take up the remaining space */
+  }
+  /* Make the container fill the entire viewport */
+  .full-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+    .scroll-container {
+      max-height: 300px; /* Adjust as needed */
+      overflow-y: auto;
+    }
+
+</style>
+
+<div class="main-panel">
+    <div class="main-header">
+        <div class="main-header-logo"> 
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <!-- Navbar Header -->
+        <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom">
+          <div class="container-fluid">
+            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+            </nav>
+            <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+              <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"></li>
+              <li class="nav-item topbar-user dropdown hidden-caret">
+                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                  <div class="avatar-sm">
+                    <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+                  </div>
+                  <span class="profile-username">
+                    <span class="op-7 text-light">Hi,</span>
+                    <span class="fw-bold text-light">{{ request.user.username }}</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- End Navbar -->
+    </div>
+  <div class="container">
+    <div class="page-inner">
+      <!-- Dashboard Cards -->
+      <div class="row">
+        <div class="col-sm-6 col-md-3 col-lg-4">
+            <div class="card card-stats card-round">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-icon">
+                    <div class="icon-big text-center icon-primary bubble-shadow-small">
+                      <i class="fa-sharp fa-solid fa-piggy-bank"></i>
+                    </div>
+                  </div>
+                
+                  <div class="col col-stats ms-3 ms-sm-0">
+                    <div class="numbers">
+                      <p class="card-category">USD</p>
+                      <h4 class="card-title">${{ request.user.account_balance.available_balance|intcomma  }}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3 col-lg-4">
+            <div class="card card-stats card-round">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-icon">
+                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                      <i class="fa-solid fa-landmark"></i>
+                    </div>
+                  </div>
+                  <div class="col col-stats ms-3 ms-sm-0">
+                    <div class="numbers">
+                      <p class="card-category">GBP</p>
+                      <h4 class="card-title">£{{ request.user.account_balance.gbp|intcomma  }}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3 col-lg-4">
+            <div class="card card-stats card-round">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-icon">
+                    <div class="icon-big text-center icon-success bubble-shadow-small">
+                      <i class="fa-sharp fa-solid fa-money-bill-transfer"></i>
+                    </div>
+                  </div>
+                  <div class="col col-stats ms-3 ms-sm-0">
+                    <div class="numbers">
+                      <p class="card-category">EUR</p>
+                      <h4 class="card-title">€{{ request.user.account_balance.eur|intcomma }}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Transfer Form Section -->
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card card-round">
+            <div style="background-color:#1A2035;" class="card-header text-white">
+              <h5 class="mb-0"><i class="fa-solid fa-money-bill-transfer"></i> Make a Transfer</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'create_transfer' %}" id="transferForm">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                
+                    <!-- Submit Button -->
+                    <button style="background-color:#1A2035; color:white;" type="submit" class="btn w-100">
+                        Transfer Funds
+                    </button>
+                </form>
+                
+                
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <!-- Recent Transfer History -->
+<div class="row">
+    <div class="col-md-12">
+      <div class="card card-round">
+        <div class="card-header">
+          <h5 class="mb-0">Recent Transfers</h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive scroll-container">
+            <table class="table align-items-center mb-0">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Reference</th>
+                  <th scope="col">Recipient</th>
+                  <th scope="col" class="text-end">Date & Time</th>
+                  <th scope="col" class="text-end">Amount</th>
+                  <th scope="col" class="text-end">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for transfer in transfers %}
+                <tr>
+                  <td>{{ transfer.reference }}</td>
+                  <td>{{ transfer.to_account }}</td>
+                  <td class="text-end">{{ transfer.transaction_date|date:"M d, Y H:i" }}</td>
+                  <td class="text-end">${{ transfer.amount|floatformat:2 }}</td>
+                  <td class="text-end">
+                    {% if transfer.status == "completed" %}
+                      <span class="badge bg-success">Completed</span>
+                    {% elif transfer.status == "pending" %}
+                      <span class="badge bg-warning">Pending</span>
+                    {% else %}
+                      <span class="badge bg-danger">Failed</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="5" class="text-center">No transfers yet.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container-fluid d-flex justify-content-between">
+      <nav class="pull-left">
+        <ul class="nav">
+
+        </ul>
+      </nav>
+      <div class="copyright">
+      
+      </div>
+      <div>
+        copyright@
+        <a target="_blank" class="text-dark" href="">2025mybcplc.com</a>.
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- jQuery & SweetAlert2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    $(document).ready(function() {
+        $("#transferForm").on("submit", function(e) {
+            e.preventDefault();
+  
+            let formData = $(this).serialize();
+  
+            // Show loading animation while sending transfer code
+            Swal.fire({
+                title: "Sending Transfer Code...",
+                text: "Please wait while we send the transfer code to your email.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Step 1: Send Transfer Code to Email
+            $.ajax({
+                url: "{% url 'send_transfer_code' %}",
+                method: "POST",
+                data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        Swal.close(); // Close loading animation
+
+                        // Prompt user to enter transfer code
+                        Swal.fire({
+                            title: "Enter Transfer Code",
+                            input: "text",
+                            inputPlaceholder: "Enter the code sent to your email",
+                            showCancelButton: true,
+                            confirmButtonText: "Submit",
+                            preConfirm: (transferCode) => {
+                                if (!transferCode) {
+                                    Swal.showValidationMessage("Transfer code is required!");
+                                    return false; // Prevent submission
+                                }
+                                console.log("Transfer code entered by user:", transferCode); // Log the transfer code
+                                return transferCode; // Return the transfer code for the next step
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Show loading animation while processing transfer
+                                Swal.fire({
+                                    title: "Processing Transfer...",
+                                    text: "Please wait while we complete your transaction.",
+                                    allowOutsideClick: false,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                    }
+                                });
+
+                                // Step 2: Proceed with Transfer
+                                const transferCode = result.value; // Get the transfer code from SweetAlert
+                                const dataToSend = formData + "&transfer_code=" + encodeURIComponent(transferCode); // Encode the transfer code
+
+                                console.log("Data being sent to create_transfer:", dataToSend); // Log the data being sent
+
+                                $.ajax({
+                                    url: "{% url 'create_transfer' %}",
+                                    method: "POST",
+                                    data: dataToSend,
+                                    success: function(response) {
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Transfer Successful",
+                                            text: response.message
+                                        }).then(() => location.reload());
+                                    },
+                                    error: function(xhr) {
+                                        // Extract error message from the response
+                                        let errorMessage = "Invalid transfer code or insufficient balance.";
+                                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                                            errorMessage = xhr.responseJSON.message; // Use the message from the server
+                                        }
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Transfer Failed",
+                                            text: errorMessage
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Failed to send transfer code. Please try again."
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    // Extract error message from the response
+                    let errorMessage = "Could not send transfer code. Try again later.";
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message; // Use the message from the server
+                    }
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: errorMessage
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+  {% endblock contents %}

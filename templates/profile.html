@@ -1,0 +1,315 @@
+{% extends 'core/base/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block contents %}
+<style>
+  .row.align-items-stretch {
+    display: flex;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-body {
+    flex: 1; /* This allows the card body to take up the remaining space */
+  }
+  /* Make the container fill the entire viewport */
+  .full-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+</style>
+
+<div class="main-panel">
+  <div class="main-header">
+    <div class="main-header-logo">
+      <!-- Logo Header -->
+      <div class="logo-header" data-background-color="dark">
+        <a href="index.html" class="logo">
+          <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
+        </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+      <!-- End Logo Header -->
+    </div>
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom">
+      <div class="container-fluid">
+        <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+        </nav>
+        
+        <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+          <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"></li>
+          <li class="nav-item topbar-user dropdown hidden-caret">
+            <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+              <div class="avatar-sm">
+                <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+              </div>
+              <span class="profile-username">
+                <span class="op-7 text-light">Hi,</span>
+                <span class="fw-bold text-light">{{ request.user.username }}</span>
+              </span>
+            </a>
+           
+
+
+            
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+  </div>
+
+  
+  <div class="container">
+    <div class="page-inner">
+      <div class="row mb-5 pb-5 p-0">
+        <div class="row mx-3">
+          <!-- Fixed typo: changed "containe-fluid" to "container-fluid" -->
+          <div class="container-fluid d-flex justify-content-center border-bottom mb-3 mt-5">
+            <h5 class="fw-bold">My profile</h5>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row me-3">
+              <div class="col-md-4">
+                <!-- Profile Card with Picture -->
+                <div class="card mb-4">
+                  <div class="card-header text-center">
+                    <img style="width: 80px; height: 80px; object-fit: cover;" src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+                 </div>
+              
+                  <div class="card-body">
+                    <div class="row mb-2">
+                      <p class="text-muted mb-0 text-center">Available Balance</p>
+                      <h4 class="text-dark text-center fw-bold">
+                        ${{ request.user.account_balance.available_balance|intcomma }}
+                      </h4>
+                    </div>
+                    <div class="row mb-2">
+                      <p class="text-muted mb-0 text-center">Loan Balance</p>
+                      <h4 class="text-dark fw-bold text-center">
+                        ${{ request.user.account_balance.loan_balance|intcomma }}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">My Full Details</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <div class="row mb-4">
+                        <div class="col-sm-4 text-muted">Full Name</div>
+                        <div class="col-sm-8">
+                          <div class="d-flex align-items-center">
+                            <span>{{ request.user.first_name|default:'Not set' }}</span>
+                            {% if not request.user.first_name or request.user.first_name == 'Not set' %}
+                                <button class="btn btn-outline-dark btn-sm ms-3" onclick="showFullNameInput()">Add Full Name</button>
+                            {% endif %}
+                        </div>
+                          <div id="fullname-input" style="display:none;" class="mt-2">
+                            <input type="text" id="new_fullname" class="form-control" placeholder="Enter your full name" />
+                            <button class="btn btn-success btn-sm mt-2" onclick="submitFullName()">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="row mb-4">
+                        <div class="col-sm-4 text-muted">Username</div>
+                        <div class="col-sm-8">
+                          <div class="d-flex align-items-center">
+                            <span>{{ request.user.username|default:'Not set' }}</span>
+                            {% if not request.user.username or request.user.username == 'Not set' %}
+                              <button class="btn btn-outline-dark btn-sm ms-3" onclick="showUsernameInput()">Add Username</button>
+                            {% endif %}
+                          </div>
+                          <div id="username-input" style="display:none;" class="mt-2">
+                            <input type="text" id="new_username" class="form-control" placeholder="Enter your username" />
+                            <button class="btn btn-success btn-sm mt-2" onclick="submitUsername()">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Phone Number</div>
+                      <div class="col-sm-8">     <div class="d-flex align-items-center">
+                        <span>{{ request.user.phone_number|default:'Not set' }}</span>
+                        {% if not request.user.phone_number or request.user.phone_number == 'Not set' %}
+                          <button class="btn btn-outline-dark btn-sm ms-3" onclick="showFullNameInput()">Add phone number</button>
+                        {% endif %}
+                      </div></div>
+                    </div>
+                    <hr />
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Email</div>
+                      <div class="col-sm-8">{{ request.user.email }}</div>
+                    </div>
+                    <hr />
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Account type</div>
+                      <div class="col-sm-8">{{ request.user.account_type }}</div>
+                    </div>
+                    <hr />
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Password</div>
+                      <div class="col-sm-8">**********</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div> <!-- end row mx-3 -->
+      </div> <!-- end row mb-5 pb-5 p-0 -->
+    </div> <!-- end page-inner -->
+  </div> <!-- end container -->
+  
+
+
+
+
+
+  <footer class="footer">
+    <div class="container-fluid d-flex justify-content-between">
+      <nav class="pull-left">
+        <ul class="nav">
+        </ul>
+      </nav>
+      <div class="copyright"></div>
+      <div>
+        copyright@
+        <a target="_blank" class="text-dark" href="">2025banking.com</a>.
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Modal for Adding Full Name -->
+<div class="modal fade" id="fullNameModal" tabindex="-1" aria-labelledby="fullNameModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered class -->
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="fullNameModalLabel">Add Full Name</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="fullNameForm">
+                  <div class="mb-3">
+                      <label for="fullname" class="form-label">Full Name</label>
+                      <input type="text" class="form-control" id="fullname" name="fullname" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container-fluid d-flex justify-content-between">
+    <nav class="pull-left">
+      <ul class="nav">
+
+      </ul>
+    </nav>
+    <div class="copyright">
+    
+    </div>
+    <div>
+      copyright@
+      <a target="_blank" class="text-dark" href="">2025mybcplc.com</a>.
+    </div>
+  </div>
+</footer>
+
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+   
+
+
+<script>
+  function showFullNameInput() {
+      // Show the modal
+      var myModal = new bootstrap.Modal(document.getElementById('fullNameModal'));
+      myModal.show();
+  }
+
+  document.getElementById('fullNameForm').onsubmit = function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Show loading indicator
+      Swal.fire({
+          title: 'Submitting...',
+          html: 'Please wait while we process your request.',
+          allowOutsideClick: false,
+          onBeforeOpen: () => {
+              Swal.showLoading();
+          }
+      });
+
+      // Use AJAX to submit the form
+      const formData = new FormData(this);
+      fetch("{% url 'update_fullname' %}", {  // Ensure this URL is correct
+          method: 'POST',
+          body: formData,
+          headers: {
+              'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token for security
+          }
+      })
+      .then(response => {
+          if (!response.ok) {
+              return response.json().then(data => {
+                  const errorMessages = Object.values(data.error).flat().map(err => err.message).join(', ');
+                  throw new Error(errorMessages);
+              });
+          }
+          return response.json();
+      })
+      .then(data => {
+          // Handle success message
+          Swal.fire({
+              icon: 'success',
+              title: 'Success',
+              text: data.success,
+              confirmButtonText: 'OK'
+          }).then(() => {
+              // Reload the page to reflect changes
+              window.location.reload();
+          });
+      })
+      .catch(error => {
+          // Handle error message
+          Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: error.message,
+              confirmButtonText: 'OK'
+          });
+      });
+  };
+</script>
+
+{% endblock contents %}

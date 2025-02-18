@@ -1,0 +1,348 @@
+{% extends 'core/base/base.html' %}
+{% load static %}
+{% block contents %}
+{% load humanize %}
+
+<style>
+  .row.align-items-stretch {
+    display: flex;
+  }
+
+  @keyframes slideAnimation {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(40px); /* Reduced translation so it stays within the card */
+    }
+  }
+  
+  .slide-button.animate {
+    animation: slideAnimation 0.5s forwards;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .swap-button {
+    background: #ccc;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 18px;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .swap-button.animate {
+    transform: rotate(180deg);
+  }
+  
+  .card-body {
+    flex: 1;
+  }
+  
+  /* Full-screen layout */
+  .full-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  /* Swap container styles */
+  .swap-container {
+    max-width: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 20px 0;
+  }
+  
+  .address-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f3f5;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .swap-box {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .swap-box input {
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    width: 100px;
+    text-align: left;
+  }
+  
+  .swap-box select {
+    background: #fff;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .swap-button {
+    background: #ccc;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 18px;
+  }
+  
+  .slide-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ddd;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: 120px; /* Reduced width so it stays inside the container */
+    margin: 0 auto;
+  }
+  
+  .slide-button i {
+    margin-right: 8px;
+  }
+</style>
+
+<div class="main-panel">
+  <div class="main-header">
+    <div class="main-header-logo"> 
+      <!-- Logo Header -->
+      <div class="logo-header" data-background-color="dark">
+        <a href="index.html" class="logo">
+          <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
+        </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+      <!-- End Logo Header -->
+    </div>
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom">
+      <div class="container-fluid">
+        <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+        </nav>
+        <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+          <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"></li>
+          <li class="nav-item topbar-user dropdown hidden-caret">
+            <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+              <div class="avatar-sm">
+                <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+              </div>
+              <span class="profile-username">
+                <span class="op-7 text-light">Hi,</span>
+                <span class="fw-bold text-light">{{ request.user.username }}</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+  </div>
+  <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="container">
+                <div class="page-inner">
+                    <div class="row d-flex justify-content-center align-items-center mt-5 pt-5">
+                        {% if cards %}
+                            <div class="col-md-6">
+                                <h3 class="text-center">Available cards</h3>
+                                <hr> <!-- Added column for better layout control -->
+                                <div class="card card-secondary bg-secondary-gradient text-white shadow-lg" style="border-radius: 15px;">
+                                    {% for card in cards %}
+                                        <div class="card-body text-center">
+                                            <h2 class="py-4 mb-0" style="font-size: 1.8rem;">
+                                                {{ card.account|default:"**** **** **** ****" }}
+                                            </h2>
+                                            <div class="row">
+                                                <div class="col-8 text-start">
+                                                    <h3 class="fw-bold mb-1">{{ request.user.username }}</h3>
+                                                    <div class="text-small text-uppercase fw-bold">Card Holder</div>
+                                                </div>
+                                                <div class="col-4 text-end">
+                                                    <h3 class="fw-bold mb-1">12/28</h3>
+                                                    <div class="text-small text-uppercase fw-bold">Expiry Date</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-md-6 text-center">
+                                <h2>No available cards</h2>
+                                <button class="btn btn-primary" id="addCardBtn">Add Card</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+             
+        
+        </div>
+  
+     
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container-fluid d-flex justify-content-between">
+        <nav class="pull-left">
+          <ul class="nav">
+
+          </ul>
+        </nav>
+        <div class="copyright">
+        
+        </div>
+        <div>
+          copyright@
+          <a target="_blank" class="text-dark" href="">2025mybcplc.com</a>.
+        </div>
+      </div>
+    </footer>
+  </div>
+ 
+</div>
+  
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+<!-- SweetAlert2 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script>
+    document.getElementById('addCardBtn')?.addEventListener('click', function() {
+        Swal.fire({
+            title: 'Add New Card',
+            html: `
+                <input id="swal-card-number" class="swal2-input" placeholder="Card Number">
+                <select id="swal-card-type" class="swal2-input">
+                    <option value="credit">Credit</option>
+                    <option value="debit">Debit</option>
+                    <option value="prepaid">Prepaid</option>
+                </select>
+                <select id="swal-vendor" class="swal2-input">
+                    <option value="visa">Visa</option>
+                    <option value="mastercard">MasterCard</option>
+                    <option value="amex">American Express</option>
+                    <option value="discover">Discover</option>
+                </select>
+                <select id="swal-status" class="swal2-input">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="blocked">Blocked</option>
+                </select>
+                <input id="swal-card-password" type="password" class="swal2-input" placeholder="Card PIN">
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Add Card',
+            focusConfirm: false, // Prevents auto-focus issues
+            preConfirm: () => {
+                // Ensure SweetAlert elements exist before reading their values
+                const popup = Swal.getPopup();
+                const cardNumber = popup.querySelector('#swal-card-number')?.value;
+                const cardType = popup.querySelector('#swal-card-type')?.value;
+                const vendor = popup.querySelector('#swal-vendor')?.value;
+                const status = popup.querySelector('#swal-status')?.value;
+                const cardPassword = popup.querySelector('#swal-card-password')?.value;
+    
+                // Show loading animation
+                Swal.fire({
+                    title: 'Processing...',
+                    text: 'Please wait while we add your card.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+    
+                // Send the request
+                return fetch("{% url 'add_card' %}", {
+                    method: 'POST',
+                    headers: { 
+                        'X-CSRFToken': '{{ csrf_token }}', 
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({
+                        account: cardNumber,
+                        card_type: cardType,
+                        vendor: vendor,
+                        status: status,
+                        card_password: cardPassword
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        throw new Error(data.message);
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: error.message,
+                        icon: 'error',
+                        confirmButtonText: 'Try Again'
+                    });
+                });
+            }
+        });
+    });
+    </script>
+    
+    
+
+
+{% endblock contents %}

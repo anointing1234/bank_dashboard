@@ -1,0 +1,354 @@
+{% extends 'core/base/base.html' %}
+{% load static %}
+{% block contents %}
+{% load humanize %}
+
+<style>
+  .row.align-items-stretch {
+    display: flex;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex: 1; /* This allows the card body to take up the remaining space */
+}
+ /* Scrollable container for lists/tables */
+ .scroll-container {
+  max-height: 300px; /* Adjust as needed */
+  overflow-y: auto;
+}
+</style>
+<style>
+  /* Make the container fill the entire viewport */
+  .full-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+</style>
+
+    <div class="main-panel">
+      <div class="main-header">
+        <div class="main-header-logo"> 
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <!-- Navbar Header -->
+        <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom" >
+          <div class="container-fluid">
+            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+            </nav>
+
+            <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+              <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
+               
+              </li>
+              <li class="nav-item topbar-user dropdown hidden-caret">
+                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                  <div class="avatar-sm">
+                    <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+                  </div>
+                  <span class="profile-username">
+                    <span class="op-7 text-light">Hi,</span>
+                    <span class="fw-bold text-light">{{ request.user.username }}</span>
+                  </span>
+                </a>
+                
+
+
+
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- End Navbar -->
+      </div>
+
+      <div class="container">
+        <div class="page-inner">
+
+          <div class="container mt-4 pt-5">
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 mt-2">
+                    {% if user_loans %}
+                        <div class="card shadow">
+                            <div style="background-color:#1A2035;" class="card-header  text-white text-center">
+                                <h5 class="mb-0">Active Loan Details</h5>
+                            </div>
+                            <div class="card-body">
+                                {% for loan in user_loans %}
+                                    <div class="loan-detail mb-4">
+                                       
+                                        <p><strong>Amount:</strong> ${{ loan.amount|intcomma }}</p>
+                                        <hr>
+                                        <p><strong>Interest Rate:</strong> {{ loan.interest_rate }}%</p>
+                                        <hr>
+                                        <p><strong>Term:</strong> {{ loan.term_months }} months</p>
+                                        <hr>
+                                        <p><strong>Approval Date:</strong> <span>{{ loan.approval_date }}</span></p>
+                                        <hr>
+                                        <p><strong>Disbursement Date:</strong> <span>{{ loan.disbursement_date }}</span></p>
+                                        <hr>
+                                        <p><strong>Status:</strong> <span class="badge bg-success">{{ loan.status }}</span></p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card shadow">
+                            <div class="card-body text-center">
+                                <h5 class="mb-3">No Available Loans</h5>
+                                <button class="btn btn-primary mt-3" onclick="openLoanRequest()">Request a Loan</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-10 mt-5 pt-1">
+                  <div class="card shadow">
+                      <div style="background-color:#1A2035;" class="card-header  text-white text-center">
+                          <h5 class="mb-0">Loan History</h5>
+                      </div>
+                      <div class="card-body scroll-container">
+                          {% if user_loans %}
+                              <table class="table table-striped table-bordered">
+                                  <thead>
+                                      <tr>
+                                          <th>#</th>
+                                          <th>Amount</th>
+                                          <th>Interest Rate</th>
+                                          <th>Term (Months)</th>
+                                          <th>Approval Date</th>
+                                          <th>Disbursement Date</th>
+                                          <th>Status</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for loan in user_loans %}
+                                          <tr>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>${{ loan.amount|floatformat:2 }}</td>
+                                              <td>{{ loan.interest_rate }}%</td>
+                                              <td>{{ loan.term_months }}</td>
+                                              <td>{{ loan.approval_date|date:"Y-m-d" }}</td>
+                                              <td>{{ loan.disbursement_date|date:"Y-m-d" }}</td>
+                                              <td>
+                                                  <span class="badge {% if loan.status == 'approved' %}bg-success{% elif loan.status == 'declined' %}bg-danger{% else %}bg-warning{% endif %}">
+                                                      {{ loan.status }}
+                                                  </span>
+                                              </td>
+                                          </tr>
+                                      {% endfor %}
+                                  </tbody>
+                              </table>
+                          {% else %}
+                              <div class="text-center">
+                                  <h5>No Loan History Available</h5>
+
+                              </div>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+       
+
+
+      
+          
+
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container-fluid d-flex justify-content-between">
+          <nav class="pull-left">
+            <ul class="nav">
+
+            </ul>
+          </nav>
+          <div class="copyright">
+          
+          </div>
+          <div>
+            copyright@
+            <a target="_blank" class="text-dark" href="">2025mybcplc.com</a>.
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    
+  
+
+     <!-- SweetAlert2 CSS -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+     <!-- SweetAlert2 JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    
+     {% if messages %}
+     <script>
+         var messages = {
+             success: "{% for message in messages %}{% if message.tags == 'success' %}{{ message }}{% endif %}{% endfor %}",
+             error: "{% for message in messages %}{% if message.tags == 'error' %}{{ message }}{% endif %}{% endfor %}"
+         };
+     </script>
+     {% endif %}
+     
+     <script>
+       function updateInterestRate() {
+           let amount = parseFloat(document.getElementById('loan_amount').value) || 0;
+           let term = parseInt(document.getElementById('term_months').value) || 0;
+           let interestRate = 0;
+     
+           console.log("Amount:", amount, "Term:", term); // Debugging line
+     
+           if (amount < 1000) {
+               interestRate = 10.0; // 10% for small loans
+           } else if (amount < 5000) {
+               interestRate = 15.5; // 15.5% for medium loans
+           } else {
+               interestRate = 20.0; // 20% for large loans
+           }
+     
+           // Adjust based on loan duration
+           if (term > 6) {
+               interestRate += 2; // Increase rate for longer terms
+           }
+     
+           document.getElementById('interestRate').value = interestRate.toFixed(2);
+           console.log("Interest Rate:", interestRate.toFixed(2)); // Debugging line
+       }
+     
+       // SweetAlert for Loan Request Form
+       function openLoanRequest() {
+           Swal.fire({
+               title: 'Request a Loan',
+               html: `
+                   <form id="loanForm" method="POST" action="{% url 'request_loan' %}">
+                       {% csrf_token %}
+                       <div class="mb-3">
+                           <label>Amount</label>
+                           <input type="number" name="amount" id="loan_amount" class="form-control" min="1" required>
+                       </div>
+                       <div class="mb-3">
+                           <label>Term (months)</label>
+                           <input type="number" name="term_months" id="term_months" class="form-control" min="1" required>
+                       </div>
+                       <div class="mb-3">
+                           <label>Currency</label>
+                           <select name="currency" class="form-control" required>
+                               <option value="">Select Currency</option>
+                               <option value="USD">USD</option>
+                               <option value="EUR">EUR</option>
+                               <option value="GBP">GBP</option>
+                               <!-- Add more currencies as needed -->
+                           </select>
+                       </div>
+                       <div class="mb-3">
+                           <label>Loan Type</label>
+                           <input type="text" name="loan_type" class="form-control" required>
+                       </div>
+                       <div class="mb-3">
+                           <label>Reason</label>
+                           <textarea name="reason" class="form-control" rows="2" required></textarea>
+                       </div>
+                       <div class="mb-3">
+                           <label>Collateral (if any)</label>
+                           <textarea name="collateral" class="form-control" rows="2"></textarea>
+                       </div>
+                       <input type="hidden" name="interest_rate" id="interestRate" value="0.00">
+                       <button type="submit" class="btn btn-success">Submit</button>
+                   </form>
+               `,
+               showConfirmButton: false,
+               showCloseButton: true
+           });
+     
+           // Re-attach event listeners after the form is created
+           document.getElementById('loan_amount').addEventListener('input', updateInterestRate);
+           document.getElementById('term_months').addEventListener('input', updateInterestRate);
+           
+           updateInterestRate(); // Initial call to set the interest rate
+     
+           // Handle form submission
+           document.getElementById('loanForm').onsubmit = function(event) {
+               event.preventDefault(); // Prevent default form submission
+     
+               // Show loading indicator
+               Swal.fire({
+                   title: 'Submitting...',
+                   html: 'Please wait while we process your request.',
+                   allowOutsideClick: false,
+                   onBeforeOpen: () => {
+                       Swal.showLoading();
+                   }
+               });
+     
+               // Use AJAX to submit the form
+               const formData = new FormData(this);
+               fetch(this.action, {
+                   method: 'POST',
+                   body: formData,
+               })
+               .then(response => {
+                   if (!response.ok) {
+                       return response.json().then(data => {
+                           // Handle validation errors
+                           const errorMessages = Object.values(data.error).flat().map(err => err.message).join(', ');
+                           throw new Error(errorMessages); // Throw an error with the error message
+                       });
+                   }
+                   return response.json();
+               })
+               .then(data => {
+                   // Handle success message
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Success',
+                       text: data.success,
+                       confirmButtonText: 'OK'
+                   }).then(() => {
+                    // Reload the page after the success message is acknowledged
+                    window.location.reload();
+                });
+               })
+               .catch(error => {
+                   // Handle error message
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Error',
+                       text: error.message, // Display the error message
+                       confirmButtonText: 'OK'
+                   });
+               });
+           };
+       }
+     </script>
+
+ {% endblock contents %}

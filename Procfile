@@ -1,0 +1,1 @@
+web: gunicorn bank_dash.wsgi --log-file -
