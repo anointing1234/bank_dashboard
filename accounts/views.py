@@ -29,6 +29,10 @@ from .models import PaymentGateway,Deposit, Transaction,Transfer,TransferCode,Lo
 import random
 from django.utils.crypto import get_random_string
 from django.utils.timezone import now, timedelta
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.admin import AdminSite
+from django.utils.translation import gettext_lazy as _
+from django.utils.safestring import mark_safe
 
 
 
@@ -580,6 +584,4 @@ def reset_password_view(request):
 def send_pass(request):
     form = SendresetcodeForm()
     return render(request,'forms/send_reset_code.html',{'form':form})
-
-
 

@@ -11,6 +11,8 @@ from django.core.files import File
 from io import BytesIO
 from PIL import Image
 import os
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -29,10 +31,10 @@ from .models import (
 )
 from django.db import transaction
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
+from django.template.response import TemplateResponse
 
 
 
-User = get_user_model()  # Get the custom user model
 
 
 
@@ -58,6 +60,7 @@ class AccountCreationForm(forms.ModelForm):
             account.save()
         return account
 
+
 class AccountAdmin(BaseUserAdmin,UnfoldModelAdmin):
     ordering = ('email',)
     list_display = ('email', 'first_name', 'last_name', 'phone_number', 'account_type', 'is_staff', 'is_active')
@@ -81,6 +84,18 @@ class AccountAdmin(BaseUserAdmin,UnfoldModelAdmin):
     # Use the custom form for adding new users
     add_form = AccountCreationForm
 
+    def changelist_view(self, request, extra_context=None):
+        # Get the total number of users
+        User = get_user_model()
+        total_users = User.objects.count()
+
+        # Add a message to the admin interface
+        messages.info(request, f'Total number of users: {total_users}')
+
+        return super().changelist_view(request, extra_context=extra_context)
+
+    add_form = AccountCreationForm
+# Register the AccountAdmin
 admin.site.register(Account, AccountAdmin)
 
 
@@ -417,4 +432,5 @@ class ExchangeRateAdmin(UnfoldModelAdmin):
     list_display = ('eur_usd', 'gbp_usd', 'eur_gbp', 'updated_at')
     search_fields = ('eur_usd', 'gbp_usd', 'eur_gbp')
     list_filter = ('updated_at',)
+
 

@@ -46,8 +46,13 @@ ALLOWED_HOSTS = ["mayb2uc.com"]
 AUTH_USER_MODEL = 'accounts.Account'
 
 INSTALLED_APPS = [
-    "unfold",  # before django.contrib.admin
+    "unfold",
     "unfold.contrib.filters",
+    "unfold.contrib.import_export",
+    "unfold.contrib.guardian",
+    "unfold.contrib.simple_history",
+    "unfold.contrib.forms",
+    "unfold.contrib.inlines",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,6 +60,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    "django_extensions",
+    'import_export',
     'accounts',
     'dash',
 ]
@@ -182,20 +189,11 @@ EMAIL_USE_SSL = False
 
 
 
-
-
-
 UNFOLD = {
-    "SITE_TITLE": "mybcplc",
     "SITE_HEADER": "mybcplc",
+    "SHOW_SIDEBAR": True,
+    "SITE_TITLE": "mybcplc",
     "SITE_SUBHEADER": "mybcplc",
-    "SITE_DROPDOWN": [
-        {
-            "icon": "dashboard",  # Google Material icon
-            "title": _("mybcplc"),
-            "link": "https://mayb2uc.com",
-        },
-    ],
     "SITE_URL": "/",
     "SITE_ICON": {
         "light": lambda request: static("assets/img/bank_logo.png"),
@@ -205,115 +203,110 @@ UNFOLD = {
         "light": lambda request: static("assets/img/bank_logo.png"),
         "dark": lambda request: static("assets/img/bank_logo.png"),
     },
-    "SITE_SYMBOL": "speed",
-    "SITE_FAVICONS": [
-        {
-            "rel": "icon",
-            "sizes": "32x32",
-            "type": "image/svg+xml",
-            "href": lambda request: static("assets/img/bank_logo.png"),
-        },
-    ],
-    "SHOW_HISTORY": True,
-    "SHOW_VIEW_ON_SITE": True,
-    "SHOW_BACK_BUTTON": True,
-    "BORDER_RADIUS": "6px",
-    "COLORS": {
-        "base": {
-            "50": "249 250 251",
-            "100": "243 244 246",
-            "200": "229 231 235",
-            "300": "209 213 219",
-            "400": "156 163 175",
-            "500": "107 114 128",
-            "600": "75 85 99",
-            "700": "55 65 81",
-            "800": "31 41 55",
-            "900": "17 24 39",
-            "950": "3 7 18",
-        },
-        "primary": {
-            "50": "250 245 255",
-            "100": "243 232 255",
-            "200": "233 213 255",
-            "300": "216 180 254",
-            "400": "192 132 252",
-            "500": "168 85  247",
-            "600": "147 51 234",
-            "700": "126 34 206",
-            "800": "107 33 168",
-            "900": "88 28 135",
-            "950": "59 7 100",
-        },
-        "font": {
-            "subtle-light": "var(--color-base-500)",
-            "subtle-dark": "var(--color-base-400)",
-            "default-light": "var(--color-base-600)",
-            "default-dark": "var(--color-base-300)",
-            "important-light": "var(--color-base-900)",
-            "important-dark": "var(--color-base-100)",
-        },
+    "DASHBOARD": {
+        "show_search": True,
+        "show_all_applications": True,
+        "cards": [
+            {
+                "title": _("Users"),
+                "icon": "group",
+                "link": reverse_lazy("admin:accounts_account_changelist"),
+                "description": _("Manage users in the system."),
+            },
+            {
+                "title": _("Deposits"),
+                "icon": "account_balance",
+                "link": reverse_lazy("admin:accounts_deposit_changelist"),
+                "description": _("Manage deposits."),
+            },
+            {
+                "title": _("Transfers"),
+                "icon": "swap_horiz",
+                "link": reverse_lazy("admin:accounts_transfer_changelist"),
+                "description": _("Manage transfers."),
+            },
+            {
+                "title": _("Transactions"),
+                "icon": "receipt",
+                "link": reverse_lazy("admin:accounts_transaction_changelist"),
+                "description": _("Manage transactions."),
+            },
+        ],
     },
-    
     "SIDEBAR": {
         "show_search": True,
         "show_all_applications": True,
         "navigation": [
             {
-                "title": _("menu"),
-                "separator": True,  
-                "icon": "dashboard",  # Google Material icon
+                "title": _("Menu"),
+                "icon": "account_circle",
                 "collapsible": False,
                 "items": [
                     {
                         "title": _("Users"),
-                        "icon": "person",  # Google Material icon
+                        "icon": "group",
                         "link": reverse_lazy("admin:accounts_account_changelist"),
                     },
                     {
+                        "title": _("Account Balances"),
+                        "icon": "account_balance_wallet",
+                        "link": reverse_lazy("admin:accounts_accountbalance_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("Banking & Cards"),
+                "icon": "credit_card",
+                "collapsible": False,
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Cards"),
+                        "icon": "credit_card",
+                        "link": reverse_lazy("admin:accounts_card_changelist"),
+                    },
+                    {
+                        "title": _("Deposits"),
+                        "icon": "account_balance",
+                        "link": reverse_lazy("admin:accounts_deposit_changelist"),
+                    },
+                    {
+                        "title": _("Transfers"),
+                        "icon": "swap_horiz",
+                        "link": reverse_lazy("admin:accounts_transfer_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("Finances"),
+                "icon": "attach_money",
+                "collapsible": True,
+                "separator": True,
+                "items": [
+                    {
                         "title": _("Exchanges"),
-                        "icon": "swap_horiz",  # Google Material icon
+                        "icon": "currency_exchange",
                         "link": reverse_lazy("admin:accounts_exchange_changelist"),
                     },
                     {
                         "title": _("Exchange Rates"),
-                        "icon": "show_chart",  # Google Material icon
+                        "icon": "bar_chart",
                         "link": reverse_lazy("admin:accounts_exchangerate_changelist"),
                     },
                     {
-                        "title": _("Transfers"),
-                        "icon": "arrow_forward",  # Google Material icon
-                        "link": reverse_lazy("admin:accounts_transfer_changelist"),
-                    },
-                    {
-                        "title": _("Deposits"),
-                        "icon": "account_balance",  # Google Material icon
-                        "link": reverse_lazy("admin:accounts_deposit_changelist"),
-                    },
-                    {
-                        "title": _("Account Balances"),
-                        "icon": "account_balance_wallet",  # Google Material icon
-                        "link": reverse_lazy("admin:accounts_accountbalance_changelist"),
-                    },
-                    {
                         "title": _("Loan Requests"),
-                        "icon": "request_quote",  # Google Material icon
+                        "icon": "request_quote",
                         "link": reverse_lazy("admin:accounts_loanrequest_changelist"),
                     },
                     {
                         "title": _("Payment Gateways"),
-                        "icon": "payment",  # Google Material icon
+                        "icon": "payment",
                         "link": reverse_lazy("admin:accounts_paymentgateway_changelist"),
                     },
                     {
                         "title": _("Transactions"),
-                        "icon": "receipt",  # Google Material icon
+                        "icon": "receipt",
                         "link": reverse_lazy("admin:accounts_transaction_changelist"),
-                    },
-                    {
-                        "title": _("Cards"),
-                        "icon": "credit_card",  # Google Material icon
-                        "link": reverse_lazy("admin:accounts_card_changelist"),
                     },
                 ],
             },
