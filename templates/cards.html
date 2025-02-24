@@ -196,19 +196,19 @@
     </nav>
     <!-- End Navbar -->
   </div>
-  <div class="container">
+  <div class="container bg-dark">
     <div class="page-inner">
         
       
       
       <div class="row ">
 
-          <div class="container">
+          <div class="container ">
                 <div class="page-inner">
                     <div class="row d-flex justify-content-center align-items-center mt-5 pt-5">
                       {% if cards %}
-                  <div class="col-md-6 mt-5 pt-5">
-                    <h3 class="text-center">Available cards</h3>
+                  <div class="col-md-6  border-bottom">
+                    <h3 class="text-center text-light">Available cards</h3>
                     <hr>
                     <div class="card card-secondary bg-secondary-gradient text-white shadow-lg" style="border-radius: 15px;">
                               {% for card in cards %}
@@ -237,13 +237,13 @@
             </div>
           </div>
         {% else %}
-         <div class="card border bg-transparent p-5 ">
+         <div class="card border boder-1 bg-transparent p-5 ">
          <div class="card-body ">
           <h3 class="text-center mb-3"><i class="fa-solid fa-credit-card fa-2xl" style="color: #7686a2;"></i></h3>
           <div class="col-md-12 text-center">
-            <h2 class="mb-3">No available cards</h2>
+            <h2 class="mb-3 fw-bold text-white">No available cards</h2>
             <button class="btn btn-primary rounded mb-3" id="addCardBtn"><i class="fa-solid fa-plus fa-lg"></i> Add Card</button>
-            <button style="background-color:#1A2035; color:white;" class="btn btn rounded mb-3" id="addCardBtn"><i class="fa-solid fa-credit-card fa-lg" style="color: white;"></i>   Get a Card</button>
+            <button  class="btn btn-white rounded mb-3" id="addCardBtn"><i class="fa-solid fa-credit-card fa-lg" style="color: black;"></i>   Get a Card</button>
          
           </div>
          </div>
