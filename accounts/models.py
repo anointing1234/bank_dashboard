@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.utils.crypto import get_random_string
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,date
 from PIL import Image
 import os
 from io import BytesIO
@@ -16,6 +16,7 @@ from decimal import Decimal
 import uuid
 import json
 import locale
+
 
 
 
@@ -117,6 +118,9 @@ class AccountBalance(models.Model):
     def __str__(self):
         return f"Account Balance for {self.account.email}"
 
+def default_expiry_date():
+    # Returns two years (730 days) from today
+    return date.today() + timedelta(days=730)
 
 CARD_TYPE_CHOICES = (
     ('credit', 'Credit'),
@@ -146,21 +150,30 @@ class Card(models.Model):
     card_type = models.CharField(max_length=20, choices=CARD_TYPE_CHOICES, default='debit')
     vendor = models.CharField(max_length=20, choices=VENDOR_CHOICES, default='visa')
     # The 'account' field represents the card number.
-    # It is not auto-generated. It is optional and can be filled later by the user.
+    # It is optional and can be filled later by the user.
     account = models.CharField(max_length=50, unique=True, null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
-    # New field for card password. Ensure you store this securely (hashed) in production.
+    # New field for card password (store securely in production)
     card_password = models.CharField(
         max_length=128, 
         null=True, 
         blank=True, 
         help_text="Password or PIN for the card"
     )
+    # New expiry_date field with a default callable.
+    expiry_date = models.DateField(
+        default=default_expiry_date, 
+        help_text="Expiry date (2 years after purchase)"
+    )
+
+    def save(self, *args, **kwargs):
+        # For existing cards that might not have an expiry_date set, update it.
+        if not self.expiry_date:
+            self.expiry_date = default_expiry_date()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.vendor.upper()} {self.card_type.capitalize()} Card for {self.user.email}"
-
-
 
 
 

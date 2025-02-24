@@ -2,7 +2,6 @@
 {% load static %}
 {% block contents %}
 {% load humanize %}
-
 <style>
   .row.align-items-stretch {
     display: flex;
@@ -136,6 +135,20 @@
   .slide-button i {
     margin-right: 8px;
   }
+  
+  /* ---------------------------------------------------------------
+     Custom Styles for the Available Cards Section
+  ---------------------------------------------------------------- */
+  /* Override the background gradient for available cards */
+  .bg-secondary-gradient {
+    background: linear-gradient(135deg, #000000, #001f3f, #000000) !important;
+  }
+  
+  /* Apply a custom "card" font to the available cards */
+  .card-secondary,
+  .card-secondary * {
+    font-family: 'OCR-A', 'Courier New', monospace;
+  }
 </style>
 
 <div class="main-panel">
@@ -185,40 +198,58 @@
   </div>
   <div class="container">
     <div class="page-inner">
-        <div class="row">
-            <div class="container">
+        
+      
+      
+      <div class="row ">
+
+          <div class="container">
                 <div class="page-inner">
                     <div class="row d-flex justify-content-center align-items-center mt-5 pt-5">
-                        {% if cards %}
-                            <div class="col-md-6">
-                                <h3 class="text-center">Available cards</h3>
-                                <hr> <!-- Added column for better layout control -->
-                                <div class="card card-secondary bg-secondary-gradient text-white shadow-lg" style="border-radius: 15px;">
-                                    {% for card in cards %}
-                                        <div class="card-body text-center">
-                                            <h2 class="py-4 mb-0" style="font-size: 1.8rem;">
-                                                {{ card.account|default:"**** **** **** ****" }}
-                                            </h2>
-                                            <div class="row">
-                                                <div class="col-8 text-start">
-                                                    <h3 class="fw-bold mb-1">{{ request.user.username }}</h3>
-                                                    <div class="text-small text-uppercase fw-bold">Card Holder</div>
-                                                </div>
-                                                <div class="col-4 text-end">
-                                                    <h3 class="fw-bold mb-1">12/28</h3>
-                                                    <div class="text-small text-uppercase fw-bold">Expiry Date</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% else %}
-                            <div class="col-md-6 text-center">
-                                <h2>No available cards</h2>
-                                <button class="btn btn-primary" id="addCardBtn">Add Card</button>
-                            </div>
-                        {% endif %}
+                      {% if cards %}
+                  <div class="col-md-6 mt-5 pt-5">
+                    <h3 class="text-center">Available cards</h3>
+                    <hr>
+                    <div class="card card-secondary bg-secondary-gradient text-white shadow-lg" style="border-radius: 15px;">
+                              {% for card in cards %}
+                <div class="card-body text-center">
+                  <div class="golden-rectangle" style="background-color:#E8921E; height: 50px; width: 60px; border-radius: 5px;"></div>
+                  <h2 class="py-4 mb-0" style="font-size: 1.8rem;">
+                    {% if card.account %}
+                      **** ***** *** {{ card.account|slice:"-5:" }}
+                    {% else %}
+                      **** ***** *** 67897
+                    {% endif %}
+                  </h2>
+                  <div class="row">
+                    <div class="col-8 text-start">
+                      <div class="text-small text-uppercase fw-bold">Card Holder Name</div>
+                      <h3 class="fw-bold mb-1"> {{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                    </div>
+                    <div class="col-4 text-end">
+                      <div class="text-small text-uppercase fw-bold">Expiry Date</div>
+                      <h3 class="fw-bold mb-1">{{ card.expiry_date|date:"m/y" }}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+         <div class="card border bg-transparent p-5 ">
+         <div class="card-body ">
+          <h3 class="text-center mb-3"><i class="fa-solid fa-credit-card fa-2xl" style="color: #7686a2;"></i></h3>
+          <div class="col-md-12 text-center">
+            <h2 class="mb-3">No available cards</h2>
+            <button class="btn btn-primary rounded mb-3" id="addCardBtn"><i class="fa-solid fa-plus fa-lg"></i> Add Card</button>
+            <button style="background-color:#1A2035; color:white;" class="btn btn rounded mb-3" id="addCardBtn"><i class="fa-solid fa-credit-card fa-lg" style="color: white;"></i>   Get a Card</button>
+         
+          </div>
+         </div>
+         </div>
+        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -227,6 +258,7 @@
         </div>
   
      
+
       </div>
     </div>
     <footer class="footer">

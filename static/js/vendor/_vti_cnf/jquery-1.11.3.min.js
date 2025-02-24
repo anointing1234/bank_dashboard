@@ -1,0 +1,4 @@
+vti_encoding:SR|utf8-nl
+vti_timelastmodified:TR|27 Jan 2022 10:04:48 -0000
+vti_extenderversion:SR|6.0.2.5516
+vti_backlinkinfo:VX|Checking.html Credit-Cards.html Rates.html Business-Checking.html Calculators.html Card-Services.html index.php.html Our-Legacy.html Security.html We-Care.html Branch-Locations.html Catastrophe-Savings.html CD-IRA.html Home-Buying.html Online-Services.html Refinance-Equity.html Construction.html Land-Loans.html Mortgage-Team.html Online-Education.html Savings.html Additional-Services.html Contact-Us.html index.htm Mortgage-Loans.html

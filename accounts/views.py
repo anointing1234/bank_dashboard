@@ -122,16 +122,16 @@ def login_Account(request):
         if login_form.is_valid():
             email = login_form.cleaned_data.get('email')
             password = login_form.cleaned_data.get('password')
-            
+            dashboard_url = reverse('dashboard')
             # Authenticate the user
             user = authenticate(request, username=email, password=password)
-            
+             
             if user is not None:
                 auth_login(request, user)
                 return JsonResponse({
                     'success': True,
                     'message': 'Login successful!',
-                    'redirect_url': '/'
+                    'redirect_url': dashboard_url
                 })
             else:
                 return JsonResponse({
@@ -244,8 +244,7 @@ def create_deposit(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
-def create_transfer(request):
-    pass        
+        
 
 
 def send_transfer_code(request):

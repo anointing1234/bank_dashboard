@@ -1,0 +1,711 @@
+﻿/*MAIN NAV
+-------------------------------------------------------------------------------------------*/
+nav#primary {
+    position: fixed;
+    width: 100%;
+    margin: 0;
+    top: 0;
+    background-color: #0055a0;
+    z-index: 100;
+}
+
+    nav#primary > div:not([class]) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 3%;
+        margin: 0 auto;
+    }
+
+@media only screen and (max-width: 1200px) {
+    nav#primary > div {
+        padding: 0 !important;
+    }
+}
+
+@media only screen and (min-width: 2000px) {
+    nav#primary > div:not([class]) {
+        max-width: 80%;
+    }
+}
+
+nav#primary > div:not([class]) > div {
+    display: flex;
+    align-items: center;
+}
+
+nav#primary ul {
+    padding: 0;
+}
+
+nav#primary > div > ul {
+    display: flex;
+    justify-content: space-between; /*IE*/
+    max-width: 90%;
+    position: relative;
+    margin: 0;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1000px) {
+    nav#primary > div > ul {
+        max-width: 100%;
+    }
+}
+
+nav#primary ul li {
+    position: static;
+    padding: 0.3rem 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+nav#primary > div > ul > li {
+    transition: all 0.5s cubic-bezier(0.43, -0.14, 0.31, 1.14);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 4rem;
+    padding: 0;
+    position: relative;
+}
+
+    nav#primary > div > ul > li#logo {
+        width: 20rem;
+        height: auto;
+        padding: 0 1.111rem;
+        background: none;
+        flex-grow: 0;
+    }
+
+        nav#primary > div > ul > li#logo a {
+            padding: 0;
+            z-index: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+/*IE11 Manually set Logo width*/
+_:-ms-fullscreen, :root nav#primary > div > ul > li#logo img {
+    width: 278px;
+}
+/*Vertical Logo
+-------------------------------------------------------------------------------------------*/
+.logo-vertical nav#primary > div > ul > li#logo,
+.logo-vertical nav#primary > div > ul > li#logo a { /*default*/
+    width: 7.5rem;
+}
+/*IE11*/
+_:-ms-fullscreen, :root .logo-vertical nav#primary > div > ul > li#logo {
+    justify-content: flex-start;
+}
+
+.logo-vertical.scroll nav#primary > div > ul > li#logo a,
+.logo-vertical nav#primary > div > ul > li#logo.active a { /*scroll & hover*/
+    width: 5.5rem;
+}
+
+.logo-vertical nav#primary > div > ul > li#logo a {
+    position: absolute;
+    top: 0;
+    padding: .75rem;
+    background-color: #FFF;
+    max-width: 175px;
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.32);
+}
+
+.mobile-logo {
+    display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+    .logo-vertical #page > .mobile-logo {
+        display: block;
+        position: absolute;
+        height: 5rem;
+        max-height: 5rem;
+        top: .25rem;
+        left: 1rem;
+        z-index: 10001;
+    }
+
+        .logo-vertical #page > .mobile-logo img {
+            width: auto;
+            height: 100% !important;
+        }
+
+    .logo-vertical.opennav #page > .mobile-logo,
+    .logo-vertical.openob #page > .mobile-logo {
+        height: 3.75rem;
+    }
+}
+
+@media only screen and (min-width: 668px) { /*Manually set padding-top to accommodate "Vertical" logo height*/
+    .logo-vertical .subsection:first-of-type,
+    .logo-vertical .Subsection-Table:first-of-type {
+        padding-top: 2.75rem;
+    }
+}
+/*Vertical Logo End
+-------------------------------------------------------------------------------------------*/
+nav#primary .mobile-logo {
+    position: relative;
+    display: none;
+    height: 100%;
+    align-items: center;
+    width: 8rem;
+}
+
+@media only screen and (max-width: 1000px) {
+    nav#primary .mobile-logo {
+        display: flex;
+        padding: 0;
+    }
+}
+
+nav#primary > div > ul > li > a {
+    display: flex;
+    position: relative;
+    color: #FFF;
+    cursor: pointer;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 2.25rem 0.750rem;
+    letter-spacing: 0.05rem;
+    transition: all .4s ease;
+}
+
+@media only screen and (min-width: 1001px) {
+    .no-touch .scroll nav#primary > div > ul > li > a {
+        padding: 1.25rem 0.750rem;
+    }
+}
+
+nav#primary > div > ul > li > div {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+    background-color: #FFFFFF;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.25);
+    left: -2rem;
+    top: 100%;
+    z-index: -1;
+}
+
+nav#primary > div > ul > li:nth-child(2) > div {
+    left: -10rem;
+}
+
+.logo-vertical nav#primary > div > ul > li:nth-child(2) > div {
+    left: -2rem;
+}
+
+nav#primary > div > ul > li:nth-child(n+3) > div {
+    left: -14rem;
+}
+
+nav#primary > div > ul > li:nth-child(n+4) > div {
+    left: -22rem;
+}
+
+nav#primary > div > ul > li:nth-last-of-type(2) > div {
+    right: -2.5rem !important;
+    left: auto;
+}
+
+nav#primary > div > ul > li:last-of-type > div {
+    right: -1.5rem !important;
+    left: auto;
+}
+
+@media only screen and (max-width:1250px) {
+    nav#primary > div > ul > li:nth-child(2) > div {
+    }
+
+    nav#primary > div > ul > li:nth-child(n+3) > div {
+    }
+
+    nav#primary > div > ul > li:nth-child(4) > div {
+    }
+
+    nav#primary > div > ul > li:nth-last-of-type(2) > div {
+    }
+
+    nav#primary > div > ul > li:last-of-type > div {
+    }
+}
+
+nav#primary > div > ul > li > div div {
+    position: relative;
+    margin-top: -40rem;
+    margin-bottom: 0;
+    min-width: 16rem;
+    transition: all 0.6s cubic-bezier(0.43, -0.14, 0.31, 1.14);
+    padding: 0 2rem 1.5rem 2rem;
+    flex-grow: 1;
+}
+
+@media only screen and (max-width:1250px) {
+    nav#primary > div > ul > li > div div {
+        min-width: 14rem;
+    }
+}
+
+nav#primary > div > ul > li > div div h3 {
+    font-size: 1.17rem;
+    line-height: 1;
+}
+
+@media only screen and (min-width: 1001px) {
+    nav#primary > div > ul > li > div div:before {
+        position: absolute;
+        display: block;
+        content: "";
+        left: -2px;
+        bottom: 0px;
+        width: 1px;
+        height: 80%;
+        background: linear-gradient(to bottom, rgba(234,234,234,1) 29%,rgba(144,144,144,1) 100%);
+    }
+
+    nav#primary > div > ul > li > div div:first-of-type:before {
+        display: none;
+    }
+
+    nav#primary > div > ul > li > div div:first-child {
+        border: none;
+    }
+
+    nav#primary > div > ul > li > div::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 0.375rem;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.125) 0%, rgba(0,0,0,0) 100%);
+        pointer-events: none;
+    }
+
+    nav#primary > div > ul > li > div div h3 {
+        /* margin: 1rem 0; */
+    }
+
+        nav#primary > div > ul > li > div div h3 + ul {
+            margin: 1rem 0;
+        }
+
+    nav#primary > div > ul > li > div div ul:only-child { /*panel with no subheading*/
+        margin-top: .3rem;
+    }
+
+    nav#primary > div > ul > li > div div ul li {
+        line-height: 1.2;
+        padding-right: 5px;
+        padding-left: 0;
+        transition: all .3s ease;
+    }
+
+        nav#primary > div > ul > li > div div ul li:hover {
+            padding-right: 0;
+            padding-left: 5px;
+        }
+
+        nav#primary > div > ul > li > div div ul li a {
+            display: block;
+            font-size: .90rem;
+        }
+
+    nav#primary > div > ul > li:hover > div div {
+        margin-top: 1rem;
+    }
+
+    .logo-vertical.scroll nav#primary > div > ul > li:hover > div div { /*accommodate nav shrink + vertical logo */
+        margin-top: 2rem;
+    }
+
+    nav#primary > div > ul > li:hover {
+        border-radius: 0;
+    }
+
+        nav#primary > div > ul > li:hover > a {
+        }
+
+    nav#primary > div > ul > li > a:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 5px;
+        background: #FFF;
+        transition: all .4s ease;
+    }
+
+    nav#primary > div > ul > li:hover > a:after {
+        left: 0;
+        width: 100%;
+    }
+
+    nav#primary > div > ul > li#logo > a:after {
+        display: none;
+    }
+
+    nav#primary #menuopen,
+    nav#primary #loginopen {
+        display: none;
+        font-weight: 400;
+    }
+}
+/*MAIN NAV MOBILE
+-------------------------------------------------------------------------------------------*/
+@media only screen and (max-width: 1000px) {
+    nav#primary {
+        position: relative;
+        min-height: 0;
+    }
+
+        nav#primary > div:not([class]) {
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+        }
+
+            nav#primary > div:not([class]) > div:first-of-type {
+                width: 100%;
+                padding: .35rem 1rem;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+
+        nav#primary > div > div:first-of-type > div {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        nav#primary > div > ul > li > div {
+            flex-direction: column;
+        }
+
+            nav#primary > div > ul > li > div::after {
+                content: none;
+            }
+
+
+
+        nav#primary #menuopen,
+        nav#primary #loginopen {
+            display: block;
+            color: #FFF;
+        }
+
+        nav#primary #menuopen {
+            font-size: 1.75rem;
+            color: #00529b;
+        }
+
+        nav#primary #loginopen.Button1 {
+            display: none;
+            margin: 0 !important;
+            margin-right: .75rem !important;
+            padding: .5rem 1rem;
+        }
+
+    .home nav#primary #loginopen.Button1 {
+        display: block;
+    }
+
+    .openob nav#primary .Button1 {
+        color: #FFF !important;
+        background-color: #00529b !important;
+        /* border: .075rem solid #00529b; */
+    }
+
+    nav#primary #loginopen:before {
+        margin-right: .4rem;
+    }
+
+    #loginopen.Button1 {
+        border-color: #FFF;
+    }
+
+    .opennav nav#primary #menuopen {
+        color: rgba(255,255,255,.5);
+    }
+
+    nav#primary > div > ul {
+        top: 100%;
+        left: 0;
+        flex-direction: column;
+        background-color: #fff;
+        overflow: hidden;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        top: 43px;
+    }
+
+        nav#primary > div > ul > li {
+            margin-top: -5em;
+            border-top: solid 1px rgba(0,0,0,0.1);
+            flex-direction: column;
+            max-width: none;
+        }
+
+            nav#primary > div > ul > li > a {
+                display: block;
+                padding: 1rem;
+                width: auto;
+                width: 100%;
+                max-height: 64px;
+                height: auto;
+                color: #000;
+                text-align: center;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            nav#primary > div > ul > li > div div ul li a {
+                display: block;
+            }
+
+    .opennav nav#primary > div > ul > li {
+        margin-top: 0;
+        min-height: 0;
+        padding: 0;
+        background-color: transparent !important;
+    }
+
+    nav#primary > div > ul > li > div {
+        position: static;
+        z-index: 1;
+        box-shadow: none;
+        width: 100%;
+        background-color: #f1f1f1;
+    }
+
+    .opennav nav#primary > div > ul > li.active {
+        background-color: #002d3f;
+    }
+
+        .opennav nav#primary > div > ul > li.active > div div {
+            margin-top: 0;
+            padding: 0;
+        }
+
+            .opennav nav#primary > div > ul > li.active > div div:nth-child(1) {
+                border-top: 2px solid #d8d8d8;
+            }
+
+    nav#primary > div > ul > li#logo {
+        display: none;
+    }
+
+    nav#primary > div > ul > li > div h3 {
+        text-align: center;
+    }
+
+    nav#primary > div > ul > li > div div ul li {
+        text-align: center;
+    }
+
+    nav#primary > div > ul > li > div div h3 {
+        padding: .8rem;
+        margin: 0;
+    }
+
+    nav#primary > div > ul > li > div div ul li a {
+        padding: 1% 3%;
+    }
+
+    .no-touch nav#primary > div > ul > li > div div ul li:hover {
+        background-color: #FFF;
+    }
+
+    nav#primary > div > ul > li > div div ul li {
+        border-top: solid 1px rgba(0,0,0,0.1);
+    }
+
+    nav#primary > div > ul > li > div div:not(:last-child) ul li:last-child {
+        border-bottom: solid 1px rgba(0,0,0,0.1);
+    }
+
+    nav#primary > div > ul > li > div div {
+        border: none;
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+    nav#primary #loginopen.Button1 span {
+        display: none;
+    }
+
+    nav#primary #loginopen.Button1 {
+        padding: .45rem;
+        min-width: 2.5rem;
+    }
+
+    .home nav#primary #loginopen:before {
+        margin: 0;
+    }
+}
+/* --------Search---------- */
+@media only screen and (min-width:1000px) {
+    nav#primary > div > ul > li:last-child {
+        margin-right: 3em;
+    }
+}
+
+#nav-search {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 10002;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.desktop .addsearch {
+    display: none;
+}
+
+.desktop #nav-search {
+    display: block;
+}
+
+    .desktop #nav-search input {
+        position: absolute;
+        display: block;
+        right: 50px;
+        width: 0;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        border-width: 0px;
+        padding: 0;
+        background-color: #efefef !important;
+        color: #8a8a8a;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #8a8a8a;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: #8a8a8a;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+    color: #8a8a8a;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #8a8a8a;
+}
+
+.desktop #nav-search.searchopen {
+    width: 100%;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+    .desktop #nav-search.searchopen input {
+        right: 0;
+        width: 100%;
+        padding: 0px 0px 0px 2%;
+    }
+
+.desktop #nav-search .search-btn {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0,93,170,0);
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.no-touch .desktop #nav-search .search-btn:hover {
+    background-color: #00529b;
+}
+
+.desktop #nav-search.searchopen .search-btn {
+    background-color: #00529b;
+}
+
+.desktop #nav-search .search-btn:before {
+    position: absolute;
+    font-family: "FontAwesome";
+    content: "\f002";
+    font-size: 18px;
+    line-height: 20px;
+    top: 38%;
+    left: 50%;
+    margin-left: -10px;
+    z-index: 5;
+    /* color: rgba(255,255,255,.7) !important; */
+}
+
+.desktop #nav-search .search-btn:after {
+    position: absolute;
+    content: "";
+    z-index: 5;
+    width: 0;
+    height: 0;
+    left: -8px;
+    top: 40%;
+    opacity: 0;
+    border-style: solid;
+    border-width: 7.5px 8px 7.5px 0;
+    border-color: transparent #00529b transparent transparent;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.no-touch .desktop #nav-search .search-btn:hover:before, #nav-search.searchopen .search-btn:before {
+    color: #FFF !important;
+}
+
+.no-touch .desktop #nav-search .search-btn:hover:after, #nav-search.searchopen .search-btn:after {
+    opacity: 1;
+}
+
+.mobile #nav-search {
+    display: none;
+}
+
+
+
+.test nav#primary > div > ul > li:not(#logo) {
+    opacity: 0;
+}

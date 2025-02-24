@@ -121,15 +121,9 @@
                         <div class="col-sm-4 text-muted">Full Name</div>
                         <div class="col-sm-8">
                           <div class="d-flex align-items-center">
-                            <span>{{ request.user.first_name|default:'Not set' }}</span>
-                            {% if not request.user.first_name or request.user.first_name == 'Not set' %}
-                                <button class="btn btn-outline-dark btn-sm ms-3" onclick="showFullNameInput()">Add Full Name</button>
-                            {% endif %}
+                            {{ request.user.first_name }} {{ request.user.last_name }}
                         </div>
-                          <div id="fullname-input" style="display:none;" class="mt-2">
-                            <input type="text" id="new_fullname" class="form-control" placeholder="Enter your full name" />
-                            <button class="btn btn-success btn-sm mt-2" onclick="submitFullName()">Submit</button>
-                          </div>
+                        
                         </div>
                       </div>
                       <hr />

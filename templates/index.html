@@ -1,307 +1,410 @@
 {% extends 'core/base/base.html' %}
 {% load static %}
-{% block contents %}
 {% load humanize %}
+{% block contents %}
+
 
 <style>
-  .row.align-items-stretch {
-    display: flex;
-}
-
-.card {
-    display: flex;
-    flex-direction: column;
-}
-
-.card-body {
-    flex: 1; /* This allows the card body to take up the remaining space */
-}
- /* Scrollable container for lists/tables */
- .scroll-container {
-  max-height: 300px; /* Adjust as needed */
-  overflow-y: auto;
-}
-</style>
-<style>
-  /* Make the container fill the entire viewport */
-  .full-screen {
+  /* Import fonts if needed */
+  .bank-card {
+    background: linear-gradient(135deg, #000000, #001f3f, #000000);
+    border: 1px solid #fff; /* Adjust as needed */
+    font-family: 'Share Tech Mono', monospace;
+  }
+  /* Inherit the font for child elements */
+  .bank-card p,
+  .bank-card h4,
+  .bank-card h5 {
+    font-family: inherit;
+  }
+  /* Outer wrapper centers the scroll area */
+  .outer-scroll {
     width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  /* Horizontal scroll container for cards */
+  .scroll-container-horizontal {
+    width: 100%;
+    max-width: 920px;
+    overflow-x: auto;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch; /* smoother scrolling on mobile */
+  }
+  /* Custom scrollbar styling */
+  .scroll-container-horizontal::-webkit-scrollbar {
+    height: 8px;
+  }
+  .scroll-container-horizontal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .scroll-container-horizontal::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  .scroll-container-horizontal::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  /* Flex container to hold cards side by side */
+  .cards-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+  /* Card container: defaults to full width on small screens */
+  .card-container {
+    flex: 0 0 100%;
+  }
+  /* On larger screens, set card width to 450px so that two cards are visible */
+  @media (min-width: 1000px) {
+    .card-container {
+      flex: 0 0 450px;
+    }
+  }
+  /* Card styling */
+  .account_card {
+    height: 220px;
+    background-color: black;
+    border: 1px solid white;
+    width: 100%;
+  }
+  .card-body {
+    flex: 1;
+  }
+  .numbers {
+    margin-top: 20px;
+  }
+  /* Additional responsiveness for the icon grid */
+  @media (max-width: 768px) {
+    .icon-column {
+      margin-bottom: 30px;
+    }
   }
 </style>
 
-    <div class="main-panel">
-      <div class="main-header">
-        <div class="main-header-logo"> 
-          <!-- Logo Header -->
-          <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-              <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
-            </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar">
-                <i class="gg-menu-right"></i>
-              </button>
-              <button class="btn btn-toggle sidenav-toggler">
-                <i class="gg-menu-left"></i>
-              </button>
-            </div>
-            <button class="topbar-toggler more">
-              <i class="gg-more-vertical-alt"></i>
-            </button>
-          </div>
-          <!-- End Logo Header -->
+<div class="main-panel">
+  <!-- Header & Navbar (unchanged) -->
+  <div class="main-header">
+    <div class="main-header-logo">
+      <div class="logo-header" data-background-color="dark">
+        <a href="index.html" class="logo">
+          <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
         </div>
-        <!-- Navbar Header -->
-        <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom" >
-          <div class="container-fluid">
-            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
-            </nav>
-
-            <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-              <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
-               
-              </li>
-              <li class="nav-item topbar-user dropdown hidden-caret">
-                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
-                  <div class="avatar-sm">
-                    <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
-                  </div>
-                  <span class="profile-username">
-                    <span class="op-7 text-light">Hi,</span>
-                    <span class="fw-bold text-light">{{ request.user.username }}</span>
-                  </span>
-                </a>
-                
-
-
-
-              </li>
-            </ul>
-          </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+    </div>
+    <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom">
+      <div class="container-fluid">
+        <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
         </nav>
-        <!-- End Navbar -->
+        <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+          <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"></li>
+          <li class="nav-item topbar-user dropdown hidden-caret">
+            <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+              <div class="avatar-sm">
+                <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+              </div>
+              <span class="profile-username">
+                <span class="op-7 text-light">Hi,</span>
+                <span class="fw-bold text-light">{{ request.user.username }}</span>
+              </span>
+            </a>
+          </li>
+        </ul>
       </div>
-
-      <div class="container">
-        <div class="page-inner">
-
-          <div class="row">
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
+    </nav>
+  </div>
+  
+  <div class="container bg-dark">
+    <div class="page-inner">
+      <!-- Horizontal Scrollable Cards Section -->
+      <div class="outer-scroll">
+        <div class="scroll-container-horizontal">
+          <div class="cards-wrapper">
+            <!-- Card 1 -->
+            <div class="card-container">
+              <div class="card account_card card-stats card-round">
                 <div class="card-body">
                   <div class="row align-items-center">
-                    <div class="col-icon">
-                      <div class="icon-big text-center icon-primary bubble-shadow-small">
-                        <i class="fa-sharp fa-solid fa-piggy-bank"></i>
-                      </div>
-                    </div>
-                  
                     <div class="col col-stats ms-3 ms-sm-0">
                       <div class="numbers">
-                        <p class="card-category">Available Balance</p>
-                        <h4 class="card-title">${{ request.user.account_balance.available_balance|intcomma  }}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col-icon">
-                      <div class="icon-big text-center icon-info bubble-shadow-small">
-                        <i class="fa-solid fa-landmark"></i>
-                      </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category">Loan Balance</p>
-                        <h4 class="card-title">${{ request.user.account_balance.loan_balance|intcomma  }}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col-icon">
-                      <div class="icon-big text-center icon-success bubble-shadow-small">
-                        <i class="fa-sharp fa-solid fa-money-bill-transfer"></i>
-                      </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category">Total Credits</p>
-                        <h4 class="card-title">${{ request.user.account_balance.total_credits|intcomma }}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
-                <div class="card-body"> 
-                  <div class="row align-items-center">
-                    <div class="col-icon">
-                      <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                        <i class="fa-sharp fa-solid fa-money-bill-transfer"></i>
-                      </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category">
-                          Total Debits</p>
-                        <h4 class="card-title">${{ request.user.account_balance.total_debits|intcomma }}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div class="container-fluid full-screen">
-            <!-- TradingView Widget BEGIN -->
-            <div class="tradingview-widget-container" style="width: 100%; height: 100%;">
-              <div class="tradingview-widget-container__widget"></div>
-              <div class="tradingview-widget-copyright">
-                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-               
-                </a>
-              </div>
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
-              {
-                "width": "100%",
-                "height": "100%",
-                "currencies": [
-                  "EUR",
-                  "USD",
-                  "JPY",
-                  "GBP",
-                  "CHF",
-                  "AUD",
-                  "CAD",
-                  "NZD"
-                ],
-                "isTransparent": false,
-                "colorTheme": "dark",
-                "locale": "en",
-                "backgroundColor": "rgba(0, 0, 0, 1)"
-              }
-              </script>
-            </div>
-            <!-- TradingView Widget END -->
-          </div>
-
-          <!-- Transfers Section -->
-      <div class="row align-items-stretch mt-5">
-        <div class="col-md-4">
-          <div class="card card-round h-100">
-              <div class="card-body">
-                  <div class="card-head-row card-tools-still-right">
-                      <div class="card-title w-100 border py-2 text-center">Transfers</div>
-                  </div>
-                  <div class="card-list py-4 scroll-container">
-                      {% for transaction in transfer_transactions %}
-                          <div class="item-list">
-                              <div class="info-user ms-3">
-                                  <div class="status">Made a Transfer of ${{ transaction.amount }} to {{ transaction.to_account }}</div>
-                              </div>
-                              <hr>
+                        <p class="card-category text-gray">Available Balance</p>
+                        <h3 class="card-title text-white">
+                          ${{ request.user.account_balance.available_balance|intcomma }}
+                        </h3>
+                        <p class="card-category text-gray">Account number</p>
+                        <h3 class="card-title text-white">**********890</h3>
+                        <div class="row mt-2">
+                          <div class="col-6 text-center">
+                            <p style="font-size:12px;" class="card-category text-gray">Credits</p>
+                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
                           </div>
-                      {% empty %}
-                          <p class="text-center">No transfer transactions found.</p>
-                      {% endfor %}
+                          <div class="col-6 text-center">
+                            <p style="font-size:10px;" class="card-category text-gray">Deposits</p>
+                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </div>
               </div>
-          </div>
-      </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="card-container">
+              <div class="card account_card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category text-white">Loan Balance</p>
+                        <h3 class="card-title text-white">
+                          ${{ request.user.account_balance.loan_balance|intcomma }}
+                        </h3>
+                        <p class="card-category text-gray">Account number</p>
+                        <h3 class="card-title text-white">**********890</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="card-container">
+              <div class="card account_card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category text-white">GBP</p>
+                        <h4 class="card-title text-white">£{{ request.user.account_balance.gbp|intcomma }}</h4>
+                        <p class="card-category text-gray">Account number</p>
+                        <h3 class="card-title text-white">**********890</h3>
+                        <div class="row mt-2">
+                          <div class="col-6 text-center">
+                            <p style="font-size:12px;" class="card-category text-gray">Credits</p>
+                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
+                          </div>
+                          <div class="col-6 text-center">
+                            <p style="font-size:10px;" class="card-category text-gray">Deposits</p>
+                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="card-container">
+              <div class="card account_card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category text-white">EUR</p>
+                        <h4 class="card-title text-white">€{{ request.user.account_balance.eur|intcomma }}</h4>
+                        <p class="card-category text-gray">Account number</p>
+                        <h3 class="card-title text-white">**********890</h3>
+                        <div class="row mt-2">
+                          <div class="col-6 text-center">
+                            <p style="font-size:12px;" class="card-category text-gray">Credits</p>
+                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
+                          </div>
+                          <div class="col-6 text-center">
+                            <p style="font-size:11px;" class="card-category text-gray">Deposits</p>
+                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- end .cards-wrapper -->
+        </div><!-- end .scroll-container-horizontal -->
+      </div><!-- end .outer-scroll -->
+
+      <!-- Updated row: use explicit order classes and remove fixed height -->
+      <div class="row align-items-stretch mt-5 p-3">
+        <!-- Left Section: Icons -->
+        <div class="col-12 col-md-8 mb-5 pb-5 order-1">
+          <div class="row justify-content-center">
+            <!-- Using col-6 for mobile and col-md-3 for larger screens -->
+            <div class="col-6 col-md-3 mt-5 icon-column">
+              <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <div class="d-flex flex-column align-items-center">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Wire Transfer</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-sharp fa-solid fa-bitcoin-sign fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Buy Crypto</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-bars fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Check Deposit</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-6 col-md-3 mt-5 icon-column">
+              <div class="card-body d-flex flex-column justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Local Transfer</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-sharp fa-solid fa-bitcoin-sign fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Crypto Deposit</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-calendar fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Check Statements</span>
+                </div>
+              </div>
+            </div>
       
-        <!-- Other Transactions Section -->
-        <div class="col-md-8">
-          <div class="card card-round h-100">
-            <div class="card-header">
-              <div class="card-head-row card-tools-still-right">
-                <div class="card-title">Transaction History</div>
+            <div class="col-6 col-md-3 mt-5 icon-column">
+              <div class="card-body d-flex flex-column justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Internal Transfer</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-sharp fa-solid fa-user-plus fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Add Beneficiary</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-calendar fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Savings Statements</span>
+                </div>
               </div>
             </div>
-            <div class="card-body p-0">
-              <div class="table-responsive scroll-container">
-                <table class="table align-items-center mb-0">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Payment Number</th>
-                      <th scope="col" class="text-end">Date & Time</th>
-                      <th scope="col" class="text-end">Amount</th>
-                      <th scope="col" class="text-end">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for transaction in other_transactions %}
-                      <tr>
-                        <th scope="row">
-                          {{ transaction.transaction_type|title }} from #{{ transaction.reference }}
-                        </th>
-                        <td class="text-end">{{ transaction.transaction_date|date:"M d, Y, h:i A" }}</td>
-                        <td class="text-end">${{ transaction.amount }}</td>
-                        <td class="text-end">
-                          <span class="badge {% if transaction.status == 'completed' %}badge-success{% elif transaction.status == 'pending' %}badge-warning{% else %}badge-danger{% endif %}">
-                            {{ transaction.status|title }}
-                          </span>
-                        </td>
-                      </tr>
-                    {% empty %}
-                      <tr>
-                        <td colspan="4" class="text-center">No transactions found.</td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
+            
+            <div class="col-6 col-md-3 mt-5 icon-column">
+              <div class="card-body d-flex flex-column justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Internal Transfer</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-sharp fa-solid fa-user-plus fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Add Beneficiary</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-5">
+                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-calendar fa-2xl"></i>
+                  </div>
+                  <span class="mt-2 text-white">Savings Statements</span>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div><!-- end row for icons -->
+        </div><!-- end left section -->
 
-        
+        <!-- Right Section: Bank Cards -->
+        <div class="col-12 col-md-4 mb-5 pb-5 order-2">
+          <h3 class="text-white mb-3">Maybank Cards</h3>
+          <div class="card bank-card border">
+            {% if cards %}
+  {% for card in cards %}
+    <div class="card-body p-4">
+      <div class="golden-rectangle" style="background-color:#E8921E; height: 50px; width: 60px; border-radius: 5px;"></div>
+      <div class="mt-1">
+        <p class="mb-1 text-white" style="font-size: 0.8rem;">Card Number</p>
+        <h4 class="mb-2 text-white">
+          **** ***** *** {{ card.account|slice:"-5:" }}
+        </h4>
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="mb-1 text-white" style="font-size: 0.8rem;">Expiry</p>
+            <h5 class="text-white">{{ card.expiry_date|date:"m/y" }}</h5>
 
-
-
-
-        </div>
-      </div>
-
-      <footer class="footer">
-        <div class="container-fluid d-flex justify-content-between">
-          <nav class="pull-left">
-            <ul class="nav">
-
-            </ul>
-          </nav>
-          <div class="copyright">
-          
           </div>
           <div>
-            copyright@
-            <a target="_blank" class="text-dark" href="">2025mybcplc.com</a>.
+            <p class="mb-1 text-white" style="font-size: 0.8rem;">Card Holder</p>
+            <h5 class="text-white">{{ request.user.first_name }} {{ request.user.last_name }}</h5>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
+  {% endfor %}
+{% else %}
+  <div class="card-body p-4">
+    <div class="golden-rectangle" style="background-color:#E8921E; height: 50px; width: 60px; border-radius: 5px;"></div>
+    <div class="mt-1">
+      <p class="mb-1 text-white" style="font-size: 0.8rem;">No Purchased Cards</p>
+      <h4 class="mb-2 text-white">You don't have any cards yet.</h4>
+      <a href="{% url 'cards' %}" class="btn btn-outline-light">Request for a Card</a>
+    </div>
+  </div>
+{% endif %}
 
-    
+          </div>
 
+          <h5 style="border-bottom:1px solid white; padding:20px;" class="mt-2 text-light">Mybc tips</h5>
+          <div class="d-flex align-items-center mt-5">
+            <i class="fa-solid fa-piggy-bank fa-2xl text-warning me-3"></i>
+            <div>
+              <p class="mb-0 text-white" style="font-size: 0.9rem;">
+                Auto-save keeps your transactions secure.
+              </p>
+            </div>
+          </div>
+        </div><!-- end right section -->
+      
+      </div><!-- end row -->
+    </div><!-- end page-inner -->
+  </div><!-- end container -->
 
- {% endblock contents %}
+  <footer class="footer">
+    <div class="container-fluid d-flex justify-content-between">
+      <nav class="pull-left">
+        <ul class="nav"></ul>
+      </nav>
+      <div class="copyright"></div>
+      <div>
+        copyright@
+        <a target="_blank" class="text-dark" href="">2025mybcplc.com</a>.
+      </div>
+    </div>
+  </footer>
+</div>
+
+{% endblock contents %}

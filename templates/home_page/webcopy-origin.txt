@@ -1,0 +1,1784 @@
+Uri: https://addsearch.com/js/?key=c710ddb77983364e5c51b88d62582fd7
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\js\index.htm
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\index.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/4645 MC 04 2020 CON720e.pdf?documentId=58679
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\4645 MC 04 2020 CON720e.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/account/assets/bannerfront.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assets\bannerfront.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/account/assets/bootstrap.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assets\bootstrap.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/account/assets/bootstrap.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assets\bootstrap.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assets/css.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assets\css.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/account/assets/img/brand/blue.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assets\img\brand\blue.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/account/assets/img/brand/favicon.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assets\img\brand\favicon.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/account/assets/jquery-1.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assets\jquery-1.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/css/style.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\css\style.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Bold.eot
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Bold.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Bold.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Bold.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Bold.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Bold.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Bold.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Bold.woff2
+Content Type: font/woff2
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Light.eot
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Light.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Light.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Light.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Light.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Light.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Light.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Light.woff2
+Content Type: font/woff2
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Medium.eot
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Medium.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Medium.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Medium.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Medium.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Medium.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Medium.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Medium.woff2
+Content Type: font/woff2
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Regular.eot
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Regular.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Regular.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Regular.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Regular.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Regular.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/account/assetsdash/fonts/rubik/Rubik-Regular.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\fonts\rubik\Rubik-Regular.woff2
+Content Type: font/woff2
+
+Uri: https://alliedtrustb.com/account/assetsdash/js/dashboard.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\js\dashboard.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/js/hoverable-collapse.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\js\hoverable-collapse.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/js/misc.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\js\misc.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/js/off-canvas.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\js\off-canvas.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\bootstrap-datepicker\bootstrap-datepicker.min.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\bootstrap-datepicker\bootstrap-datepicker.min.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/chart.js/Chart.min.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\chart.js\Chart.min.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/css/vendor.bundle.base.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\css\vendor.bundle.base.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/flot/jquery.flot.categories.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\flot\jquery.flot.categories.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/flot/jquery.flot.fillbetween.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\flot\jquery.flot.fillbetween.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/flot/jquery.flot.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\flot\jquery.flot.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/flot/jquery.flot.pie.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\flot\jquery.flot.pie.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/flot/jquery.flot.resize.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\flot\jquery.flot.resize.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/flot/jquery.flot.stack.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\flot\jquery.flot.stack.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/font-awesome/css/font-awesome.min.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\font-awesome\css\font-awesome.min.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/font-awesome/fonts/fontawesome-webfont.eot?
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\font-awesome\fonts\fontawesome-webfont-1.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\font-awesome\fonts\fontawesome-webfont.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\font-awesome\fonts\fontawesome-webfont.svg
+Content Type: image/svg+xml
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\font-awesome\fonts\fontawesome-webfont.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\font-awesome\fonts\fontawesome-webfont.woff2
+Content Type: font/woff2
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\font-awesome\fonts\fontawesome-webfont.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/js/vendor.bundle.base.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\js\vendor.bundle.base.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/mdi/css/materialdesignicons.min.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\mdi\css\materialdesignicons.min.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/mdi/fonts/materialdesignicons-webfont.eot?
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\mdi\fonts\materialdesignicons-webfont-1.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/mdi/fonts/materialdesignicons-webfont.eot?v=4.5.95
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\mdi\fonts\materialdesignicons-webfont.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/mdi/fonts/materialdesignicons-webfont.ttf?v=4.5.95
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\mdi\fonts\materialdesignicons-webfont.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/mdi/fonts/materialdesignicons-webfont.woff2?v=4.5.95
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\mdi\fonts\materialdesignicons-webfont.woff2
+Content Type: font/woff2
+
+Uri: https://alliedtrustb.com/account/assetsdash/vendors/mdi/fonts/materialdesignicons-webfont.woff?v=4.5.95
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\assetsdash\vendors\mdi\fonts\materialdesignicons-webfont.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/account/dashboard/applicationform.php
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\dashboard\applicationform.php.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/account/dashboard/applyonline.php
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\dashboard\applyonline.php.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/account/dashboard/applyonline2.php
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\dashboard\applyonline2.php.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/account/login.php
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\account\login.php.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Additional-Services.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Additional-Services.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/apple-touch-icon.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\apple-touch-icon.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/Branch-Locations.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Branch-Locations.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Business card application 2020a021.pdf?documentId=58680
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Business card application 2020a021.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/Business-Checking.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Business-Checking.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Calculators.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Calculators.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Card-Services.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Card-Services.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Catastrophe-Savings.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Catastrophe-Savings.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/CD-IRA.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\CD-IRA.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Checking Disclosures919e.pdf?documentId=60991
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Checking Disclosures919e.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/Checking.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Checking.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Construction.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Construction.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Contact-Us.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Contact-Us.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/ContentImageHandler0749.jpg?ImageId=128077
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler0749.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler09a8.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler09a8.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler0a5c.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler0a5c.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler0c1f.png?ImageId=124210
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler0c1f.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandler0f21.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler0f21.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler1282.jpg?ImageId=123611
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler1282.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler1356.jpg?ImageId=128076
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler1356.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler1b7d.png?ImageId=124206
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler1b7d.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandler1bfe.jpg?ImageId=126976
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler1bfe.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler2080.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler2080.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler23eb.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler23eb.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler2548.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler2548.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler28e2.jpg?ImageId=128090
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler28e2.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler29b3.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler29b3.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler2db9.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler2db9.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler2f9c.jpg?ImageId=123762
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler2f9c.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler3467.png?ImageId=124207
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler3467.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandler3544.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler3544.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler35db.jpg?ImageId=123616
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler35db.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler37a6.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler37a6.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler3986.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler3986.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler3aa7.jpg?ImageId=128093
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler3aa7.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler3cb8.jpg?ImageId=123761
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler3cb8.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler3d9b.png?ImageId=127236
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler3d9b.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandler41d7.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler41d7.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler435d.jpg?ImageId=128089
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler435d.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler459c.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler459c.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler4641.jpg?ImageId=123610
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler4641.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler480a.jpg?ImageId=123614
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler480a.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler495e.jpg?ImageId=128092
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler495e.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler4d75.png?ImageId=124209
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler4d75.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandler508e.png?ImageId=127283
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler508e.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandler6356.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler6356.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler69bc.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler69bc.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler6dbb.jpg?ImageId=128088
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler6dbb.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler6f01.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler6f01.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler716b.jpg?ImageId=123760
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler716b.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler730d.jpg?ImageId=128091
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler730d.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler7b5d.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler7b5d.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler7b76.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler7b76.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler88b3.png?ImageId=151881
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler88b3.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandler8e54.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler8e54.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler904c.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler904c.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandler96af.jpg?ImageId=128094
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandler96af.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlera014.jpg?ImageId=128674
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlera014.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlera63b.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlera63b.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlera7b2.png?ImageId=124212
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlera7b2.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandleraaf2.png?ImageId=124235
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandleraaf2.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandlerac54.png?ImageId=124208
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerac54.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandlerbe35.jpg?ImageId=123613
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerbe35.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerc15a.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerc15a.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerc585.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerc585.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerc99a.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerc99a.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlercc37.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlercc37.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerce86.jpg?ImageId=128074
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerce86.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlercf95.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlercf95.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerd3c2.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerd3c2.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerd3e4.jpg?ImageId=123612
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerd3e4.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerdcd5.png?ImageId=124213
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerdcd5.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandlerdcf5.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerdcf5.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerdf0c.png?ImageId=124211
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerdf0c.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/ContentImageHandlere43d.jpg?ImageId=128087
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlere43d.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlere8d5.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlere8d5.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlereab0.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlereab0.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlereae3.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlereae3.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerf0fd.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerf0fd.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/ContentImageHandlerf65d.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\ContentImageHandlerf65d.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/Credit-Cards.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Credit-Cards.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/css.css?family=Didact+Gothic|Open+Sans:400,700
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/css/animate.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css\animate.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/css/fiserv.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css\fiserv.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/css/font-awesome-4.7.0-min.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css\font-awesome-4.7.0-min.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/css/nav-home.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css\nav-home.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/css/nav.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css\nav.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/css/slideshow6654.css?v1
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css\slideshow6654.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/css/style6654.css?v1
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css\style6654.css
+Content Type: text/css
+
+Uri: https://alliedtrustb.com/favicon-16x16.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\favicon-16x16.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/favicon-32x32.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\favicon-32x32.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/faviconbcfe.ico?v=22
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\faviconbcfe.ico
+Content Type: image/x-icon
+
+Uri: https://alliedtrustb.com/fillable switchkit434d.pdf?documentId=57331
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fillable switchkit434d.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/firstwithus/Online-Education.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\firstwithus\Online-Education.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/fonts/Fiserv-First-Federalf37c.eot
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\Fiserv-First-Federalf37c.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/fonts/Fiserv-First-Federalf37c.svg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\Fiserv-First-Federalf37c.svg
+Content Type: image/svg+xml
+
+Uri: https://alliedtrustb.com/fonts/Fiserv-First-Federalf37c.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\Fiserv-First-Federalf37c.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/fonts/Fiserv-First-Federalf37c.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\Fiserv-First-Federalf37c.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/fonts/fontawesome-webfont3e6e.eot
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\fontawesome-webfont3e6e.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/fonts/fontawesome-webfont3e6e.svg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\fontawesome-webfont3e6e.svg
+Content Type: image/svg+xml
+
+Uri: https://alliedtrustb.com/fonts/fontawesome-webfont3e6e.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\fontawesome-webfont3e6e.ttf
+Content Type: font/ttf
+
+Uri: https://alliedtrustb.com/fonts/fontawesome-webfont3e6e.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\fontawesome-webfont3e6e.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/fonts/fontawesome-webfontd41d.eot
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\fonts\fontawesome-webfontd41d.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://alliedtrustb.com/Home-Buying.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Home-Buying.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/images/App-Icon-Android.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\App-Icon-Android.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/images/App-Icon-iPhone.jpg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\App-Icon-iPhone.jpg
+Content Type: image/jpeg
+
+Uri: https://alliedtrustb.com/images/bg-curve.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\bg-curve.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/images/curve-footer.svg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\curve-footer.svg
+Content Type: image/svg+xml
+
+Uri: https://alliedtrustb.com/images/logo-american-banker-2018.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\logo-american-banker-2018.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/images/logo-best-places-to-work-mississippi.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\logo-best-places-to-work-mississippi.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/images/logo.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\logo.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/images/spacer.gif
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\images\spacer.gif
+Content Type: image/gif
+
+Uri: https://alliedtrustb.com/index.php.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\index.php.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/js/fiserv-plugins.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\js\fiserv-plugins.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/js/scripts.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\js\scripts.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/js/slideshow.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\js\slideshow.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/js/vendor/jquery-1.11.3.min.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\js\vendor\jquery-1.11.3.min.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/js/vendor/modernizr-2.8.3.min.js
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\js\vendor\modernizr-2.8.3.min.js
+Content Type: application/javascript
+
+Uri: https://alliedtrustb.com/Land-Loans.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Land-Loans.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=15992&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-17.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=15992&p=45961
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=15992&p=45962
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=15992&p=45963
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-1.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-1-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=124780&playlist=Default
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-10.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-10-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=118215&playlist=Default
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-11.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-11-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=13911&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=13911&p=39851
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=13911&p=39852
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-2.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-2-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=113408&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-17.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=113408&p=262733
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=113408&p=262738
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=113408&playlist=Default
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-3.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-3-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=38575
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-4.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-4-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=15995&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=15995&p=45975
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-5.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-5-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=16499&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=16499&p=47472
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=16499&p=47473
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-6.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-6-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-24.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=11131
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-18.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=11132
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-19.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=11133
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=11134
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-17.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=11135
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-20.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=11136
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=11137
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=24852
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-21.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=24853
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-22.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5080&p=24854
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-23.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-7.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-7-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=129100&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=129100&p=301190
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=129100&playlist=Default
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-8.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-8-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-2.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-3.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-4.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-5.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-6.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=129095&mode=Contact
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-17.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=129095&p=301173
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=129095&p=301175
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=129095&playlist=Default
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-7.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-10.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-8.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-1.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-9.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index-9.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-9-11.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=113408
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-13.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=118215
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-14.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=118400
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-15.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=124780
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-16.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=129095
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-17.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=129100
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-18.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=13891
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=13911
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-21.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=15992
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-23.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=15993
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-24.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=15995
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-25.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=16499
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-19.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=48376
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-12.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=5080
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-20.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/mobile/index.htm?b=110&c=5081
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\mobile\index-22.htm
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Mortgage Loan Application6070.pdf?documentId=57412
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Mortgage Loan Application6070.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/Mortgage-Loans.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Mortgage-Loans.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Mortgage-Team.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Mortgage-Team.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/My Card My Way FAQsd3bc.pdf?documentId=58620
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\My Card My Way FAQsd3bc.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/Online-Education.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Online-Education.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Online-Services.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Online-Services.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Our-Legacy.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Our-Legacy.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Personal New Acct Application3f4b.pdf?documentId=57415
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Personal New Acct Application3f4b.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/Privacy Policy5954.pdf?documentId=57416
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Privacy Policy5954.pdf
+Content Type: application/pdf
+
+Uri: https://alliedtrustb.com/Rates.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Rates.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Refinance-Equity.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Refinance-Equity.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/s/didactgothic/v11/ahcfv8qz1zt6hCC5G4F_P4ASlUuYoA.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\didactgothic\v11\ahcfv8qz1zt6hCC5G4F_P4ASlUuYoA.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v15\2UX7WLTfW3W8TclTUvlFyQ.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v15\d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfT8E0i7KZn-EPnyo3HZu7kw.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v15\Hgo13k-tfSpn0qi1SFdUfT8E0i7KZn-EPnyo3HZu7kw.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v15/RxZJdnzeo3R5zSexge8UUT8E0i7KZn-EPnyo3HZu7kw.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v15\RxZJdnzeo3R5zSexge8UUT8E0i7KZn-EPnyo3HZu7kw.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v15/vzIUHo9z-oJ4WgkpPOtg1_esZW2xOQ-xsNqO47m55DA.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v15\vzIUHo9z-oJ4WgkpPOtg1_esZW2xOQ-xsNqO47m55DA.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxIIzQ.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v18\KFOkCnqEu92Fr1MmgVxIIzQ.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fBBc-.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v18\KFOlCnqEu92Fr1MmSU5fBBc-.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc-.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v18\KFOlCnqEu92Fr1MmWUlfBBc-.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfBBc-.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v18\KFOlCnqEu92Fr1MmYUtfBBc-.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxM.woff
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\roboto\v18\KFOmCnqEu92Fr1Mu4mxM.woff
+Content Type: font/woff
+
+Uri: https://alliedtrustb.com/safari-pinned-tab.svg
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\safari-pinned-tab.svg
+Content Type: image/svg+xml
+
+Uri: https://alliedtrustb.com/Savings.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Savings.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/Security.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\Security.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/seg.gif?add=4701443&t=2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\seg.gif
+Content Type: image/gif
+
+Uri: https://alliedtrustb.com/We-Care.html
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\We-Care.html
+Content Type: text/html
+
+Uri: https://alliedtrustb.com/weather/PIE.htc
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\weather\PIE.htc
+Content Type: text/x-component
+
+Uri: https://alliedtrustb.com/weather/weather-sprite01.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\weather\weather-sprite01.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/weather/weather-sprite02.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\weather\weather-sprite02.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/weather/weather-sprite03.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\weather\weather-sprite03.png
+Content Type: image/png
+
+Uri: https://alliedtrustb.com/weather/weather.css
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\weather\weather.css
+Content Type: text/css
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/159365.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\159365.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/159370.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\159370.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/159375.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\159375.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/159385.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\159385.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/35212.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\35212.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/35216.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\35216.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/35221.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\35221.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/35226.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\35226.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/35232.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\35232.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/35241.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\35241.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/36381.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\36381.png
+Content Type: image/png
+
+Uri: https://cdn.oectours.com/media/cds/banks/110/93429.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\media\cds\banks\110\93429.png
+Content Type: image/png
+
+Uri: https://fonts.googleapis.com/css?family=Didact+Gothic|Open+Sans:400,700
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\css-1
+Content Type: text/css
+
+Uri: https://fonts.gstatic.com/s/didactgothic/v14/ahcfv8qz1zt6hCC5G4F_P4ASlUuYow.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\didactgothic\v14\ahcfv8qz1zt6hCC5G4F_P4ASlUuYow.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/didactgothic/v19/ahcfv8qz1zt6hCC5G4F_P4ASlUuYow.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\didactgothic\v19\ahcfv8qz1zt6hCC5G4F_P4ASlUuYow.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/nunito/v16/XRXV3I6Li01BKofIMeaBXso.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\nunito\v16\XRXV3I6Li01BKofIMeaBXso.woff2
+Content Type: font/woff2
+
+Uri: https://fonts.gstatic.com/s/nunito/v16/XRXV3I6Li01BKofINeaB.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\nunito\v16\XRXV3I6Li01BKofINeaB.woff2
+Content Type: font/woff2
+
+Uri: https://fonts.gstatic.com/s/nunito/v16/XRXV3I6Li01BKofIO-aBXso.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\nunito\v16\XRXV3I6Li01BKofIO-aBXso.woff2
+Content Type: font/woff2
+
+Uri: https://fonts.gstatic.com/s/nunito/v16/XRXV3I6Li01BKofIOOaBXso.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\nunito\v16\XRXV3I6Li01BKofIOOaBXso.woff2
+Content Type: font/woff2
+
+Uri: https://fonts.gstatic.com/s/nunito/v16/XRXV3I6Li01BKofIOuaBXso.woff2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\nunito\v16\XRXV3I6Li01BKofIOuaBXso.woff2
+Content Type: font/woff2
+
+Uri: https://fonts.gstatic.com/s/opensans/v23/mem5YaGs126MiZpBA-UN7rgOUuhs.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\opensans\v23\mem5YaGs126MiZpBA-UN7rgOUuhs.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/opensans/v23/mem8YaGs126MiZpBA-UFVZ0e.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\opensans\v23\mem8YaGs126MiZpBA-UFVZ0e.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4gaVc.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\opensans\v34\memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4gaVc.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\s\opensans\v34\memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf
+Content Type: font/ttf
+
+Uri: https://gtranslate.net/flags/16.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\flags\16.png
+Content Type: image/png
+
+Uri: https://gtranslate.net/flags/16a.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\flags\16a.png
+Content Type: image/png
+
+Uri: https://gtranslate.net/flags/blank.png
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\flags\blank.png
+Content Type: image/png
+
+Uri: https://ib.adnxs.com/seg?add=4701443&t=2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\seg
+Content Type: image/gif
+
+Uri: https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\translate_a\element.js
+Content Type: text/javascript
+
+Uri: https://www.facebook.com/tr?id=689131064560893&ev=PageView&noscript=1
+File Name: C:\Users\USER\Desktop\allied\alliedtrustb.com\tr
+Content Type: text/plain
+

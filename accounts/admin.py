@@ -109,7 +109,7 @@ class AccountBalanceAdmin(UnfoldModelAdmin):
 
 @admin.register(Card)
 class CardAdmin(UnfoldModelAdmin):
-    list_display = ('user', 'vendor', 'card_type', 'account', 'status')
+    list_display = ('user', 'vendor', 'card_type', 'account', 'status','expiry_date')
     search_fields = ('user__email', 'account')
 
 
