@@ -198,8 +198,13 @@
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">USD</p>
-                    <h4 class="card-title">${{ request.user.account_balance.available_balance|intcomma }}</h4>
+                    <p class="card-category">USD       <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                      data-target="available-balance-savings"
+                      data-key="balanceHidden-savings"
+                      style="cursor:pointer;"></i></p>
+                    <h4 class="card-title toggle-balance" id="available-balance-savings"
+                    data-hidden="false"
+                    data-balance="${{ request.user.account_balance.available_balance|intcomma }}">${{ request.user.account_balance.available_balance|intcomma }}</h4>
                   </div>
                 </div>
               </div>
@@ -218,8 +223,13 @@
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">GBP</p>
-                    <h4 class="card-title">£{{ request.user.account_balance.gbp|intcomma }}</h4>
+                    <p class="card-category toggle-balance">GBP  <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                      data-target="available-balance-gbp"
+                      data-key="balanceHidden-gbp"
+                      style="cursor:pointer;"></i></p>
+                    <h4 class="card-title" id="available-balance-gbp"
+                    data-hidden="false"
+                    data-balance="£{{ request.user.account_balance.gbp|intcomma }}">£{{ request.user.account_balance.gbp|intcomma }}</h4>
                   </div>
                 </div>
               </div>
@@ -238,14 +248,25 @@
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">EUR</p>
-                    <h4 class="card-title">€{{ request.user.account_balance.eur|intcomma }}</h4>
+                    <p class="card-category toggle-balance">EUR     <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                      data-target="available-balance-eur"
+                      data-key="balanceHidden-eur"
+                      style="cursor:pointer;"></i></p>
+                    <h4 class="card-title" id="available-balance-eur"
+                    data-hidden="false"
+                    data-balance="€{{ request.user.account_balance.eur|intcomma }}">€{{ request.user.account_balance.eur|intcomma }}</h4>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+
+
+
+
+        
       </div>
   
       <!-- Exchange and Transactions Side by Side -->
@@ -440,5 +461,69 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Select all toggle icons
+    const toggleIcons = document.querySelectorAll(".toggle-balance-icon");
+  
+    // Function to update the balance element UI
+    function updateUI(element, isHidden) {
+      // Retrieve the original balance text from data attribute.
+      const originalBalance = element.getAttribute("data-balance");
+      if (isHidden) {
+        element.textContent = "*******";
+      } else {
+        element.textContent = originalBalance;
+      }
+      element.setAttribute("data-hidden", isHidden ? "true" : "false");
+    }
+  
+    // Process each toggle icon independently
+    toggleIcons.forEach(function(icon) {
+      // Get the target balance element's id and the storage key from the icon's data attributes.
+      const targetId = icon.getAttribute("data-target");
+      const storageKey = icon.getAttribute("data-key");
+      const balanceElement = document.getElementById(targetId);
+  
+      // On page load, check localStorage for this balance's saved state.
+      let storedState = localStorage.getItem(storageKey);
+      let isHidden = storedState === "true";  // stored as string "true" or "false"
+      if (balanceElement) {
+        updateUI(balanceElement, isHidden);
+      }
+  
+      // Set the initial icon classes accordingly.
+      if (isHidden) {
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+  
+      // Add a click event listener for toggling.
+      icon.addEventListener("click", function() {
+        // Toggle the state for this balance element.
+        const currentlyHidden = balanceElement.getAttribute("data-hidden") === "true";
+        const newHidden = !currentlyHidden;
+        updateUI(balanceElement, newHidden);
+        
+        // Update the icon classes.
+        if (newHidden) {
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+        
+        // Save the new state to localStorage for this balance.
+        localStorage.setItem(storageKey, newHidden);
+      });
+    });
+  });
+  </script>
+  
   
 {% endblock contents %}
