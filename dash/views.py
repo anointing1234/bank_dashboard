@@ -37,75 +37,72 @@ def home_view(request):
    "cards": cards
    })
 
+
+
 @login_required(login_url='login')
 def profile_view(request):
     return render(request, 'profile.html')
 
 
-def redirect_if_authenticated(request, template_name):
-    if request.user.is_authenticated:
-        return redirect(reverse('dashboard'))  # Ensure 'dashboard' is the correct name in urls.py
-    return render(request, template_name)
-
 def home_page(request):
-    return redirect_if_authenticated(request, 'home_page/index.html')
+    return render(request, 'home_page/index.html')
 
 def contact_us(request):
-    return redirect_if_authenticated(request, 'home_page/Contact-Us.html')
+    return render(request, 'home_page/Contact-Us.html')
 
 def Branch_location(request):
-    return redirect_if_authenticated(request, 'home_page/Branch-Locations.html')
+    return render(request, 'home_page/Branch-Locations.html')
 
 def Mortgage_Team(request):
-    return redirect_if_authenticated(request, 'home_page/Mortgage-Team.html')
+    return render(request, 'home_page/Mortgage-Team.html')
 
 def Our_Legacy(request):
-    return redirect_if_authenticated(request, 'home_page/Our-Legacy.html')
+    return render(request, 'home_page/Our-Legacy.html')
 
 def Checking(request):
-    return redirect_if_authenticated(request, 'home_page/Checking.html')
+    return render(request, 'home_page/Checking.html')
 
 def Savings(request):
-    return redirect_if_authenticated(request, 'home_page/Savings.html')
+    return render(request, 'home_page/Savings.html')
 
 def Catastrophe_Savings(request):
-    return redirect_if_authenticated(request, 'home_page/Catastrophe-Savings.html')
+    return render(request, 'home_page/Catastrophe-Savings.html')
 
 def cd_ira(request):
-    return redirect_if_authenticated(request, 'home_page/CD-IRA.html')
+    return render(request, 'home_page/CD-IRA.html')
 
 def Business_Checking(request):
-    return redirect_if_authenticated(request, 'home_page/Business-Checking.html')
+    return render(request, 'home_page/Business-Checking.html')
 
 def Rates(request):
-    return redirect_if_authenticated(request, 'home_page/Rates.html')
+    return render(request, 'home_page/Rates.html')
 
 def Construction(request):
-    return redirect_if_authenticated(request, 'home_page/Construction.html')
+    return render(request, 'home_page/Construction.html')
 
 def Mortgage_Loans(request):
-    return redirect_if_authenticated(request, 'home_page/Mortgage-Loans.html')
+    return render(request, 'home_page/Mortgage-Loans.html')
 
 def Calculators(request):
-    return redirect_if_authenticated(request, 'home_page/Calculators.html')
+    return render(request, 'home_page/Calculators.html')
 
 def Online_Services(request):
-    return redirect_if_authenticated(request, 'home_page/Online-Services.html')
+    return render(request, 'home_page/Online-Services.html')
 
 def Card_Services(request):
-    return redirect_if_authenticated(request, 'home_page/Card-Services.html')
+    return render(request, 'home_page/Card-Services.html')
 
 def Additional_Services(request):
-    return redirect_if_authenticated(request, 'home_page/Additional-Services.html')
+    return render(request, 'home_page/Additional-Services.html')
 
 def We_Care(request):
-    return redirect_if_authenticated(request, 'home_page/We-Care.html')
+    return render(request, 'home_page/We-Care.html')
 
 def Online_Education(request):
-    return redirect_if_authenticated(request, 'home_page/Online-Education.html')
+    return render(request, 'home_page/Online-Education.html')
 
 def Security(request):
-    return redirect_if_authenticated(request, 'home_page/Security.html')
+    return render(request, 'home_page/Security.html')
 
 def Credit_Cards(request):
-    return redirect_if_authenticated(request, 'home_page/Credit-Cards.html')
+    return render(request, 'home_page/Credit-Cards.html')
