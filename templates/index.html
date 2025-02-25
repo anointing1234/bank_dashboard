@@ -144,7 +144,7 @@
                           ${{ request.user.account_balance.available_balance|intcomma }}
                         </h3>
                         <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">**********890</h3>
+                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
                         <div class="row mt-2">
                           <div class="col-6 text-center">
                             <p style="font-size:12px;" class="card-category text-gray">Credits</p>
@@ -173,7 +173,7 @@
                           ${{ request.user.account_balance.loan_balance|intcomma }}
                         </h3>
                         <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">**********890</h3>
+                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
                       </div>
                     </div>
                   </div>
@@ -190,7 +190,7 @@
                         <p class="card-category text-white">GBP</p>
                         <h4 class="card-title text-white">£{{ request.user.account_balance.gbp|intcomma }}</h4>
                         <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">**********890</h3>
+                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
                         <div class="row mt-2">
                           <div class="col-6 text-center">
                             <p style="font-size:12px;" class="card-category text-gray">Credits</p>
@@ -217,7 +217,7 @@
                         <p class="card-category text-white">EUR</p>
                         <h4 class="card-title text-white">€{{ request.user.account_balance.eur|intcomma }}</h4>
                         <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">**********890</h3>
+                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
                         <div class="row mt-2">
                           <div class="col-6 text-center">
                             <p style="font-size:12px;" class="card-category text-gray">Credits</p>
@@ -240,82 +240,81 @@
 
       <!-- Updated row: use explicit order classes and remove fixed height -->
       <div class="row align-items-stretch mt-5 p-3">
-        <!-- Left Section: Icons -->
-        <div class="col-12 col-md-8 mb-5 pb-5 order-1">
-          <div class="row justify-content-center">
-            <!-- Using col-6 for mobile and col-md-3 for larger screens -->
-            <div class="col-6 col-md-3 mt-5 icon-column">
-              <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <div class="d-flex flex-column align-items-center">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Wire Transfer</span>
-                </div>
-                <div class="d-flex flex-column align-items-center mt-5">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-sharp fa-solid fa-bitcoin-sign fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Buy Crypto</span>
-                </div>
-                <div class="d-flex flex-column align-items-center mt-5">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-solid fa-bars fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Check Deposit</span>
-                </div>
-              </div>
+         <!-- Left Section: Icons -->
+  <div class="col-12 col-md-8 mb-5 pb-5 order-1">
+    <div class="row justify-content-center">
+      <!-- Using col-6 for mobile and col-md-3 for larger screens -->
+      <div class="col-6 col-md-3 mt-5 icon-column">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+          <a href="{% url 'transfer' %}" class="text-decoration-none d-flex flex-column align-items-center">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
             </div>
-            
-            <div class="col-6 col-md-3 mt-5 icon-column">
-              <div class="card-body d-flex flex-column justify-content-center">
-                <div class="d-flex flex-column align-items-center">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Local Transfer</span>
-                </div>
-                <div class="d-flex flex-column align-items-center mt-5">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-sharp fa-solid fa-bitcoin-sign fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Crypto Deposit</span>
-                </div>
-                <div class="d-flex flex-column align-items-center mt-5">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-solid fa-calendar fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Check Statements</span>
-                </div>
-              </div>
+            <span class="mt-2 text-white">Wire Transfer</span>
+          </a>
+          <a href="https://www.coinbase.com" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-sharp fa-solid fa-bitcoin-sign fa-2xl"></i>
             </div>
-      
-            <div class="col-6 col-md-3 mt-5 icon-column">
-              <div class="card-body d-flex flex-column justify-content-center">
-                <div class="d-flex flex-column align-items-center">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Internal Transfer</span>
-                </div>
-                <div class="d-flex flex-column align-items-center mt-5">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-sharp fa-solid fa-user-plus fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Add Beneficiary</span>
-                </div>
-                <div class="d-flex flex-column align-items-center mt-5">
-                  <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-                    <i class="fa-solid fa-calendar fa-2xl"></i>
-                  </div>
-                  <span class="mt-2 text-white">Savings Statements</span>
-                </div>
-              </div>
+            <span class="mt-2 text-white">Buy Crypto</span>
+          </a>
+          <a href="{% url 'deposit' %}" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-bars fa-2xl"></i>
             </div>
-            
-           
-          </div><!-- end row for icons -->
-        </div><!-- end left section -->
+            <span class="mt-2 text-white">Check Deposit</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 mt-5 icon-column">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <a href="{% url 'transfer' %}" class="text-decoration-none d-flex flex-column align-items-center">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+            </div>
+            <span class="mt-2 text-white">Local Transfer</span>
+          </a>
+          <a href="{% url 'deposit' %}" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-sharp fa-solid fa-bitcoin-sign fa-2xl"></i>
+            </div>
+            <span class="mt-2 text-white">Crypto Deposit</span>
+          </a>
+          <a href="#" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-calendar fa-2xl"></i>
+            </div>
+            <span class="mt-2 text-white">Check Statements</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 mt-5 icon-column">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <a href="{% url 'transfer' %}" class="text-decoration-none d-flex flex-column align-items-center">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+            </div>
+            <span class="mt-2 text-white">Internal Transfer</span>
+          </a>
+          <a href="#" id="addBeneficiaryLink" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-sharp fa-solid fa-user-plus fa-2xl"></i>
+            </div>
+            <span class="mt-2 text-white">Add Beneficiary</span>
+          </a>
+          <a href="#" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-calendar fa-2xl"></i>
+            </div>
+            <span class="mt-2 text-white">Savings Statements</span>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- end row for icons -->
+  </div><!-- end left section -->
 
         <!-- Right Section: Bank Cards -->
         <div class="col-12 col-md-4 mb-5 pb-5 order-2">
@@ -385,5 +384,68 @@
     </div>
   </footer>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  $(document).ready(function() {
+    $("#addBeneficiaryLink").click(function(e) {
+      e.preventDefault();
+      
+      Swal.fire({
+        title: 'Add Beneficiary',
+        html: `
+          <input id="swal-input1" class="swal2-input" placeholder="Full Name">
+          <input id="swal-input2" class="swal2-input" placeholder="Account Number">
+          <input id="swal-input3" class="swal2-input" placeholder="Bank Name">
+          <input id="swal-input4" class="swal2-input" placeholder="SWIFT/BIC (optional)">
+        `,
+        focusConfirm: false,
+        preConfirm: () => {
+          return {
+            full_name: document.getElementById('swal-input1').value,
+            account_number: document.getElementById('swal-input2').value,
+            bank_name: document.getElementById('swal-input3').value,
+            swift_code: document.getElementById('swal-input4').value,
+          }
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let data = result.value;
+          // Validate required fields
+          if (!data.full_name || !data.account_number || !data.bank_name) {
+            Swal.fire('Error', 'Please fill in all required fields.', 'error');
+            return;
+          }
+          // AJAX call to add beneficiary
+          $.ajax({
+            url: '{% url "add_beneficiary" %}',
+            method: 'POST',
+            data: {
+              full_name: data.full_name,
+              account_number: data.account_number,
+              bank_name: data.bank_name,
+              swift_code: data.swift_code,
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(response) {
+              if(response.success){
+                Swal.fire('Success', response.message, 'success');
+                // Optionally, refresh the beneficiary dropdown here
+              } else {
+                Swal.fire('Error', response.message, 'error');
+              }
+            },
+            error: function(xhr) {
+              Swal.fire('Error', 'An error occurred while adding the beneficiary.', 'error');
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
 
 {% endblock contents %}

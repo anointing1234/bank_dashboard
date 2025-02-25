@@ -25,7 +25,7 @@ from requests.exceptions import ConnectionError
 import requests 
 import uuid
 from accounts.form import SignupForm,LoginForm,TransferForm,LoanRequestForm,CardForm,SendresetcodeForm,PasswordResetForm
-from .models import PaymentGateway,Deposit, Transaction,Transfer,TransferCode,LoanRequest,ExchangeRate,Exchange,Card,ResetPassword
+from .models import PaymentGateway,Deposit, Transaction,Transfer,TransferCode,LoanRequest,ExchangeRate,Exchange,Card,ResetPassword,Beneficiary
 import random
 from django.utils.crypto import get_random_string
 from django.utils.timezone import now, timedelta
@@ -172,13 +172,31 @@ def withdrawal_view(request):
     return render(request,'finaces/withdraw.html')
 
 def transfer_view(request):
-    form = TransferForm()
-    other_transactions = Transaction.objects.filter(user=request.user).order_by('-transaction_date')  # Fetch transactions for logged-in user
+    # Instantiate the form with the current user
+    form = TransferForm(user=request.user)
+    
+    # Build a dictionary of the user's beneficiaries
+    beneficiary_data = {
+        beneficiary.id: {
+            "full_name": beneficiary.full_name,
+            "account_number": beneficiary.account_number,
+            "bank_name": beneficiary.bank_name,
+            "swift_code": beneficiary.swift_code,
+        }
+        for beneficiary in Beneficiary.objects.filter(user=request.user)
+    }
+    
+    # Convert the dictionary to JSON for the template
+    beneficiary_data_json = json.dumps(beneficiary_data)
+    
+    # Get transactions of type "transfer" for the logged-in user
+    other_transactions = Transaction.objects.filter(user=request.user).order_by('-transaction_date')
     transfers = other_transactions.filter(transaction_type="transfer")
-    return render(request,'finaces/transfer.html',
-    {
-    'form':form,
-    'transfers':transfers,
+    
+    return render(request, 'finaces/transfer.html', {
+        'form': form,
+        'transfers': transfers,
+        'beneficiary_data_json': beneficiary_data_json,
     })
 
 
@@ -274,11 +292,9 @@ def send_transfer_code(request):
 
 
 
-
-
 def create_transfer(request):
     if request.method == "POST":
-        form = TransferForm(request.POST)
+        form = TransferForm(request.POST, user=request.user)  # Pass the user here
         print("Received POST data:", request.POST)  # Log the raw POST data
         
         if form.is_valid():
@@ -349,11 +365,11 @@ def create_transfer(request):
                 user=request.user,
                 amount=amount,
                 transaction_type='transfer',  # Assuming this is a valid choice
-                description=f"Transfer of {amount} {currency} to {transfer.bank_account}",
+                description=f"Transfer of {amount} {currency} to account {transfer.beneficiary.account_number}",
                 reference=unique_reference,
                 from_account=request.user.email,  # Adjust as needed
-                to_account=transfer.bank_account,
-                institution="Your Institution Name",  # Adjust as needed
+                to_account=transfer.beneficiary.account_number,
+                institution="Maybank",  # Adjust as needed
                 region=transfer.region,  # Use transfer region
             )
             transaction.save()
@@ -386,8 +402,9 @@ def create_transfer(request):
             print("Form is invalid:", form.errors)
             return JsonResponse({"success": False, "message": "Invalid form submission."}, status=400)
     else:
-        form = TransferForm()
+        form = TransferForm(user=request.user)  # Pass the user here as well
     return render(request, "finances/transfer.html", {"form": form})
+
 
 
 
@@ -576,11 +593,36 @@ def reset_password_view(request):
 
 
 
-
-
-
-
 def send_pass(request):
     form = SendresetcodeForm()
     return render(request,'forms/send_reset_code.html',{'form':form})
+
+
+
+
+
+
+@login_required
+def add_beneficiary(request):
+    if request.method == "POST":
+        full_name = request.POST.get('full_name')
+        account_number = request.POST.get('account_number')
+        bank_name = request.POST.get('bank_name')
+        swift_code = request.POST.get('swift_code', '')
+        
+        # Validate required fields
+        if not (full_name and account_number and bank_name):
+            return JsonResponse({'success': False, 'message': 'Please fill in all required fields.'}, status=400)
+        
+        # Create the beneficiary
+        beneficiary = Beneficiary.objects.create(
+            user=request.user,
+            full_name=full_name,
+            account_number=account_number,
+            bank_name=bank_name,
+            swift_code=swift_code
+        )
+        return JsonResponse({'success': True, 'message': 'Beneficiary added successfully!'})
+    
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=400)
 

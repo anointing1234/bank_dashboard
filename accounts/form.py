@@ -1,12 +1,20 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from accounts.models import Account,ACCOUNT_TYPE_CHOICES,Transfer,LoanRequest,Card
+from accounts.models import Account,ACCOUNT_TYPE_CHOICES,Transfer,LoanRequest,Card,Beneficiary
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
 import re
 from django.contrib.auth import get_user_model
+import random
 
-
+def generate_unique_account_number():
+    """
+    Generate a unique 10-digit account number.
+    """
+    while True:
+        acct_num = "".join(str(random.randint(0, 9)) for _ in range(10))
+        if not Account.objects.filter(account_number=acct_num).exists():
+            return acct_num
 
 class SignupForm(forms.ModelForm):
     password = forms.CharField(
@@ -14,7 +22,7 @@ class SignupForm(forms.ModelForm):
             attrs={
                 'class': 'form-control form-control-lg',
                 'placeholder': 'Enter your password',
-          'type':'password'
+                'type': 'password'
             }
         ),
         label="Password"
@@ -24,7 +32,7 @@ class SignupForm(forms.ModelForm):
             attrs={
                 'class': 'form-control form-control-lg',
                 'placeholder': 'Confirm your password',
-          'type':'password'
+                'type': 'password'
             }
         ),
         label="Confirm Password"
@@ -45,34 +53,34 @@ class SignupForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control form-control-lg',
                     'placeholder': 'Enter your email',
-                  'type':'email'
+                    'type': 'email'
                 }
             ),
             'first_name': forms.TextInput(
                 attrs={
                     'class': 'form-control form-control-lg',
                     'placeholder': 'First Name',
-                  'type':'text'
+                    'type': 'text'
                 }
             ),
             'last_name': forms.TextInput(
                 attrs={
                     'class': 'form-control form-control-lg',
                     'placeholder': 'Last Name',
-                  'type':'text'
+                    'type': 'text'
                 }
             ),
             'phone_number': forms.TextInput(
                 attrs={
                     'class': 'form-control form-control-lg',
                     'placeholder': 'Enter your phone number',
-                  'type':'number'
+                    'type': 'number'
                 }
             ),
             'account_type': forms.Select(
                 attrs={
-                    'class': 'form-select  form-control-lg',
-              },
+                    'class': 'form-select form-control-lg',
+                },
                 choices=Account.account_type  # Ensure this attribute exists on your Account model.
             ),
         }
@@ -88,11 +96,17 @@ class SignupForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        """Save the user with a hashed password and auto-create username from email."""
+        """Save the user with a hashed password and auto-generate a unique account number."""
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
+        # Auto-generate and assign a unique account number if not already set.
+        if not user.account_number:
+            user.account_number = generate_unique_account_number()
+        if commit:
+            user.save()
         return user
 
+        
 
 class LoginForm(forms.Form):
     email = forms.EmailField(
@@ -137,26 +151,129 @@ class LoginForm(forms.Form):
         return self.user_cache     
 
 
-
-
-
 class TransferForm(forms.ModelForm):
+    # Field to select an existing beneficiary (optional)
+    beneficiary = forms.ModelChoiceField(
+        queryset=Beneficiary.objects.none(),
+        required=False,
+        widget=forms.Select(attrs={"class": "form-control", "id": "id_beneficiary"})
+    )
+    # Fields for manually entering beneficiary details if none is selected
+    new_full_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control manual-beneficiary-field",
+            "placeholder": "Enter recipient's full name"
+        })
+    )
+    new_account_number = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control manual-beneficiary-field",
+            "placeholder": "Enter recipient's account number"
+        })
+    )
+    new_bank_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control manual-beneficiary-field",
+            "placeholder": "Enter recipient's bank name"
+        })
+    )
+    new_identifier_code = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control manual-beneficiary-field",
+            "placeholder": "Enter SWIFT/BIC (optional)"
+        })
+    )
+
     class Meta:
         model = Transfer
         fields = [
-            "bank_holder", "bank_account", "bank_name", "identifier_code", "amount",
-            "currency", "reason", "region"
+            "beneficiary", "amount", "currency", "reason", "region"
         ]
         widgets = {
-            "bank_holder": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter recipient's full name", "required": True}),
-            "bank_account": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter recipient's account number", "required": True}),
-            "bank_name": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter recipient's bank name", "required": True}),
-            "identifier_code": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter SWIFT/BIC (optional)"}),
-            "amount": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Enter amount", "step": "0.01", "required": True}),
-            "currency": forms.Select(choices=[("USD", "USD"), ("EUR", "EUR"), ("GBP", "GBP")], attrs={"class": "form-control", "required": True}),
-            "reason": forms.TextInput(attrs={"class": "form-control", "placeholder": "Purpose of transfer", "required": True}),
-            "region": forms.Select(choices=[("local", "Local"), ("international", "International")], attrs={"class": "form-control", "required": True}),
+            "amount": forms.NumberInput(attrs={
+                "class": "form-control",
+                "placeholder": "Enter amount",
+                "step": "0.01",
+                "required": True
+            }),
+            "currency": forms.Select(choices=[
+                ("USD", "USD"),
+                ("EUR", "EUR"),
+                ("GBP", "GBP")
+            ], attrs={"class": "form-control", "required": True}),
+            "reason": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Purpose of transfer",
+                "required": True
+            }),
+            "region": forms.Select(
+                choices=[
+                    ("wire", "Wire Transfer"),
+                    ("local", "Local Transfer"),
+                    ("internal", "Internal Transfer")
+                ],
+                attrs={"class": "form-control", "required": True}
+            ),
         }
+
+    def __init__(self, *args, **kwargs):
+        # Expect the current user to be passed in so we can filter beneficiaries.
+        user = kwargs.pop('user', None)
+        self.user = user
+        super(TransferForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['beneficiary'].queryset = Beneficiary.objects.filter(user=user)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        beneficiary = cleaned_data.get('beneficiary')
+        if not beneficiary:
+            new_full_name = cleaned_data.get('new_full_name')
+            new_account_number = cleaned_data.get('new_account_number')
+            new_bank_name = cleaned_data.get('new_bank_name')
+            if not (new_full_name and new_account_number and new_bank_name):
+                raise forms.ValidationError(
+                    "Please select an existing beneficiary or fill in all beneficiary details manually."
+                )
+        return cleaned_data
+
+    def save(self, commit=True):
+        transfer = super().save(commit=False)
+        if not self.cleaned_data.get('beneficiary'):
+            new_full_name = self.cleaned_data.get('new_full_name')
+            new_account_number = self.cleaned_data.get('new_account_number')
+            new_bank_name = self.cleaned_data.get('new_bank_name')
+            new_identifier_code = self.cleaned_data.get('new_identifier_code')
+            
+            # Check if a beneficiary with these details already exists for the user.
+            existing_beneficiary = Beneficiary.objects.filter(
+                user=self.user,
+                full_name=new_full_name,
+                account_number=new_account_number,
+                bank_name=new_bank_name
+            ).first()
+            
+            if existing_beneficiary:
+                # Use the existing beneficiary.
+                transfer.beneficiary = existing_beneficiary
+                # Optionally, you might clear manual fields here if needed.
+            else:
+                # Create a new beneficiary since none exists.
+                beneficiary = Beneficiary.objects.create(
+                    user=self.user,
+                    full_name=new_full_name,
+                    account_number=new_account_number,
+                    bank_name=new_bank_name,
+                    swift_code=new_identifier_code
+                )
+                transfer.beneficiary = beneficiary
+        if commit:
+            transfer.save()
+        return transfer
 
 
 

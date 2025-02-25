@@ -352,4 +352,40 @@
 </script>
 
 
+<!-- Embed the beneficiary data as a JavaScript variable -->
+<script>
+  var beneficiaryData = {{ beneficiary_data_json|safe }};
+  
+  $(document).ready(function() {
+    // Function to populate and disable manual fields when a beneficiary is selected.
+    function fillBeneficiaryFields() {
+      var selectedId = $('#id_beneficiary').val();
+      if (selectedId) {
+        var data = beneficiaryData[selectedId];
+        // Fill in the manual fields with the beneficiary information.
+        $('input[name="new_full_name"]').val(data.full_name).prop('disabled', true);
+        $('input[name="new_account_number"]').val(data.account_number).prop('disabled', true);
+        $('input[name="new_bank_name"]').val(data.bank_name).prop('disabled', true);
+        $('input[name="new_identifier_code"]').val(data.swift_code).prop('disabled', true);
+      } else {
+        // No beneficiary selected: clear the manual fields and enable them for manual entry.
+        $('input[name="new_full_name"]').val('').prop('disabled', false);
+        $('input[name="new_account_number"]').val('').prop('disabled', false);
+        $('input[name="new_bank_name"]').val('').prop('disabled', false);
+        $('input[name="new_identifier_code"]').val('').prop('disabled', false);
+      }
+    }
+    
+    // Run on page load.
+    fillBeneficiaryFields();
+    
+    // Bind the change event on the beneficiary dropdown.
+    $('#id_beneficiary').on('change', function() {
+      fillBeneficiaryFields();
+    });
+  });
+</script>
+
+
+
   {% endblock contents %}

@@ -27,13 +27,22 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (
     Account, AccountBalance, Card, LoanRequest, 
     Exchange, ResetPassword, TransferCode, Transaction,Deposit,PaymentGateway,Transfer,LoanRequest,
-    ExchangeRate
+    ExchangeRate, Beneficiary
 )
 from django.db import transaction
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from django.template.response import TemplateResponse
+import random
 
 
+def generate_unique_account_number():
+    """
+    Generate a unique 10-digit account number.
+    """
+    while True:
+        acct_num = "".join(str(random.randint(0, 9)) for _ in range(10))
+        if not Account.objects.filter(account_number=acct_num).exists():
+            return acct_num
 
 
 
@@ -55,7 +64,9 @@ class AccountCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         account = super().save(commit=False)
-        account.set_password(self.cleaned_data["password1"])  # Hash the password
+        account.set_password(self.cleaned_data["password1"])
+        if not account.account_number:
+            account.account_number = generate_unique_account_number()  # Hash the password
         if commit:
             account.save()
         return account
@@ -68,7 +79,7 @@ class AccountAdmin(BaseUserAdmin,UnfoldModelAdmin):
     readonly_fields = ('date_joined', 'last_login')  # Mark non-editable fields as read-only
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'phone_number', 'account_type')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'phone_number', 'account_type','account_number')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
@@ -304,24 +315,40 @@ class DepositAdmin(UnfoldModelAdmin):
 @admin.register(Transfer)
 class TransferAdmin(UnfoldModelAdmin):
     list_display = (
-        "reference", "user", "amount", "currency", "bank_name",
-        "bank_account", "status", "date", "confirm_button", "cancel_button"
+        "reference", "user", "beneficiary_display", "amount", "currency", "status", "date", "confirm_button", "cancel_button"
     )
-    list_filter = ("status", "currency", "region", "bank_name", "date")
-    search_fields = ("reference", "user__username", "bank_name", "bank_account", "sender_name")
+    list_filter = ("status", "currency", "date", "beneficiary")
+    search_fields = (
+        "reference", 
+        "user__username", 
+        "beneficiary__full_name", 
+        "beneficiary__bank_name", 
+        "beneficiary__account_number"
+    )
     ordering = ("-date",)
     readonly_fields = ("reference", "user", "date", "charge")
 
     fieldsets = (
         ("Transfer Details", {
-            "fields": ("reference", "user", "amount", "currency", "charge", "reason", "region", "status")
-        }),
-        ("Bank Details", {
-            "fields": ("bank_country", "bank_name", "bank_account", "bank_holder", "identifier", "identifier_code", "sender_name")
+            "fields": (
+                "reference", "user", "beneficiary", "amount", "currency", "charge", "reason", "status"
+            )
         }),
     )
 
     actions = ["approve_transfer", "reject_transfer"]
+
+    def beneficiary_display(self, obj):
+        """Custom display of beneficiary information."""
+        if obj.beneficiary:
+            return format_html(
+                "{}<br><small>{} - {}</small>",
+                obj.beneficiary.full_name,
+                obj.beneficiary.bank_name,
+                obj.beneficiary.account_number,
+            )
+        return "-"
+    beneficiary_display.short_description = "Beneficiary"
 
     def confirm_button(self, obj):
         if obj.status == "pending":
@@ -399,7 +426,6 @@ class TransferAdmin(UnfoldModelAdmin):
             if transfer.status == "pending":
                 self.confirm_single_transfer(transfer)
         messages.success(request, "Selected transfers have been approved.")
-
     approve_transfer.short_description = "Approve selected transfers"
 
     def reject_transfer(self, request, queryset):
@@ -408,10 +434,7 @@ class TransferAdmin(UnfoldModelAdmin):
             if transfer.status == "pending":
                 self.cancel_single_transfer(transfer)
         messages.warning(request, "Selected transfers have been rejected.")
-
     reject_transfer.short_description = "Reject selected transfers"
-
-
 
 
 
@@ -434,3 +457,11 @@ class ExchangeRateAdmin(UnfoldModelAdmin):
     list_filter = ('updated_at',)
 
 
+@admin.register(Beneficiary)
+class BeneficiaryAdmin(UnfoldModelAdmin):
+    list_display = (
+        "id", "user", "full_name", "account_number", "bank_name", "swift_code", "created_at"
+    )
+    list_filter = ("user", "bank_name", "created_at")
+    search_fields = ("full_name", "account_number", "bank_name")
+    ordering = ("-created_at",)

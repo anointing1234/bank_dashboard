@@ -60,7 +60,8 @@ class AccountManager(BaseUserManager):
 
         return self.create_user(email=email, password=password, **extra_fields)
 
-class Account(AbstractBaseUser, PermissionsMixin):
+
+class Account(AbstractBaseUser , PermissionsMixin):
     email = models.EmailField(verbose_name="Email", max_length=100, unique=True)
     username = models.CharField(max_length=100, blank=True)
     first_name = models.CharField(max_length=100, blank=True)
@@ -72,12 +73,18 @@ class Account(AbstractBaseUser, PermissionsMixin):
         default='savings',
         help_text="Type of bank account (e.g., Savings, Current, Fixed Deposit)"
     )
+    account_number = models.CharField(
+        max_length=20,
+        unique=True,
+        blank=True,
+        null=True
+    )
     date_joined = models.DateTimeField(verbose_name="Date Joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="Last Login", auto_now=True)
     
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)  # Django’s built-in staff flag
-    is_superuser = models.BooleanField(default=False)  # Django’s built-in superuser flag
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -88,12 +95,29 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def has_perm(self, perm, obj=None):
-        """Superusers have all permissions"""
         return self.is_superuser
 
     def has_module_perms(self, app_label):
-        """Grant access to Django admin panel"""
         return self.is_superuser or self.is_staff
+
+    def save(self, *args, **kwargs):
+        # Automatically generate a username if it's blank
+        if not self.username:
+            self.username = self.generate_username()
+        super().save(*args, **kwargs)
+
+    def generate_username(self):
+        # Use the part of the email before the "@" as the base username
+        base_username = self.email.split('@')[0]
+
+        # Ensure the username is unique
+        username = base_username
+        counter = 1
+        while Account.objects.filter(username=username).exists():
+            username = f"{base_username}{counter}"  # Append a number to make it unique
+            counter += 1
+
+        return username
 
 
 
@@ -525,6 +549,20 @@ class PaymentGateway(models.Model):
 
 
 
+class Beneficiary(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='beneficiaries'
+    )
+    full_name = models.CharField(max_length=255)
+    account_number = models.CharField(max_length=50)
+    bank_name = models.CharField(max_length=255)
+    swift_code = models.CharField(max_length=50, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.full_name} - {self.bank_name}"
 
 class Transfer(models.Model):
     STATUS_CHOICES = [
@@ -536,23 +574,25 @@ class Transfer(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='transfers'
+        related_name='transfers',
+        null=True,  # Allow null values temporarily
+        blank=True
     )
-    amount = models.DecimalField(max_digits=15, decimal_places=2)  # Allows large amounts
-    currency = models.CharField(max_length=10, default="USD")  # Default currency
-    reference = models.CharField(max_length=50, unique=True)  # Unique transfer reference
-    date = models.DateTimeField(auto_now_add=True)  # Auto-filled timestamp
-    reason = models.TextField(blank=True, null=True)  # Optional reason
+    beneficiary = models.ForeignKey(
+        Beneficiary,
+        on_delete=models.CASCADE,
+        related_name='transfers',
+        null=True,  # Allow null values temporarily
+        blank=True
+    )
+    amount = models.DecimalField(max_digits=15, decimal_places=2)
+    currency = models.CharField(max_length=10, default="USD")
+    reference = models.CharField(max_length=50, unique=True)
+    date = models.DateTimeField(auto_now_add=True)
+    reason = models.TextField(blank=True, null=True)
     region = models.CharField(max_length=50, default="local")  # Default to local transfers
-    charge = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # Transfer fees
-    bank_country = models.CharField(max_length=50, blank=True, null=True)  # Can be None for local transfers
-    bank_name = models.CharField(max_length=100)  # Bank name
-    bank_account = models.CharField(max_length=50)  # Recipient bank account number
-    bank_holder = models.CharField(max_length=100)  # Name of the recipient
-    identifier = models.CharField(max_length=100, blank=True, null=True)  # Optional identifier
-    identifier_code = models.CharField(max_length=100, blank=True, null=True)  # Optional identifier code
-    sender_name = models.CharField(max_length=100)  # Name of the sender
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")  # Transfer status
+    charge = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
 
     def __str__(self):
         return f"Transfer {self.reference} - {self.status}"
