@@ -115,7 +115,7 @@ admin.site.register(Account, AccountAdmin)
 
 @admin.register(AccountBalance)
 class AccountBalanceAdmin(UnfoldModelAdmin):
-    list_display = ('account', 'available_balance', 'loan_balance', 'total_credits', 'total_debits','gbp','eur')
+    list_display = ('account', 'available_balance', 'loan_balance', 'total_credits', 'total_debits','gbp','eur','checking_balance')
     search_fields = ('account__email',)
 
 @admin.register(Card)

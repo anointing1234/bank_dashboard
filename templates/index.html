@@ -127,107 +127,189 @@
   </div>
   
   <div class="container bg-dark">
-    <div class="page-inner">
+    <div style="background-color:#1A2035;" class="page-inner ">
+
+
+
+      
       <!-- Horizontal Scrollable Cards Section -->
-      <div class="outer-scroll">
+      <div style=" background: linear-gradient(135deg, #000000, #001f3f, #000000)" class="outer-scroll rounded">
         <div class="scroll-container-horizontal">
           <div class="cards-wrapper">
             <!-- Card 1 -->
-            <div class="card-container">
-              <div class="card account_card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category text-gray">Available Balance</p>
-                        <h3 class="card-title text-white">
-                          ${{ request.user.account_balance.available_balance|intcomma }}
-                        </h3>
-                        <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
-                        <div class="row mt-2">
-                          <div class="col-6 text-center">
-                            <p style="font-size:12px;" class="card-category text-gray">Credits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">{{ total_credits|floatformat:2 }}</h5>
-                          </div>
-                          <div class="col-6 text-center">
-                            <p style="font-size:12px;" class="card-category text-gray">Debits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">{{ total_debits|floatformat:2 }}</h5>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+           
+           <!-- Card 1: Savings -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              Savings 
+              <!-- Toggle icon with unique data attributes -->
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-savings"
+                 data-key="balanceHidden-savings"
+                 style="cursor:pointer;"></i>
+            </p>
+            <!-- Balance element with unique id and data-balance storing original text -->
+            <h3 class="card-title text-white toggle-balance"
+                id="available-balance-savings"
+                data-hidden="false"
+                data-balance="${{ request.user.account_balance.available_balance|intcomma }}">
+              ${{ request.user.account_balance.available_balance|intcomma }}
+            </h3>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+            <div class="row mt-2">
+              <div class="col-6 text-center">
+                <p style="font-size:12px;" class="card-category text-gray">Credits</p>
+                <h5 style="font-size:12px;" class="card-title text-white">{{ total_credits|floatformat:2 }}</h5>
+              </div>
+              <div class="col-6 text-center">
+                <p style="font-size:12px;" class="card-category text-gray">Debits</p>
+                <h5 style="font-size:12px;" class="card-title text-white">{{ total_debits|floatformat:2 }}</h5>
               </div>
             </div>
-            <!-- Card 2 -->
-            <div class="card-container">
-              <div class="card account_card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category text-white">Loan Balance</p>
-                        <h3 class="card-title text-white">
-                          ${{ request.user.account_balance.loan_balance|intcomma }}
-                        </h3>
-                        <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="card-container">
-              <div class="card account_card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category text-white">GBP</p>
-                        <h4 class="card-title text-white">£{{ request.user.account_balance.gbp|intcomma }}</h4>
-                        <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
-                        <div class="row mt-2">
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Card 4 -->
-            <div class="card-container">
-              <div class="card account_card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category text-white">EUR</p>
-                        <h4 class="card-title text-white">€{{ request.user.account_balance.eur|intcomma }}</h4>
-                        <p class="card-category text-gray">Account number</p>
-                        <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
-                        <div class="row mt-2">
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 2: Checking Balance -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              Checking Balance 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-checking"
+                 data-key="balanceHidden-checking"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h3 class="card-title text-white toggle-balance"
+                id="available-balance-checking"
+                data-hidden="false"
+                data-balance="${{ request.user.account_balance.checking_balance|intcomma }}">
+              ${{ request.user.account_balance.checking_balance|intcomma }}
+            </h3>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 3: Credit Card -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              Credit Card 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-credit"
+                 data-key="balanceHidden-credit"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h3 class="card-title text-white toggle-balance"
+                id="available-balance-credit"
+                data-hidden="false"
+                data-balance="${{ request.user.account_balance.loan_balance|intcomma }}">
+              ${{ request.user.account_balance.loan_balance|intcomma }}
+            </h3>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 4: GBP -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              GBP 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-gbp"
+                 data-key="balanceHidden-gbp"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h4 class="card-title text-white toggle-balance"
+                id="available-balance-gbp"
+                data-hidden="false"
+                data-balance="£{{ request.user.account_balance.gbp|intcomma }}">
+              £{{ request.user.account_balance.gbp|intcomma }}
+            </h4>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 5: EUR -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              EUR 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-eur"
+                 data-key="balanceHidden-eur"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h4 class="card-title text-white toggle-balance"
+                id="available-balance-eur"
+                data-hidden="false"
+                data-balance="€{{ request.user.account_balance.eur|intcomma }}">
+              €{{ request.user.account_balance.eur|intcomma }}
+            </h4>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
           </div><!-- end .cards-wrapper -->
         </div><!-- end .scroll-container-horizontal -->
       </div><!-- end .outer-scroll -->
 
+
+
+
+
+
+
+
       <!-- Updated row: use explicit order classes and remove fixed height -->
-      <div class="row align-items-stretch mt-5 p-3">
+      <div class="row align-items-stretch mt-5  p-3">
          <!-- Left Section: Icons -->
-  <div class="col-12 col-md-8 mb-5 pb-5 order-1">
+  <div class="col-12 col-md-8 bg-dark mb-5 pb-5 order-1">
     <div class="row justify-content-center">
       <!-- Using col-6 for mobile and col-md-3 for larger screens -->
       <div class="col-6 col-md-3 mt-5 icon-column">
@@ -524,5 +606,69 @@
     });
   });
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Select all toggle icons
+    const toggleIcons = document.querySelectorAll(".toggle-balance-icon");
+  
+    // Function to update the balance element UI
+    function updateUI(element, isHidden) {
+      // Retrieve the original balance text from data attribute.
+      const originalBalance = element.getAttribute("data-balance");
+      if (isHidden) {
+        element.textContent = "*******";
+      } else {
+        element.textContent = originalBalance;
+      }
+      element.setAttribute("data-hidden", isHidden ? "true" : "false");
+    }
+  
+    // Process each toggle icon independently
+    toggleIcons.forEach(function(icon) {
+      // Get the target balance element's id and the storage key from the icon's data attributes.
+      const targetId = icon.getAttribute("data-target");
+      const storageKey = icon.getAttribute("data-key");
+      const balanceElement = document.getElementById(targetId);
+  
+      // On page load, check localStorage for this balance's saved state.
+      let storedState = localStorage.getItem(storageKey);
+      let isHidden = storedState === "true";  // stored as string "true" or "false"
+      if (balanceElement) {
+        updateUI(balanceElement, isHidden);
+      }
+  
+      // Set the initial icon classes accordingly.
+      if (isHidden) {
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+  
+      // Add a click event listener for toggling.
+      icon.addEventListener("click", function() {
+        // Toggle the state for this balance element.
+        const currentlyHidden = balanceElement.getAttribute("data-hidden") === "true";
+        const newHidden = !currentlyHidden;
+        updateUI(balanceElement, newHidden);
+        
+        // Update the icon classes.
+        if (newHidden) {
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+        
+        // Save the new state to localStorage for this balance.
+        localStorage.setItem(storageKey, newHidden);
+      });
+    });
+  });
+  </script>
+  
+
 
 {% endblock contents %}

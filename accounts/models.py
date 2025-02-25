@@ -138,7 +138,8 @@ class AccountBalance(models.Model):
     
     gbp = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # Pounds: £1.23 / $
     eur = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # Euro: €1.03 / $
-
+    checking_balance = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
+    
     def __str__(self):
         return f"Account Balance for {self.account.email}"
 
