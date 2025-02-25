@@ -27,6 +27,7 @@ urlpatterns = [
     path('send_reset_code_view/',views.send_reset_code_view,name='send_reset_code_view'),
     path('reset_password_view/',views.reset_password_view,name='reset_password_view'),
     path('send_pass/',views.send_pass,name='send_pass'),
+    path('get_statements/',views.get_statements, name='get_statements'),
      path('add_beneficiary/',views.add_beneficiary, name='add_beneficiary'),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

@@ -148,11 +148,11 @@
                         <div class="row mt-2">
                           <div class="col-6 text-center">
                             <p style="font-size:12px;" class="card-category text-gray">Credits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
+                            <h5 style="font-size:12px;" class="card-title text-white">{{ total_credits|floatformat:2 }}</h5>
                           </div>
                           <div class="col-6 text-center">
-                            <p style="font-size:10px;" class="card-category text-gray">Deposits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
+                            <p style="font-size:12px;" class="card-category text-gray">Debits</p>
+                            <h5 style="font-size:12px;" class="card-title text-white">{{ total_debits|floatformat:2 }}</h5>
                           </div>
                         </div>
                       </div>
@@ -192,14 +192,7 @@
                         <p class="card-category text-gray">Account number</p>
                         <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
                         <div class="row mt-2">
-                          <div class="col-6 text-center">
-                            <p style="font-size:12px;" class="card-category text-gray">Credits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
-                          </div>
-                          <div class="col-6 text-center">
-                            <p style="font-size:10px;" class="card-category text-gray">Deposits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -219,14 +212,7 @@
                         <p class="card-category text-gray">Account number</p>
                         <h3 class="card-title text-white">  **********{{ request.user.account_number|slice:"-3:" }}</h3>
                         <div class="row mt-2">
-                          <div class="col-6 text-center">
-                            <p style="font-size:12px;" class="card-category text-gray">Credits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
-                          </div>
-                          <div class="col-6 text-center">
-                            <p style="font-size:11px;" class="card-category text-gray">Deposits</p>
-                            <h5 style="font-size:12px;" class="card-title text-white">0.00</h5>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -281,12 +267,13 @@
             </div>
             <span class="mt-2 text-white">Crypto Deposit</span>
           </a>
-          <a href="#" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+          <a href="#" id="checkStatementsLink" class="text-decoration-none d-flex flex-column align-items-center mt-5">
             <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
               <i class="fa-solid fa-calendar fa-2xl"></i>
             </div>
             <span class="mt-2 text-white">Check Statements</span>
           </a>
+          
         </div>
       </div>
 
@@ -304,11 +291,11 @@
             </div>
             <span class="mt-2 text-white">Add Beneficiary</span>
           </a>
-          <a href="#" class="text-decoration-none d-flex flex-column align-items-center mt-5">
+          <a href="{% url 'exchange' %}" class="text-decoration-none d-flex flex-column align-items-center mt-5">
             <div class="bg-white rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 50px; height: 50px;">
-              <i class="fa-solid fa-calendar fa-2xl"></i>
+              <i class="fa-solid fa-arrow-right-arrow-left fa-2xl"></i>
             </div>
-            <span class="mt-2 text-white">Savings Statements</span>
+            <span class="mt-2 text-white">Exchange</span>
           </a>
         </div>
       </div>
@@ -440,6 +427,96 @@
             },
             error: function(xhr) {
               Swal.fire('Error', 'An error occurred while adding the beneficiary.', 'error');
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#checkStatementsLink").on("click", function(e) {
+      e.preventDefault();
+      
+      // Show a SweetAlert prompt to choose the statement type.
+      Swal.fire({
+        title: "Select Statement Type",
+        text: "Which statement would you like to view?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Deposit Statements",
+        cancelButtonText: "Transfer Statements"
+      }).then((result) => {
+        let statementType = "";
+        if (result.isConfirmed) {
+          statementType = "deposit";
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          statementType = "transfer";
+        }
+        
+        if (statementType) {
+          // Show loading spinner while fetching statement data
+          Swal.fire({
+            title: "Fetching Statements",
+            text: "Please wait...",
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+          
+          // AJAX GET request to fetch statement data
+          $.ajax({
+            url: "{% url 'get_statements' %}",
+            method: "GET",
+            data: {
+              statement_type: statementType
+            },
+            success: function(response) {
+              Swal.close();
+              if (response.success) {
+                let html = "<table class='table table-bordered'><thead><tr>" +
+                  "<th>Reference</th>" +
+                  "<th>Date</th>" +
+                  "<th>Amount</th>" +
+                  "<th>Status</th>" +
+                  "</tr></thead><tbody>";
+                if (response.statements && response.statements.length > 0) {
+                  $.each(response.statements, function(index, tx) {
+                    html += "<tr>" +
+                      "<td>" + tx.reference + "</td>" +
+                      "<td>" + tx.date + "</td>" +
+                      "<td>" + tx.amount + "</td>" +
+                      "<td>" + tx.status + "</td>" +
+                      "</tr>";
+                  });
+                } else {
+                  html += "<tr><td colspan='4' class='text-center'>No transactions found.</td></tr>";
+                }
+                html += "</tbody></table>";
+                
+                Swal.fire({
+                  title: (statementType.charAt(0).toUpperCase() + statementType.slice(1)) + " Statements",
+                  html: html,
+                  width: "80%"
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: response.message || "Unable to fetch statements."
+                });
+              }
+            },
+            error: function() {
+              Swal.close();
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "There was an error fetching statements. Please try again later."
+              });
             }
           });
         }

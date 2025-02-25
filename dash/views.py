@@ -23,19 +23,41 @@ from requests.exceptions import ConnectionError
 import requests 
 from django.contrib.auth.decorators import login_required
 from accounts.models import Transaction,Card
+from django.db.models import Sum
+
 
 
 
 @login_required(login_url='login')
 def home_view(request):
-   other_transactions = Transaction.objects.filter(user=request.user).order_by('-transaction_date')  # Fetch transactions for logged-in user
-   transfer_transactions = other_transactions.filter(transaction_type="transfer")
-   cards = Card.objects.filter(user=request.user)
-   return render(request, 'index.html',{
-   "transfer_transactions": transfer_transactions,
-   "other_transactions": other_transactions,
-   "cards": cards
-   })
+    account = request.user  # Assuming the logged-in user is an Account instance
+
+    other_transactions = Transaction.objects.filter(user=account).order_by('-transaction_date')
+    transfer_transactions = other_transactions.filter(transaction_type="transfer")
+    cards = Card.objects.filter(user=account)
+
+    # Calculate total credits: sum amounts for transactions marked as "completed"
+    credit_agg = Transaction.objects.filter(
+        user=account,
+        transaction_type="deposit"
+    ).aggregate(total=Sum('amount'))
+    total_credits = credit_agg['total'] or 0.00
+
+    # Calculate total debits: sum amounts for transactions marked as "transfer"
+    debit_agg = Transaction.objects.filter(
+        user=account,
+        transaction_type="transfer"
+    ).aggregate(total=Sum('amount'))
+    total_debits = debit_agg['total'] or 0.00
+
+    context = {
+        "transfer_transactions": transfer_transactions,
+        "other_transactions": other_transactions,
+        "cards": cards,
+        "total_credits": total_credits,
+        "total_debits": total_debits,
+    }
+    return render(request, 'index.html', context)
 
 
 

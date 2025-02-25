@@ -510,7 +510,26 @@ def add_card(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request!'}, status=400)   
 
 
+def get_statements(request):
+    statement_type = request.GET.get("statement_type")
+    if statement_type == "deposit":
+        # Adjust the filter to match your deposit transactions (e.g., transaction_type="deposit")
+        transactions = Transaction.objects.filter(user=request.user, transaction_type="deposit").order_by("-transaction_date")
+    elif statement_type == "transfer":
+        transactions = Transaction.objects.filter(user=request.user, transaction_type="transfer").order_by("-transaction_date")
+    else:
+        return JsonResponse({"success": False, "message": "Invalid statement type."}, status=400)
 
+    data = []
+    for tx in transactions:
+        data.append({
+            "reference": tx.reference,
+            "date": tx.transaction_date.strftime("%Y-%m-%d %H:%M"),  # Format as desired
+            "amount": str(tx.amount),
+            "status": tx.status,
+        })
+
+    return JsonResponse({"success": True, "statements": data})
 
 
 
