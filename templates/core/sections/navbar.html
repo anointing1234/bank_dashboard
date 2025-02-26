@@ -85,8 +85,25 @@
                 </a>
               </li>
 
-
-              <img style="height:200px;" class="mt-1" src="{% static 'images/bank_box.webp' %}">
+             <div class="container mt-3">
+              <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+              
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                {
+                "symbol": "FX:EURUSD",
+                "width": "100%",
+                "height": "200",
+                "locale": "en",
+                "dateRange": "12M",
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "autosize": true,
+                "largeChartUrl": ""
+              }
+                </script>
+              </div>
+             </div>
             </ul>
           </div>
         </div>
