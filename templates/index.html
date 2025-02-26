@@ -81,6 +81,54 @@
       margin-bottom: 30px;
     }
   }
+
+  
+  .atm-chip {
+    /* Dimensions */
+    width: 60px;
+    height: 50px;
+    
+    /* Metallic golden gradient */
+    background: linear-gradient(135deg, #E8921E, #D87807);
+    
+    /* Slight border and shadow for depth */
+    border: 1px solid #c76b00;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2), 
+                0 2px 5px rgba(0,0,0,0.3);
+     
+    border-radius:10px;            
+    
+    /* Crop corners to mimic a chip shape */
+   
+    /* Position relative to place "lines" inside */
+    position: relative;
+  
+  }
+
+  /* Horizontal lines inside the chip */
+  .atm-chip .line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background:black; /* a light line to emulate segments */
+  }
+  .line1 { top: 25%; }
+  .line2 { top: 50%; }
+  .line3 { top: 75%; }
+
+  /* Vertical lines inside the chip */
+  .atm-chip .vline {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: black;
+  }
+  .vline1 { left: 33%; }
+  .vline2 { left: 66%; }
+  
+
 </style>
 
 <div class="main-panel">
@@ -127,6 +175,43 @@
   </div>
   
   <div class="container bg-dark">
+    <div class="container"><!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+        "symbols": [
+          {
+            "proName": "FOREXCOM:SPXUSD",
+            "title": "S&P 500 Index"
+          },
+          {
+            "proName": "FOREXCOM:NSXUSD",
+            "title": "US 100 Cash CFD"
+          },
+          {
+            "proName": "FX_IDC:EURUSD",
+            "title": "EUR to USD"
+          },
+          {
+            "proName": "BITSTAMP:BTCUSD",
+            "title": "Bitcoin"
+          },
+          {
+            "proName": "BITSTAMP:ETHUSD",
+            "title": "Ethereum"
+          }
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": false,
+        "displayMode": "adaptive",
+        "colorTheme": "dark",
+        "locale": "en"
+      }
+        </script>
+      </div>
+    </div>
     <div style="background-color:#1A2035;" class="page-inner ">
 
 
@@ -299,17 +384,41 @@
         </div><!-- end .scroll-container-horizontal -->
       </div><!-- end .outer-scroll -->
 
-
-
-
-
+      <div class="mt-3" style="width: 100vw; margin: 0; padding: 0;">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container" style="width:100%;">
+          <div class="tradingview-widget-container__widget" style="width:100%; height:600px;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+          {
+            "width": "100%",
+            "height": "300",
+            "currencies": [
+              "EUR",
+              "USD",
+              "JPY",
+              "GBP",
+              "CHF",
+              "AUD",
+              "CAD",
+              "NZD"
+            ],
+            "isTransparent": false,
+            "colorTheme": "dark",
+            "locale": "en",
+            "backgroundColor": "#000000"
+          }
+          </script>
+        </div>
+        <!-- TradingView Widget END -->
+      </div>
+      
 
 
 
       <!-- Updated row: use explicit order classes and remove fixed height -->
       <div class="row align-items-stretch mt-5  p-3">
          <!-- Left Section: Icons -->
-  <div class="col-12 col-md-8 bg-dark mb-5 pb-5 order-1">
+  <div style="background-color:black; border-radius:20px;" class="col-12 col-md-8  mb-5 pb-5 order-1">
     <div class="row justify-content-center">
       <!-- Using col-6 for mobile and col-md-3 for larger screens -->
       <div class="col-6 col-md-3 mt-5 icon-column">
@@ -392,8 +501,18 @@
             {% if cards %}
   {% for card in cards %}
     <div class="card-body p-4">
-      <div class="golden-rectangle" style="background-color:#E8921E; height: 50px; width: 60px; border-radius: 5px;"></div>
       <div class="mt-1">
+        <div class="atm-chip mb-2">
+          <!-- Horizontal lines -->
+          <div class="line line1"></div>
+          
+          <div class="line line3"></div>
+      
+          <!-- Vertical lines -->
+          <div class="vline vline1"></div>
+          <div class="vline vline2"></div>
+        </div>
+
         <p class="mb-1 text-white" style="font-size: 0.8rem;">Card Number</p>
         <h4 class="mb-2 text-white">
           **** ***** *** {{ card.account|slice:"-5:" }}
@@ -414,7 +533,16 @@
   {% endfor %}
 {% else %}
   <div class="card-body p-4">
-    <div class="golden-rectangle" style="background-color:#E8921E; height: 50px; width: 60px; border-radius: 5px;"></div>
+    <div class="atm-chip">
+    <!-- Horizontal lines -->
+    <div class="line line1"></div>
+    <div class="line line2"></div>
+    <div class="line line3"></div>
+
+    <!-- Vertical lines -->
+    <div class="vline vline1"></div>
+    <div class="vline vline2"></div>
+  </div>
     <div class="mt-1">
       <p class="mb-1 text-white" style="font-size: 0.8rem;">No Purchased Cards</p>
       <h4 class="mb-2 text-white">You don't have any cards yet.</h4>
@@ -439,19 +567,22 @@
       </div><!-- end row -->
     </div><!-- end page-inner -->
   </div><!-- end container -->
-
   <footer class="footer">
     <div class="container-fluid d-flex justify-content-between">
       <nav class="pull-left">
-        <ul class="nav"></ul>
+        <ul class="nav">
+
+        </ul>
       </nav>
-      <div class="copyright"></div>
+      <div class="copyright">
+      
+      </div>
       <div>
         copyright@
         <a target="_blank" class="text-dark" href="">2025mybcplc.com</a>.
       </div>
     </div>
-  </footer>
+  </footer>s
 </div>
 
 

@@ -465,11 +465,10 @@ class Transaction(models.Model):
 
 
 
-# Deposit status choices
-DEPOSIT_STATUS_CHOICES = (
-    ('pending', 'Pending'),
-    ('completed', 'Completed'),
-    ('failed', 'Failed'),
+# Account choices for deposit model
+ACCOUNT_CHOICES = (
+    ('Savings_Account', 'Savings Account'),
+    ('Checking_Account', 'Checking Account'),
 )
 
 class Deposit(models.Model):
@@ -497,15 +496,26 @@ class Deposit(models.Model):
         default=1.00,
         help_text="Exchange rate at the time of deposit"
     )
+    account = models.CharField(
+        max_length=50,
+        choices=ACCOUNT_CHOICES,
+        help_text="The account selected for deposit",
+        default='Savings_Account'
+    )
     date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=20,
-        choices=DEPOSIT_STATUS_CHOICES,
+        choices=(
+            ('pending', 'Pending'),
+            ('completed', 'Completed'),
+            ('failed', 'Failed'),
+        ),
         default='pending'
     )
 
     def __str__(self):
         return f"Deposit of {self.amount} by {self.user.email} on {self.date:%Y-%m-%d}"
+
 
 
 
@@ -597,9 +607,6 @@ class Transfer(models.Model):
 
     def __str__(self):
         return f"Transfer {self.reference} - {self.status}"
-
-
-
 
 
 

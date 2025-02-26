@@ -149,6 +149,55 @@
   .card-secondary * {
     font-family: 'OCR-A', 'Courier New', monospace;
   }
+
+
+  
+  .atm-chip {
+    /* Dimensions */
+    width: 60px;
+    height: 50px;
+    
+    /* Metallic golden gradient */
+    background: linear-gradient(135deg, #E8921E, #D87807);
+    
+    /* Slight border and shadow for depth */
+    border: 1px solid #c76b00;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2), 
+                0 2px 5px rgba(0,0,0,0.3);
+     
+    border-radius:10px;            
+    
+    /* Crop corners to mimic a chip shape */
+   
+    /* Position relative to place "lines" inside */
+    position: relative;
+  
+  }
+
+  /* Horizontal lines inside the chip */
+  .atm-chip .line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background:black; /* a light line to emulate segments */
+  }
+  .line1 { top: 25%; }
+  .line2 { top: 50%; }
+  .line3 { top: 75%; }
+
+  /* Vertical lines inside the chip */
+  .atm-chip .vline {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: black;
+  }
+  .vline1 { left: 33%; }
+  .vline2 { left: 66%; }
+  
+
 </style>
 
 <div class="main-panel">
@@ -205,7 +254,7 @@
 
           <div class="container ">
                 <div class="page-inner">
-                    <div class="row d-flex justify-content-center align-items-center mt-5 pt-5">
+                    <div class="row d-flex justify-content-center align-items-center mt-2">
                       {% if cards %}
                   <div class="col-md-6  border-bottom">
                     <h3 class="text-center text-light">Available cards</h3>
@@ -213,7 +262,19 @@
                     <div class="card card-secondary bg-secondary-gradient text-white shadow-lg" style="border-radius: 15px;">
                               {% for card in cards %}
                 <div class="card-body text-center">
-                  <div class="golden-rectangle" style="background-color:#E8921E; height: 50px; width: 60px; border-radius: 5px;"></div>
+                  <div class="atm-chip mb-2">
+                    <!-- Horizontal lines -->
+                    <div class="line line1"></div>
+                    
+                    <div class="line line3"></div>
+                
+                    <!-- Vertical lines -->
+                    <div class="vline vline1"></div>
+                    <div class="vline vline2"></div>
+                  </div>
+                  
+        <p class="mb-1 text-white" style="font-size: 0.8rem;">Card Number</p>
+        
                   <h2 class="py-4 mb-0" style="font-size: 1.8rem;">
                     {% if card.account %}
                       **** ***** *** {{ card.account|slice:"-5:" }}

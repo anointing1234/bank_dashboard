@@ -188,6 +188,14 @@
                   </select>
                 </div>
                 <div class="mb-3">
+                  <label for="network" class="form-label">Select Account</label>
+                  <select name="network" id="account" class="form-select" required>
+                    <option value="" disabled selected>Choose an Account</option>
+                    <option value="Savings_Account">Savings Account</option>
+                    <option value="Checking_Account">Checking Account</option>
+                  </select>
+                </div>
+                <div class="mb-3">
                   <label for="rate" class="form-label">Exchange Rate</label>
                   <input type="text" name="rate" id="rate" class="form-control" value="1.00" readonly>
                 </div>
@@ -201,6 +209,8 @@
                   Deposit
                 </button>
               </form>
+
+
             </div>
           </div>
         </div>
@@ -286,25 +296,25 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-  
   $(document).ready(function() {
     $("#initiateDeposit").on("click", function(e) {
       e.preventDefault();
-
-      // Get selected network and amount
+  
+      // Get selected network, account, and deposit amount
       let selectedNetwork = $("#network").val();
+      let selectedAccount = $("#account").val();
       let depositAmount = $("#amount").val();
-
-      // Basic validation
-      if (!selectedNetwork || !depositAmount) {
+  
+      // Basic validation: ensure all fields are provided
+      if (!selectedNetwork || !selectedAccount || !depositAmount) {
         Swal.fire({
           icon: "warning",
           title: "Missing Information",
-          text: "Please select a network and enter an amount."
+          text: "Please select a network, an account, and enter an amount."
         });
         return;
       }
-
+  
       // Show loading spinner while fetching payment gateway details
       Swal.fire({
         title: "Fetching Payment Details",
@@ -314,23 +324,20 @@
           Swal.showLoading();
         }
       });
-    
-      // 1) AJAX GET request to fetch PaymentGateway data
+  
+      // AJAX GET request to fetch PaymentGateway data
       $.ajax({
-        url: "{% url 'get_payment_gateway' %}",  // Your Django endpoint
+        url: "{% url 'get_payment_gateway' %}",
         method: "GET",
         data: {
           network: selectedNetwork
         },
         success: function(response) {
-          // Close the loading spinner
           Swal.close();
-
-          // Suppose response includes { deposit_address, instructions, ... }
+  
           const depositAddress = response.deposit_address;
           const instructions = response.instructions || "No instructions provided.";
-
-          // Show deposit info in a SweetAlert
+  
           Swal.fire({
             title: "Payment Details",
             html: `
@@ -354,24 +361,25 @@
                   Swal.showLoading();
                 }
               });
-             
-              // 2) AJAX POST request to create deposit & transaction
+              
+              // AJAX POST request to create deposit & transaction, including the account field
               $.ajax({
-                url: " {% url 'create_deposit' %}",  // Your Django endpoint
+                url: "{% url 'create_deposit' %}",
                 method: "POST",
                 data: {
                   csrfmiddlewaretoken: "{{ csrf_token }}",
                   network: selectedNetwork,
-                  amount: depositAmount
+                  amount: depositAmount,
+                  account: selectedAccount   // New field included here
                 },
                 success: function(finalResponse) {
                   Swal.close();
                   Swal.fire({
                     icon: "success",
                     title: "Deposit Successful",
-                    text: finalResponse.message || "Your deposit has been recorded you account will be credited shortly."
+                    text: finalResponse.message || "Your deposit has been recorded. Your account will be credited shortly."
                   }).then(() => {
-                    location.reload();  // Reload the page after the user clicks "OK"
+                    location.reload();
                   });
                 },
                 error: function() {
@@ -397,7 +405,13 @@
       });
     });
   });
+  
 </script>
+
+
+
+
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Select all toggle icons

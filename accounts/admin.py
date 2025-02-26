@@ -214,7 +214,10 @@ class TransactionAdmin(UnfoldModelAdmin):
 
 @admin.register(Deposit)
 class DepositAdmin(UnfoldModelAdmin):
-    list_display = ('user', 'amount', 'TNX', 'network', 'rate', 'date', 'status', 'confirm_button', 'cancel_button')
+    list_display = (
+        'user', 'amount', 'TNX', 'network', 'account', 'rate',
+        'date', 'status', 'confirm_button', 'cancel_button'
+    )
     search_fields = ('user__email', 'TNX', 'network')
     list_filter = ('status', 'network', 'date')
     actions = ['confirm_deposit', 'cancel_deposit']
@@ -233,11 +236,11 @@ class DepositAdmin(UnfoldModelAdmin):
     def cancel_button(self, obj):
         if obj.status == 'pending':
             return format_html(
-                '<a href="?cancel_deposit={}" style="padding: 6px 12px; background-color: #dc3545; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;"> Cancel</a>',
+                '<a href="?cancel_deposit={}" style="padding: 6px 12px; background-color: #dc3545; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Cancel</a>',
                 obj.id
             )
         return format_html(
-            '<span style="padding: 6px 12px; background-color: #6c757d; color: white; border-radius: 5px; font-weight: bold;"> Canceled</span>'
+            '<span style="padding: 6px 12px; background-color: #6c757d; color: white; border-radius: 5px; font-weight: bold;">Canceled</span>'
         )
     cancel_button.short_description = 'Cancel'
 
@@ -263,10 +266,19 @@ class DepositAdmin(UnfoldModelAdmin):
         return qs
 
     def confirm_single_deposit(self, deposit):
-        """Confirm a single deposit and update balance"""
+        """Confirm a single deposit and update balance based on the selected account."""
+        # Use 'account' field to get the user's balance record
         user_balance = AccountBalance.objects.get(account=deposit.user)
-        user_balance.available_balance += deposit.amount
-        user_balance.total_credits += deposit.amount
+        
+        if deposit.account == 'Savings_Account':
+            # Credit the available/savings balance
+            user_balance.available_balance += deposit.amount
+            user_balance.total_credits += deposit.amount
+        elif deposit.account == 'Checking_Account':
+            # Credit the checking balance
+            user_balance.checking_balance += deposit.amount
+            user_balance.total_credits += deposit.amount
+        
         user_balance.save()
 
         deposit.status = 'completed'
@@ -280,7 +292,7 @@ class DepositAdmin(UnfoldModelAdmin):
             transaction.save()
 
     def cancel_single_deposit(self, deposit):
-        """Cancel a single deposit"""
+        """Cancel a single deposit."""
         deposit.status = 'failed'
         deposit.save()
 
@@ -292,22 +304,21 @@ class DepositAdmin(UnfoldModelAdmin):
             transaction.save()
 
     def confirm_deposit(self, request, queryset):
-        """Bulk confirm deposits"""
+        """Bulk confirm deposits."""
         for deposit in queryset:
             if deposit.status == 'pending':
                 self.confirm_single_deposit(deposit)
         messages.success(request, "Selected deposits have been confirmed.")
-
     confirm_deposit.short_description = "Confirm selected deposits"
 
     def cancel_deposit(self, request, queryset):
-        """Bulk cancel deposits"""
+        """Bulk cancel deposits."""
         for deposit in queryset:
             if deposit.status == 'pending':
                 self.cancel_single_deposit(deposit)
         messages.warning(request, "Selected deposits have been canceled.")
-
     cancel_deposit.short_description = "Cancel selected deposits"
+
 
 
 

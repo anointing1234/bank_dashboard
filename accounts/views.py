@@ -218,6 +218,7 @@ def create_deposit(request):
     user = request.user
     network = request.POST.get('network')
     amount = request.POST.get('amount')
+    account = request.POST.get('account')
 
     # Basic validation
     if not network or not amount:
@@ -239,7 +240,8 @@ def create_deposit(request):
             amount=amount,
             network=network,
             TNX=txn_ref,
-            status="pending"
+            status="pending",
+            account=account,
         )
 
         # 2) Create corresponding Transaction record
