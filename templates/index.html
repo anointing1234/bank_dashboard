@@ -176,43 +176,11 @@
   </div>
   
   <div class="container bg-dark">
-    <div class="container"><!-- TradingView Widget BEGIN -->
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
+    
+      
 
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-        "symbols": [
-          {
-            "proName": "FOREXCOM:SPXUSD",
-            "title": "S&P 500 Index"
-          },
-          {
-            "proName": "FOREXCOM:NSXUSD",
-            "title": "US 100 Cash CFD"
-          },
-          {
-            "proName": "FX_IDC:EURUSD",
-            "title": "EUR to USD"
-          },
-          {
-            "proName": "BITSTAMP:BTCUSD",
-            "title": "Bitcoin"
-          },
-          {
-            "proName": "BITSTAMP:ETHUSD",
-            "title": "Ethereum"
-          }
-        ],
-        "showSymbolLogo": true,
-        "isTransparent": false,
-        "displayMode": "adaptive",
-        "colorTheme": "dark",
-        "locale": "en"
-      }
-        </script>
-      </div>
-    </div>
+
+
     <div style="background-color:#1A2035;" class="page-inner ">
 
 
@@ -384,34 +352,25 @@
           </div><!-- end .cards-wrapper -->
         </div><!-- end .scroll-container-horizontal -->
       </div><!-- end .outer-scroll -->
+    
 
-      <div class="mt-3" style="width: 100vw; margin: 0; padding: 0;">
-        <!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container" style="width:100%;">
-          <div class="tradingview-widget-container__widget" style="width:100%; height:600px;"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
-          {
-            "width": "100%",
-            "height": "300",
-            "currencies": [
-              "EUR",
-              "USD",
-              "JPY",
-              "GBP",
-              "CHF",
-              "AUD",
-              "CAD",
-              "NZD"
-            ],
-            "isTransparent": false,
-            "colorTheme": "dark",
-            "locale": "en",
-            "backgroundColor": "#000000"
-          }
-          </script>
-        </div>
-        <!-- TradingView Widget END -->
-      </div>
+      <div style="padding:0;"class="container mt-3" ><div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+      
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+        {
+        "symbol": "FX:EURUSD",
+        "width": "100%",
+        "height": "300",
+        "locale": "en",
+        "dateRange": "12M",
+        "colorTheme": "dark",
+        "isTransparent": true,
+        "autosize": true,
+        "largeChartUrl": ""
+      }
+        </script>
+      </div></div>
       
 
 
