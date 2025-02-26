@@ -275,6 +275,12 @@ UNFOLD = {
                         "icon": "swap_horiz",
                         "link": reverse_lazy("admin:accounts_transfer_changelist"),
                     },
+                      {
+                        "title": _("Transfercode"),
+                        "icon": "swap_horiz",
+                        "link": reverse_lazy("admin:accounts_transfercode_changelist"),
+                    },
+                  
                 ],
             },
             {
