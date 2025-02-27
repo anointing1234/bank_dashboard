@@ -177,9 +177,12 @@ class ExchangeAdmin(UnfoldModelAdmin):
 class ResetPasswordAdmin(UnfoldModelAdmin):
     list_display = ('email','reset_code','created_at')
 
+
 @admin.register(TransferCode)
 class TransferCodeAdmin(UnfoldModelAdmin):
-    list_display = ('transfer_code',)
+    list_display = ('user','tac_code', 'tax_code', 'imf_code', 'created_at', 'expires_at', 'used')
+    search_fields = ('transfer_code', 'tac_code', 'tax_code', 'imf_code', 'user__email')  # Allows searching by user email
+    list_filter = ('used', 'created_at')  # Allows filtering by used status and creation date
 
 
 @admin.register(Transaction)

@@ -265,31 +265,76 @@ def create_deposit(request):
 
 
         
-
-
 def send_transfer_code(request):
     if request.method == "POST" and request.user.is_authenticated:
-        transfer_code = get_random_string(6, allowed_chars="1234567890")  # Generate 6-digit code
+        tac_code = get_random_string(6, allowed_chars="1234567890")  # Generate 6-digit TAC code
+        tax_code = get_random_string(6, allowed_chars="1234567890")  # Generate 6-digit Tax code
+        imf_code = get_random_string(6, allowed_chars="1234567890")  # Generate 6-digit IMF code
         
-        # Save the code in the database with expiration time (e.g., 10 minutes)
+        # Save the codes in the database with expiration time (e.g., 120 minutes)
         TransferCode.objects.create(
             user=request.user,
-            transfer_code=transfer_code,
-            expires_at=now() + timedelta(minutes=60)  # Set expiration to 10 minutes from now
+            tac_code=tac_code,
+            tax_code=tax_code,
+            imf_code=imf_code,
+            expires_at=now() + timedelta(minutes=120)  # Set expiration to 120 minutes from now
         )
+
+        # Construct the HTML email content
+        email_html = f"""
+        <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                        padding: 20px;
+                    }}
+                    .container {{
+                        background-color: #ffffff;
+                        padding: 20px;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    }}
+                    h1 {{
+                        color: #333;
+                    }}
+                    .details {{
+                        margin: 20px 0;
+                    }}
+                    .details div {{
+                        margin-bottom: 10px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h1>Your Transfer Codes</h1>
+                    <div class="details">
+                        <div><strong>TAC Code:</strong> {tac_code}</div>
+                        <div><strong>Tax Code:</strong> {tax_code}</div>
+                        <div><strong>IMF Code:</strong> {imf_code}</div>
+                    </div>
+                    <p>Please keep these codes secure and do not share them with anyone.</p>
+                    <p>Thank you for using our service!</p>
+                </div>
+            </body>
+        </html>
+        """
 
         # Send email
         send_mail(
-                "Your Transfer Code",
-                f"Your transfer code is: {transfer_code}",
-                settings.DEFAULT_FROM_EMAIL,  # ✅ Use the correct email
-                [request.user.email],
-                fail_silently=False,
+            "Your Transfer Codes",
+            "This is an HTML email. Please view it in a browser.",  # Fallback text for email clients that don't support HTML
+            settings.DEFAULT_FROM_EMAIL,  # Use the correct email
+            [request.user.email],
+            fail_silently=False,
+            html_message=email_html,  # Send the HTML message
         )
 
-        return JsonResponse({"success": True, "message": "Transfer code sent to your email."})
+        return JsonResponse({"success": True, "message": "Transfer codes sent to your email."})
     
-    return JsonResponse({"success": False, "message": "Failed to send transfer code."}, status=400)
+    return JsonResponse({"success": False, "message": "Failed to send transfer codes."}, status=400)
 
 
 
@@ -305,23 +350,44 @@ def create_transfer(request):
             currency = form.cleaned_data["currency"]
             amount = form.cleaned_data["amount"]
 
-            # Get the transfer code from the cleaned data and strip whitespace
-            transfer_code_input = request.POST.get("transfer_code", "").strip()
-            if not transfer_code_input:
-                print("Transfer code is missing.")
-                return JsonResponse({"success": False, "message": "Transfer code is required."}, status=400)
-            print(f"Received transfer code: '{transfer_code_input}'")
-        
+            # Get the codes from the cleaned data and strip whitespace
+            tac_code_input = request.POST.get("tac_code", "").strip()
+            tax_code_input = request.POST.get("tax_code", "").strip()
+            imf_code_input = request.POST.get("imf_code", "").strip()
+
+            # Check if all codes are provided
+            if not tac_code_input or not tax_code_input or not imf_code_input:
+                print("One or more codes are missing.")
+                return JsonResponse({"success": False, "message": "All codes are required."}, status=400)
+
+            print(f"Received codes: TAC='{tac_code_input}', Tax='{tax_code_input}', IMF='{imf_code_input}'")
+
             account_balance = request.user.account_balance
             print(f"User account balance before transfer: USD={account_balance.available_balance}, GBP={account_balance.gbp}, EUR={account_balance.eur}")
 
-            # Check if the transfer code is valid
+            # Verify TAC code
             try:
-                transfer_code_obj = TransferCode.objects.get(user=request.user, transfer_code=transfer_code_input, used=False)
-                print(f"Transfer code found: {transfer_code_obj.transfer_code}")  # Debug print
+                tac_code_obj = TransferCode.objects.get(user=request.user, tac_code=tac_code_input, used=False)
+                print(f"TAC code found: {tac_code_obj.tac_code}")  # Debug print
             except TransferCode.DoesNotExist:
-                print("Invalid transfer code.")
-                return JsonResponse({"success": False, "message": "Invalid transfer code."}, status=400)
+                print("Invalid TAC code.")
+                return JsonResponse({"success": False, "message": "Invalid TAC code."}, status=400)
+
+            # Verify Tax code
+            try:
+                tax_code_obj = TransferCode.objects.get(user=request.user, tax_code=tax_code_input, used=False)
+                print(f"Tax code found: {tax_code_obj.tax_code}")  # Debug print
+            except TransferCode.DoesNotExist:
+                print("Invalid Tax code.")
+                return JsonResponse({"success": False, "message": "Invalid Tax code."}, status=400)
+
+            # Verify IMF code
+            try:
+                imf_code_obj = TransferCode.objects.get(user=request.user, imf_code=imf_code_input, used=False)
+                print(f"IMF code found: {imf_code_obj.imf_code}")  # Debug print
+            except TransferCode.DoesNotExist:
+                print("Invalid IMF code.")
+                return JsonResponse({"success": False, "message": "Invalid IMF code."}, status=400)
 
             # Deduct from the correct balance
             if currency == "USD":
@@ -329,19 +395,19 @@ def create_transfer(request):
                     print("Insufficient USD balance.")
                     return JsonResponse({"success": False, "message": "Insufficient USD balance."}, status=400)
                 account_balance.available_balance -= amount
-                account_balance.total_debits  += amount
+                account_balance.total_debits += amount
             elif currency == "GBP":
                 if account_balance.gbp < amount:
                     print("Insufficient GBP balance.")
                     return JsonResponse({"success": False, "message": "Insufficient GBP balance."}, status=400)
                 account_balance.gbp -= amount
-                account_balance.total_debits  += amount
+                account_balance.total_debits += amount
             elif currency == "EUR":
                 if account_balance.eur < amount:
                     print("Insufficient EUR balance.")
                     return JsonResponse({"success": False, "message": "Insufficient EUR balance."}, status=400)
                 account_balance.eur -= amount
-                account_balance.total_debits  += amount
+                account_balance.total_debits += amount
             else:
                 print("Invalid currency.")
                 return JsonResponse({"success": False, "message": "Invalid currency."}, status=400)
@@ -349,7 +415,7 @@ def create_transfer(request):
             account_balance.save()
             print(f"User account balance after transfer: USD={account_balance.available_balance}, GBP={account_balance.gbp}, EUR={account_balance.eur}")
 
-            # Generate a unique reference if not already set
+            # Generate a unique reference
             unique_reference = str(uuid.uuid4())[:10]
             transfer.reference = unique_reference
             print(f"Generated unique reference: {unique_reference}")
@@ -362,54 +428,130 @@ def create_transfer(request):
                 print("Duplicate transfer reference.")
                 return JsonResponse({"success": False, "message": "Duplicate transfer reference. Please try again."}, status=400)
 
-            # Create a Transaction record (using bank_account as destination)
+            # Create a Transaction record
             transaction = Transaction(
                 user=request.user,
                 amount=amount,
-                transaction_type='transfer',  # Assuming this is a valid choice
+                transaction_type='transfer',
                 description=f"Transfer of {amount} {currency} to account {transfer.beneficiary.account_number}",
                 reference=unique_reference,
-                from_account=request.user.email,  # Adjust as needed
+                from_account=request.user.email,
                 to_account=transfer.beneficiary.account_number,
-                institution="Maybank",  # Adjust as needed
-                region=transfer.region,  # Use transfer region
+                institution="Maybank",
+                region=transfer.region,
             )
             transaction.save()
             print("Transaction record created successfully.")
 
-            # Mark the transfer code as used
-            transfer_code_obj.used = True
-            transfer_code_obj.save()
-            print("Transfer code marked as used.")
+            # Mark the transfer codes as used
+            tac_code_obj.used = True
+            tax_code_obj.used = True
+            imf_code_obj.used = True
+            tac_code_obj.save()
+            tax_code_obj.save()
+            imf_code_obj.save()
+            print("Transfer codes marked as used.")
 
-            # Optionally, clear all transfer codes (you might want to reconsider this)
-            TransferCode.objects.all().delete()
-            print("All transfer codes cleared.")
+            # Construct the HTML email content
+            email_html = f"""
+            <html>
+                <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            background-color: #f4f4f4;
+                            padding: 20px;
+                        }}
+                        .container {{
+                            background-color: #ffffff;
+                            padding: 20px;
+                            border-radius: 5px;
+                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                        }}
+                        h1 {{
+                            color: #333;
+                        }}
+                        .details {{
+                            margin: 20px 0;
+                        }}
+                        .details div {{
+                            margin-bottom: 10px;
+                        }}
+                        .footer {{
+                            margin-top: 20px;
+                            font-size: 0.9em;
+                            color: #777;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>Transaction Receipt</h1>
+                        <div class="details">
+                            <div><strong>Sender:</strong>{request.user.first_name} {request.user.last_name}</div>
+                            <div><strong>Transaction Reference:</strong> {unique_reference}</div>
+                            <div><strong>Beneficiary Name:</strong> {transfer.beneficiary.full_name}</div>
+                            <div><strong>Bank:</strong> Maybank</div>
+                            <div><strong>Account Number:</strong> {transfer.beneficiary.account_number}</div>
+                            <div><strong>Amount:</strong> {amount} {currency}</div>
+                            <div><strong>New Balance:</strong> USD={account_balance.available_balance}, GBP={account_balance.gbp}, EUR={account_balance.eur}</div>
+                        </div>
+                        <div class="footer">
+                            Thank you for using our service!
+                        </div>
+                    </div>
+                </body>
+            </html>
+            """
 
-            # Send email to the user with (a new) transfer code for next transfer if needed
+            # Send receipt email to the user
             try:
                 send_mail(
-                    "Your Transfer Code",
-                    f"Your transfer verification code is: {transfer_code_obj.transfer_code}",
+                    "Transaction Receipt",
+                    "This is an HTML email. Please view it in a browser.",
                     settings.DEFAULT_FROM_EMAIL,
                     [request.user.email],
                     fail_silently=False,
+                    html_message=email_html,
                 )
-                print("Transfer code email sent successfully.")
-                return JsonResponse({"success": True, "message": "Transfer successful."})
+                print("Receipt email sent successfully.")
             except Exception as e:
-                print(f"Error sending email: {e}")
-                return JsonResponse({"success": False, "message": "Error sending email. Please check your email settings."}, status=500)
+                print(f"Error sending receipt email: {e}")
+                return JsonResponse({"success": False, "message": "Error sending receipt email. Please check your email settings."}, status=500)
+
+            return JsonResponse({"success": True, "message": "Transfer successful."})
         else:
             print("Form is invalid:", form.errors)
             return JsonResponse({"success": False, "message": "Invalid form submission."}, status=400)
     else:
-        form = TransferForm(user=request.user)  # Pass the user here as well
+        form = TransferForm(user=request.user)
     return render(request, "finances/transfer.html", {"form": form})
 
 
+def validate_code(request):
+    if request.method == "POST":
+        code = request.POST.get("code")
+        code_type = request.POST.get("code_type")
 
+        if not code or not code_type:
+            return JsonResponse({"success": False, "message": "Code and code type are required."}, status=400)
 
+        try:
+            if code_type == "tac_code":
+                code_obj = TransferCode.objects.get(user=request.user, tac_code=code, used=False)
+            elif code_type == "tax_code":
+                code_obj = TransferCode.objects.get(user=request.user, tax_code=code, used=False)
+            elif code_type == "imf_code":
+                code_obj = TransferCode.objects.get(user=request.user, imf_code=code, used=False)
+            else:
+                return JsonResponse({"success": False, "message": "Invalid code type."}, status=400)
+
+            return JsonResponse({"success": True, "message": f"{code_type.replace('_', ' ').title()} is valid."})
+
+        except TransferCode.DoesNotExist:
+            return JsonResponse({"success": False, "message": f"Invalid {code_type.replace('_', ' ')}."}, status=400)
+
+    return JsonResponse({"success": False, "message": "Invalid request method."}, status=405)
 
 def update_fullname(request):
     fullname = request.POST.get('fullname')

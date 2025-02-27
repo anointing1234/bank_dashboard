@@ -5,6 +5,22 @@
 
 
 <style>
+
+  .table {
+    width: 100%; /* Ensure the table takes full width */
+    font-size: 12px; /* Smaller font size for better readability on mobile */
+}
+
+.table th, .table td {
+    text-align: left; /* Align text to the left */
+    padding: 8px; /* Add padding for better spacing */
+}
+
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 10px; /* Further reduce font size on smaller screens */
+    }
+}
   /* Import fonts if needed */
   .bank-card {
     background: linear-gradient(135deg, #000000, #001f3f, #000000);
@@ -595,95 +611,122 @@
   });
 </script>
 
+
 <script>
   $(document).ready(function() {
     $("#checkStatementsLink").on("click", function(e) {
-      e.preventDefault();
-      
-      // Show a SweetAlert prompt to choose the statement type.
-      Swal.fire({
-        title: "Select Statement Type",
-        text: "Which statement would you like to view?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "Deposit Statements",
-        cancelButtonText: "Transfer Statements"
-      }).then((result) => {
-        let statementType = "";
-        if (result.isConfirmed) {
-          statementType = "deposit";
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          statementType = "transfer";
-        }
-        
-        if (statementType) {
-          // Show loading spinner while fetching statement data
-          Swal.fire({
-            title: "Fetching Statements",
-            text: "Please wait...",
-            allowOutsideClick: false,
-            didOpen: () => {
-              Swal.showLoading();
-            }
-          });
-          
-          // AJAX GET request to fetch statement data
-          $.ajax({
-            url: "{% url 'get_statements' %}",
-            method: "GET",
-            data: {
-              statement_type: statementType
-            },
-            success: function(response) {
-              Swal.close();
-              if (response.success) {
-                let html = "<table class='table table-bordered'><thead><tr>" +
-                  "<th>Reference</th>" +
-                  "<th>Date</th>" +
-                  "<th>Amount</th>" +
-                  "<th>Status</th>" +
-                  "</tr></thead><tbody>";
-                if (response.statements && response.statements.length > 0) {
-                  $.each(response.statements, function(index, tx) {
-                    html += "<tr>" +
-                      "<td>" + tx.reference + "</td>" +
-                      "<td>" + tx.date + "</td>" +
-                      "<td>" + tx.amount + "</td>" +
-                      "<td>" + tx.status + "</td>" +
-                      "</tr>";
-                  });
-                } else {
-                  html += "<tr><td colspan='4' class='text-center'>No transactions found.</td></tr>";
-                }
-                html += "</tbody></table>";
-                
+        e.preventDefault();
+
+        // Show SweetAlert prompt for statement type selection
+        Swal.fire({
+            title: "Select Statement Type",
+            text: "Which statement would you like to view?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Deposit Statements",
+            cancelButtonText: "Transfer Statements"
+        }).then((result) => {
+            let statementType = result.isConfirmed ? "deposit" : (result.dismiss === Swal.DismissReason.cancel ? "transfer" : "");
+
+            if (statementType) {
+                // Show loading spinner while fetching statement data
                 Swal.fire({
-                  title: (statementType.charAt(0).toUpperCase() + statementType.slice(1)) + " Statements",
-                  html: html,
-                  width: "80%"
+                    title: "Fetching Statements",
+                    text: "Please wait...",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
                 });
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "Error",
-                  text: response.message || "Unable to fetch statements."
+
+                // AJAX GET request to fetch statement data
+                $.ajax({
+                    url: "{% url 'get_statements' %}",
+                    method: "GET",
+                    data: { statement_type: statementType },
+                    success: function(response) {
+                        Swal.close();
+
+                        if (response.success) {
+                            let html = "";
+
+                            if (response.statements && response.statements.length > 0) {
+                                if ($(window).width() < 768) {
+                                    // Display as a book-style layout for small screens
+                                    html += `<div style="display: flex; flex-direction: column; gap: 10px;">`;
+                                    $.each(response.statements, function(index, tx) {
+                                        html += `
+                                            <div style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; background: #f9f9f9;">
+                                                <p><strong>Reference:</strong> ${tx.reference}</p>
+                                                <p><strong>Date:</strong> ${tx.date}</p>
+                                                <p><strong>Amount:</strong> ${tx.amount}</p>
+                                                <p><strong>Status:</strong> ${tx.status}</p>
+                                            </div>`;
+                                    });
+                                    html += `</div>`;
+                                } else {
+                                    // Display as a table for larger screens
+                                    html += `
+                                        <div style="overflow-x:auto;">
+                                            <table class="table table-bordered table-responsive">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th style="font-size: 14px;">Reference</th>
+                                                        <th style="font-size: 14px;">Date</th>
+                                                        <th style="font-size: 14px;">Amount</th>
+                                                        <th style="font-size: 14px;">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>`;
+                                    $.each(response.statements, function(index, tx) {
+                                        html += `
+                                            <tr>
+                                                <td style="font-size: 12px;">${tx.reference}</td>
+                                                <td style="font-size: 12px;">${tx.date}</td>
+                                                <td style="font-size: 12px;">${tx.amount}</td>
+                                                <td style="font-size: 12px;">${tx.status}</td>
+                                            </tr>`;
+                                    });
+                                    html += `</tbody></table></div>`;
+                                }
+                            } else {
+                                html = `<p class='text-center'>No transactions found.</p>`;
+                            }
+
+                            // Show the statement in a SweetAlert modal
+                            Swal.fire({
+                                title: `${statementType.charAt(0).toUpperCase() + statementType.slice(1)} Statements`,
+                                html: html,
+                                width: "90%", // Adjust width for better mobile view
+                                customClass: {
+                                    popup: 'swal-popup' // Custom class for additional styling
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: response.message || "Unable to fetch statements."
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.close();
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "There was an error fetching statements. Please try again later."
+                        });
+                    }
                 });
-              }
-            },
-            error: function() {
-              Swal.close();
-              Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "There was an error fetching statements. Please try again later."
-              });
             }
-          });
-        }
-      });
+        });
     });
-  });
+});
+
 </script>
+
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Select all toggle icons

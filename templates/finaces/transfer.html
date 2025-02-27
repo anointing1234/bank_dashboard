@@ -267,116 +267,193 @@
 
 
 <script>
-    $(document).ready(function() {
-        $("#transferForm").on("submit", function(e) {
-            e.preventDefault();
-  
-            let formData = $(this).serialize();
-  
-            // Show loading animation while sending transfer code
-            Swal.fire({
-                title: "Sending Transfer Code...",
-                text: "Please wait while we send the transfer code to your email.",
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
+  $(document).ready(function() {
+      $("#transferForm").on("submit", function(e) {
+          e.preventDefault();
 
-            // Step 1: Send Transfer Code to Email
-            $.ajax({
-                url: "{% url 'send_transfer_code' %}",
-                method: "POST",
-                data: {
-                    csrfmiddlewaretoken: "{{ csrf_token }}"
-                },
-                success: function(response) {
-                    if (response.success) {
-                        Swal.close(); // Close loading animation
+          let formData = $(this).serialize();
 
-                        // Prompt user to enter transfer code
-                        Swal.fire({
-                            title: "Enter Transfer Code",
-                            input: "text",
-                            inputPlaceholder: "Enter the code sent to your email",
-                            showCancelButton: true,
-                            confirmButtonText: "Submit",
-                            preConfirm: (transferCode) => {
-                                if (!transferCode) {
-                                    Swal.showValidationMessage("Transfer code is required!");
-                                    return false; // Prevent submission
-                                }
-                                console.log("Transfer code entered by user:", transferCode); // Log the transfer code
-                                return transferCode; // Return the transfer code for the next step
-                            }
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Show loading animation while processing transfer
-                                Swal.fire({
-                                    title: "Processing Transfer...",
-                                    text: "Please wait while we complete your transaction.",
-                                    allowOutsideClick: false,
-                                    didOpen: () => {
-                                        Swal.showLoading();
-                                    }
-                                });
+          // Show loading animation while sending transfer code
+          Swal.fire({
+              title: "Sending Transfer Code...",
+              text: "Please wait while we send the transfer code to your email.",
+              allowOutsideClick: false,
+              didOpen: () => {
+                  Swal.showLoading();
+              }
+          });
 
-                                // Step 2: Proceed with Transfer
-                                const transferCode = result.value; // Get the transfer code from SweetAlert
-                                const dataToSend = formData + "&transfer_code=" + encodeURIComponent(transferCode); // Encode the transfer code
+          // Step 1: Send Transfer Code to Email
+          $.ajax({
+              url: "{% url 'send_transfer_code' %}",
+              method: "POST",
+              data: {
+                  csrfmiddlewaretoken: "{{ csrf_token }}"
+              },
+              success: function(response) {
+                  if (response.success) {
+                      Swal.close(); // Close loading animation
 
-                                console.log("Data being sent to create_transfer:", dataToSend); // Log the data being sent
+                      // Prompt user to enter TAC code
+                      askForCode("Enter TAC Code", "tac_code", function(tacCode) {
+                          validateCode(tacCode, "tac_code", function(isValid) {
+                              if (isValid) {
+                                  // Prompt user to enter Tax code
+                                  askForCode("Enter Tax Code", "tax_code", function(taxCode) {
+                                      validateCode(taxCode, "tax_code", function(isValid) {
+                                          if (isValid) {
+                                              // Prompt user to enter IMF code
+                                              askForCode("Enter IMF Code", "imf_code", function(imfCode) {
+                                                  validateCode(imfCode, "imf_code", function(isValid) {
+                                                      if (isValid) {
+                                                          // All codes are valid, proceed with transfer
+                                                          processTransfer(formData, tacCode, taxCode, imfCode);
+                                                      }
+                                                  });
+                                              });
+                                          }
+                                      });
+                                  });
+                              }
+                          });
+                      });
+                  } else {
+                      Swal.fire({
+                          icon: "error",
+                          title: "Error",
+                          text: "Failed to send transfer code. Please try again."
+                      });
+                  }
+              },
+              error: function(xhr) {
+                  // Extract error message from the response
+                  let errorMessage = "Could not send transfer code. Try again later.";
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                      errorMessage = xhr.responseJSON.message; // Use the message from the server
+                  }
+                  Swal.fire({
+                      icon: "error",
+                      title: "Error",
+                      text: errorMessage
+                  });
+              }
+          });
+      });
 
-                                $.ajax({
-                                    url: "{% url 'create_transfer' %}",
-                                    method: "POST",
-                                    data: dataToSend,
-                                    success: function(response) {
-                                        Swal.fire({
-                                            icon: "success",
-                                            title: "Transfer Successful",
-                                            text: response.message
-                                        }).then(() => location.reload());
-                                    },
-                                    error: function(xhr) {
-                                        // Extract error message from the response
-                                        let errorMessage = "Invalid transfer code or insufficient balance.";
-                                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                                            errorMessage = xhr.responseJSON.message; // Use the message from the server
-                                        }
-                                        Swal.fire({
-                                            icon: "error",
-                                            title: "Transfer Failed",
-                                            text: errorMessage
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "Failed to send transfer code. Please try again."
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    // Extract error message from the response
-                    let errorMessage = "Could not send transfer code. Try again later.";
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMessage = xhr.responseJSON.message; // Use the message from the server
-                    }
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: errorMessage
-                    });
-                }
-            });
-        });
-    });
+      function askForCode(title, inputName, callback) {
+          Swal.fire({
+              title: title,
+              input: "text",
+              inputPlaceholder: "Enter the code",
+              showCancelButton: true,
+              confirmButtonText: "Submit",
+              preConfirm: (code) => {
+                  if (!code) {
+                      Swal.showValidationMessage("Code is required!");
+                      return false; // Prevent submission
+                  }
+                  return code; // Return the code for the next step
+              }
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  callback(result.value); // Call the callback with the entered code
+              }
+          });
+      }
+
+      function validateCode(code, codeType, callback) {
+          // Show loading animation while validating the code
+          Swal.fire({
+              title: "Validating Code...",
+              text: "Please wait while we verify your code.",
+              allowOutsideClick: false,
+              didOpen: () => {
+                  Swal.showLoading();
+              }
+          });
+
+          $.ajax({
+              url: "{% url 'validate_code' %}", // URL to validate the code
+              method: "POST",
+              data: {
+                  csrfmiddlewaretoken: "{{ csrf_token }}",
+                  code: code,
+                  code_type: codeType
+              },
+              success: function(response) {
+                  Swal.close(); // Close loading animation
+                  if (response.success) {
+                      callback(true); // Code is valid
+                  } else {
+                      Swal.fire({
+                          icon: "error",
+                          title: "Invalid Code",
+                          text: response.message
+                      });
+                      callback(false); // Code is invalid
+                  }
+              },
+              error: function(xhr) {
+                  Swal.close(); // Close loading animation
+                  let errorMessage = "Error validating code.";
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                      errorMessage = xhr.responseJSON.message; // Use the message from the server
+                  }
+                  Swal.fire({
+                      icon: "error",
+                      title: "Error",
+                      text: errorMessage
+                  });
+                  callback(false); // Error occurred
+              }
+          });
+      }
+
+      function processTransfer(formData, tacCode, taxCode, imfCode) {
+          // Show loading animation while processing transfer
+          Swal.fire({
+              title: "Processing Transfer...",
+              text: "Please wait while we complete your transaction.",
+              allowOutsideClick: false,
+              didOpen: () => {
+                  Swal.showLoading();
+              }
+          });
+
+          // Prepare data for transfer
+          const dataToSend = formData + "&tac_code=" + encodeURIComponent(tacCode) + "&tax_code=" + encodeURIComponent(taxCode) + "&imf_code=" + encodeURIComponent(imfCode);
+
+          $.ajax({
+              url: "{% url 'create_transfer' %}",
+              method: "POST",
+              data: dataToSend,
+              success: function(response) {
+                  Swal.fire({
+                      icon: "success",
+                      title: "Transfer Successful",
+                      text: response.message
+                  }).then(() => location.reload());
+              },
+              error: function(xhr) {
+                  let errorMessage = "Transfer failed. Please check your codes and balance.";
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                      errorMessage = xhr.responseJSON.message; // Use the message from the server
+                  }
+                  Swal.fire({
+                      icon: "error",
+                      title: "Transfer Failed",
+                      text: errorMessage
+                  });
+              }
+          });
+      }
+  });
 </script>
+
+
+
+
+
 
 
 <!-- Embed the beneficiary data as a JavaScript variable -->
