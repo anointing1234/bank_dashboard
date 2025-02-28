@@ -33,6 +33,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin import AdminSite
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.template.loader import render_to_string
+
 
 
 
@@ -84,6 +86,7 @@ def request_loan(request):
     return render(request, 'loans.html', {'form': form})
 
 
+
 def register(request):
     if request.method == 'POST':
         register_form = SignupForm(request.POST)
@@ -98,7 +101,27 @@ def register(request):
             
             user.save()  # Save the user with the generated username
             
-            return JsonResponse({'success': True, 'message': 'Registration successful!', 'redirect_url': '/Accounts/login'})
+            # Prepare email content
+            logo_url = settings.STATIC_URL + 'images/logo.png'  # Ensure this path is correct
+            current_year = timezone.now().year
+            email_subject = 'Welcome to Maybank'
+            email_body = render_to_string('emails/registration_email.html', {
+                'user': user,
+                'logo_url': logo_url,
+                'current_year': current_year,
+            })
+
+            # Send the email
+            send_mail(
+                email_subject,
+                email_body,
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+                fail_silently=False,
+                html_message=email_body  # Send as HTML
+            )
+
+            return JsonResponse({'success': True, 'message': 'Registration successful! A welcome email has been sent.', 'redirect_url': '/Accounts/login'})
         else:
             # Collect all form errors
             error_messages = []
@@ -115,16 +138,21 @@ def register(request):
 
 
 
+def emails(request):
+    return render(request,'emails/registration_email.html')
+
+
 def login_Account(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         
         if login_form.is_valid():
-            email = login_form.cleaned_data.get('email')
+            account_id = login_form.cleaned_data.get('account_id')  # Get the account ID or email
             password = login_form.cleaned_data.get('password')
             dashboard_url = reverse('dashboard')
-            # Authenticate the user
-            user = authenticate(request, username=email, password=password)
+            
+            # Authenticate the user using the custom backend
+            user = authenticate(request, username=account_id, password=password)
              
             if user is not None:
                 auth_login(request, user)
@@ -136,7 +164,7 @@ def login_Account(request):
             else:
                 return JsonResponse({
                     'success': False,
-                    'message': 'Invalid email or password. Please try again.'
+                    'message': 'Invalid Account ID or password. Please try again.'
                 })
         
         return JsonResponse({
@@ -148,7 +176,9 @@ def login_Account(request):
         form = LoginForm()
     
     return render(request, 'forms/login.html', {'form': form})
-    
+
+
+
 
 
 def logout_view(request):
@@ -280,57 +310,57 @@ def send_transfer_code(request):
             expires_at=now() + timedelta(minutes=120)  # Set expiration to 120 minutes from now
         )
 
-        # Construct the HTML email content
-        email_html = f"""
-        <html>
-            <head>
-                <style>
-                    body {{
-                        font-family: Arial, sans-serif;
-                        background-color: #f4f4f4;
-                        padding: 20px;
-                    }}
-                    .container {{
-                        background-color: #ffffff;
-                        padding: 20px;
-                        border-radius: 5px;
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                    }}
-                    h1 {{
-                        color: #333;
-                    }}
-                    .details {{
-                        margin: 20px 0;
-                    }}
-                    .details div {{
-                        margin-bottom: 10px;
-                    }}
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>Your Transfer Codes</h1>
-                    <div class="details">
-                        <div><strong>TAC Code:</strong> {tac_code}</div>
-                        <div><strong>Tax Code:</strong> {tax_code}</div>
-                        <div><strong>IMF Code:</strong> {imf_code}</div>
-                    </div>
-                    <p>Please keep these codes secure and do not share them with anyone.</p>
-                    <p>Thank you for using our service!</p>
-                </div>
-            </body>
-        </html>
-        """
+        # # Construct the HTML email content
+        # email_html = f"""
+        # <html>
+        #     <head>
+        #         <style>
+        #             body {{
+        #                 font-family: Arial, sans-serif;
+        #                 background-color: #f4f4f4;
+        #                 padding: 20px;
+        #             }}
+        #             .container {{
+        #                 background-color: #ffffff;
+        #                 padding: 20px;
+        #                 border-radius: 5px;
+        #                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        #             }}
+        #             h1 {{
+        #                 color: #333;
+        #             }}
+        #             .details {{
+        #                 margin: 20px 0;
+        #             }}
+        #             .details div {{
+        #                 margin-bottom: 10px;
+        #             }}
+        #         </style>
+        #     </head>
+        #     <body>
+        #         <div class="container">
+        #             <h1>Your Transfer Codes</h1>
+        #             <div class="details">
+        #                 <div><strong>TAC Code:</strong> {tac_code}</div>
+        #                 <div><strong>Tax Code:</strong> {tax_code}</div>
+        #                 <div><strong>IMF Code:</strong> {imf_code}</div>
+        #             </div>
+        #             <p>Please keep these codes secure and do not share them with anyone.</p>
+        #             <p>Thank you for using our service!</p>
+        #         </div>
+        #     </body>
+        # </html>
+        # """
 
-        # Send email
-        send_mail(
-            "Your Transfer Codes",
-            "This is an HTML email. Please view it in a browser.",  # Fallback text for email clients that don't support HTML
-            settings.DEFAULT_FROM_EMAIL,  # Use the correct email
-            [request.user.email],
-            fail_silently=False,
-            html_message=email_html,  # Send the HTML message
-        )
+        # # Send email
+        # send_mail(
+        #     "Your Transfer Codes",
+        #     "This is an HTML email. Please view it in a browser.",  # Fallback text for email clients that don't support HTML
+        #     settings.DEFAULT_FROM_EMAIL,  # Use the correct email
+        #     [request.user.email],
+        #     fail_silently=False,
+        #     html_message=email_html,  # Send the HTML message
+        # )
 
         return JsonResponse({"success": True, "message": "Transfer codes sent to your email."})
     

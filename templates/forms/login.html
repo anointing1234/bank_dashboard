@@ -80,8 +80,8 @@
                     
                     <!-- Email Field -->
                     <div class="form-outline mb-4">
-                      {{ form.email }}
-                      <label class="form-label">Email Address</label>
+                      {{ form.account_id }}
+                      <label class="form-label">Account Id</label>
                     </div>
 
                     <!-- Password Field -->
@@ -169,7 +169,7 @@
           Swal.fire({
             icon: 'error',
             title: 'Login failed',
-            text: data.message || 'Invalid phone number or password. Please try again.',
+            text: data.message || 'Invalid Account_Id or password. Please try again.',
             confirmButtonText: 'Okay'
           })
         }

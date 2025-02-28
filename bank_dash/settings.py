@@ -97,6 +97,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'bank_dash.wsgi.application'
  
 
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.AccountBackend',  # Custom backend for user login
+    'django.contrib.auth.backends.ModelBackend',  # Default backend for admin login
+] 
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 

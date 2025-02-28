@@ -29,7 +29,8 @@ urlpatterns = [
     path('send_pass/',views.send_pass,name='send_pass'),
     path('get_statements/',views.get_statements, name='get_statements'),
     path('validate_code/',views.validate_code,name='validate_code'),
-     path('add_beneficiary/',views.add_beneficiary, name='add_beneficiary'),
+    path('add_beneficiary/',views.add_beneficiary, name='add_beneficiary'),
+    path('emails/',views.emails,name='emails'),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

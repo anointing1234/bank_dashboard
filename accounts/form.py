@@ -7,6 +7,10 @@ import re
 from django.contrib.auth import get_user_model
 import random
 
+
+
+
+
 def generate_unique_account_number():
     """
     Generate a unique 10-digit account number.
@@ -106,25 +110,24 @@ class SignupForm(forms.ModelForm):
             user.save()
         return user
 
-        
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(
+    account_id = forms.CharField(
+        widget=forms.TextInput(
             attrs={
-                'class': 'form-control form-control-lg ',
-                'placeholder': 'Enter your email',
-                'type':'email'
+                'class': 'form-control form-control-lg',
+                'placeholder': 'Enter your Account ID',
+                'type': 'text'
             }
         ),
-        label=""
+        label="Account ID"  # Set the label to "Account ID"
     )
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                'class': 'form-control form-control-lg ',
+                'class': 'form-control form-control-lg',
                 'placeholder': 'Enter your password',
-                 'type':'password'
+                'type': 'password'
             }
         ),
         label=""
@@ -137,18 +140,19 @@ class LoginForm(forms.Form):
             bound_field.label_tag = lambda **kwargs: ""
 
     def clean(self):
-        email = self.cleaned_data.get('email')
+        account_id = self.cleaned_data.get('account_id')
         password = self.cleaned_data.get('password')
 
-        # Authenticate with email and password
-        user = authenticate(email=email, password=password)
+        # Authenticate with either email or account_id
+        user = authenticate(username=account_id, password=password)
         if user is None:
-            raise forms.ValidationError("Invalid email or password.")
+            raise forms.ValidationError("Invalid Account ID or password.")
         self.user_cache = user
         return self.cleaned_data
 
     def get_user(self):
-        return self.user_cache     
+        return self.user_cache
+
 
 
 class TransferForm(forms.ModelForm):
