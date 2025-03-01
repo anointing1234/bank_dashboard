@@ -90,20 +90,22 @@
                 <div class="card mb-4">
                   <div class="card-header text-center">
                     <img style="width: 80px; height: 80px; object-fit: cover;" src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+                    <h5 class="text-center">{{ request.user.first_name }} {{ request.user.last_name }}</h5>
                  </div>
-              
+            
+          
                   <div class="card-body">
                     <div class="row mb-2">
-                      <p class="text-muted mb-0 text-center">Available Balance</p>
-                      <h4 class="text-dark text-center fw-bold">
+                      <p class="text-dark mb-0 text-center">Savings Balance</p>
+                      <h5 class="text-dark text-center fw-bold">
                         ${{ request.user.account_balance.available_balance|intcomma }}
-                      </h4>
+                      </h5>
                     </div>
                     <div class="row mb-2">
-                      <p class="text-muted mb-0 text-center">Loan Balance</p>
-                      <h4 class="text-dark fw-bold text-center">
-                        ${{ request.user.account_balance.loan_balance|intcomma }}
-                      </h4>
+                      <p class="text-dark mb-0 text-center">Checking Balance</p>
+                      <h5 class="text-dark fw-bold text-center">
+                        ${{ request.user.account_balance.checking_balance|intcomma }}
+                      </h5>
                     </div>
                   </div>
                 </div>
@@ -112,61 +114,114 @@
               <div class="col-md-8">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title mb-0">My Full Details</h4>
+                    <a href="{% url 'edit_profile' %}" class="card-title mb-0"><i class="fa-solid fa-pen-to-square"></i> EDIT PROFILE</a>
                   </div>
                   <div class="card-body">
-                    <div class="container">
-                      <div class="row mb-4">
-                        <div class="col-sm-4 text-muted">Full Name</div>
-                        <div class="col-sm-8">
-                          <div class="d-flex align-items-center">
-                            {{ request.user.first_name }} {{ request.user.last_name }}
-                        </div>
-                        
-                        </div>
-                      </div>
-                      <hr />
-                      <div class="row mb-4">
-                        <div class="col-sm-4 text-muted">Username</div>
-                        <div class="col-sm-8">
-                          <div class="d-flex align-items-center">
-                            <span>{{ request.user.username|default:'Not set' }}</span>
-                            {% if not request.user.username or request.user.username == 'Not set' %}
-                              <button class="btn btn-outline-dark btn-sm ms-3" onclick="showUsernameInput()">Add Username</button>
-                            {% endif %}
-                          </div>
-                          <div id="username-input" style="display:none;" class="mt-2">
-                            <input type="text" id="new_username" class="form-control" placeholder="Enter your username" />
-                            <button class="btn btn-success btn-sm mt-2" onclick="submitUsername()">Submit</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="row mb-3">
-                      <div class="col-sm-4 text-muted">Phone Number</div>
-                      <div class="col-sm-8">     <div class="d-flex align-items-center">
-                        <span>{{ request.user.phone_number|default:'Not set' }}</span>
-                        {% if not request.user.phone_number or request.user.phone_number == 'Not set' %}
-                          <button class="btn btn-outline-dark btn-sm ms-3" onclick="showFullNameInput()">Add phone number</button>
-                        {% endif %}
-                      </div></div>
-                    </div>
-                    <hr />
+                    
                     <div class="row mb-3">
                       <div class="col-sm-4 text-muted">Email</div>
                       <div class="col-sm-8">{{ request.user.email }}</div>
                     </div>
                     <hr />
                     <div class="row mb-3">
-                      <div class="col-sm-4 text-muted">Account type</div>
-                      <div class="col-sm-8">{{ request.user.account_type }}</div>
+                      <div class="col-sm-4 text-muted">Country</div>
+                      <div class="col-sm-8">
+                        {% if request.user.country  %}
+                            {{ request.user.country  }}
+                        {% else %}
+                             Unavailable
+                        {% endif %}
+                    </div>
                     </div>
                     <hr />
+
                     <div class="row mb-3">
-                      <div class="col-sm-4 text-muted">Account Number</div>
-                      <div class="col-sm-8">{{ request.user.account_number }}</div>
+                      <div class="col-sm-4 text-muted">City</div>
+                      <div class="col-sm-8">  <div class="col-sm-8">
+                        {% if request.user.city  %}
+                            {{ request.user.city  }}
+                        {% else %}
+                             Unavailable
+                        {% endif %}
+                     </div>
+                     </div>
                     </div>
+
+                      <hr>
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Gender</div>
+                      <div class="col-sm-8">  <div class="col-sm-8">
+                        {% if request.user.gender   %}
+                            {{ request.user.gender   }}
+                        {% else %}
+                             Unavailable
+                        {% endif %}
+                     </div>
+                     </div>
+                    </div>
+
+                    <hr>
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Cot_code</div>
+                      <div class="col-sm-8">  <div class="col-sm-8">
+                        {% if request.user.cot_code %}
+                            {{ request.user.cot_code   }}
+                        {% else %}
+                             Unavailable
+                        {% endif %}
+                     </div>
+                     </div>
+                    </div>
+
+
+                    <hr>
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Tax_code</div>
+                      <div class="col-sm-8">  <div class="col-sm-8">
+                        {% if request.user.tax_code %}
+                            {{ request.user.tax_code   }}
+                        {% else %}
+                             Unavailable
+                        {% endif %}
+                     </div>
+                     </div>
+                    </div>
+
+
+                    <hr>
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Imf_code</div>
+                      <div class="col-sm-8">  <div class="col-sm-8">
+                        {% if request.user.imf_code %}
+                            {{ request.user.imf_code }}
+                        {% else %}
+                             Unavailable
+                        {% endif %}
+                     </div>
+                     </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <div class="col-sm-4 text-muted">Pin     <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                        data-target="available-balance-gbp"
+                        data-key="balanceHidden-gbp"
+                        style="cursor:pointer;"></i></div>
+                      <div class="col-sm-8">  <div class="col-sm-8" id="available-balance-gbp"
+                        data-hidden="false"
+                        data-balance="{{ request.user.pin }}">
+                        {% if request.user.pin %}
+                            {{ request.user.pin }}
+                        {% else %}
+                             Unavailable
+                        {% endif %}
+                     </div>
+                     </div>
+                    </div>
+                   
+
+
+
                   </div>
                 </div>
               </div>
@@ -289,5 +344,73 @@
       });
   };
 </script>
+
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Select all toggle icons
+    const toggleIcons = document.querySelectorAll(".toggle-balance-icon");
+  
+    // Function to update the balance element UI
+    function updateUI(element, isHidden) {
+      // Retrieve the original balance text from data attribute.
+      const originalBalance = element.getAttribute("data-balance");
+      if (isHidden) {
+        element.textContent = "*******";
+      } else {
+        element.textContent = originalBalance;
+      }
+      element.setAttribute("data-hidden", isHidden ? "true" : "false");
+    }
+  
+    // Process each toggle icon independently
+    toggleIcons.forEach(function(icon) {
+      // Get the target balance element's id and the storage key from the icon's data attributes.
+      const targetId = icon.getAttribute("data-target");
+      const storageKey = icon.getAttribute("data-key");
+      const balanceElement = document.getElementById(targetId);
+  
+      // On page load, check localStorage for this balance's saved state.
+      let storedState = localStorage.getItem(storageKey);
+      let isHidden = storedState === "true";  // stored as string "true" or "false"
+      if (balanceElement) {
+        updateUI(balanceElement, isHidden);
+      }
+  
+      // Set the initial icon classes accordingly.
+      if (isHidden) {
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+  
+      // Add a click event listener for toggling.
+      icon.addEventListener("click", function() {
+        // Toggle the state for this balance element.
+        const currentlyHidden = balanceElement.getAttribute("data-hidden") === "true";
+        const newHidden = !currentlyHidden;
+        updateUI(balanceElement, newHidden);
+        
+        // Update the icon classes.
+        if (newHidden) {
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+        
+        // Save the new state to localStorage for this balance.
+        localStorage.setItem(storageKey, newHidden);
+      });
+    });
+  });
+  </script>
+  
 
 {% endblock contents %}

@@ -1,0 +1,206 @@
+{% extends 'core/base/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block contents %}
+
+<style>
+    .row.align-items-stretch {
+      display: flex;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px; /* Rounded corners for the card */
+    }
+    .card-body {
+      flex: 1; /* This allows the card body to take up the remaining space */
+    }
+    .container {
+      max-width: 800px; /* Set a max width for the card */
+    }
+    .form-label {
+      font-weight: 500; /* Slightly bolder labels */
+    }
+    .footer {
+      background-color: #f8f9fa; /* Light background for the footer */
+      padding: 10px 0; /* Padding for the footer */
+    }
+</style>
+
+<div class="main-panel">
+  <div class="main-header">
+    <div class="main-header-logo">
+      <div class="logo-header" data-background-color="dark">
+        <a href="index.html" class="logo">
+          <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
+        </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+    </div>
+    <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom">
+      <div class="container-fluid">
+        <h2 class="text-white fw-bold">Edit Profile</h2>
+        <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+          <li class="nav-item topbar-user dropdown hidden-caret">
+            <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+              <div class="avatar-sm">
+                <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+              </div>
+              <span class="profile-username">
+                <span class="op-7 text-light">Hi,</span>
+                <span class="fw-bold text-light">{{ request.user.username }}</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container bg-dark">
+    <div class="page-inner">
+      <div class="row mb-5 pb-5 p-0">
+        <div class="row mx-3">
+          <div class="container mt-5">
+            <div class="row me-3">
+              <div class="card shadow">
+                <div class="card-header text-white">
+                  <h5 class="mb-0 text-dark">Edit Your Profile</h5>
+                </div>
+                <div class="card-body">
+                  <form id="editProfileForm">
+                    {% csrf_token %}
+                    <div class="mb-3 row">
+                      <label for="email" class="col-sm-4 col-form-label">Email</label>
+                      <div class="col-sm-8">
+                        <input type="email" name="email" value="{{ form.email.value }}" class="form-control" id="email" required>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="mb-3 row">
+                      <label for="country" class="col-sm-4 col-form-label">Country</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="country" value="{{ form.country.value }}" class="form-control" id="country">
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="mb-3 row">
+                      <label for="city" class="col-sm-4 col-form-label">City</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="city" value="{{ form.city.value }}" class="form-control" id="city">
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="mb-3 row">
+                      <label for="gender" class="col-sm-4 col-form-label">Gender</label>
+                      <div class="col-sm-8">
+                        <select name="gender" class="form-select" id="gender">
+                          <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
+                          <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female </option>
+                          <option value="O" {% if form.gender.value == 'O' %}selected{% endif %}>Other</option>
+                        </select>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="mb-3 row">
+                      <div class="col-sm-8 offset-sm-4">
+                        <button style="background-color:#1A2035; color:white;" type="submit" class="btn btn">Update Profile</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end row mx-3 -->
+      </div> <!-- end row mb-5 pb-5 p-0 -->
+    </div> <!-- end page-inner -->
+  </div> <!-- end container -->
+
+  <footer class="footer">
+    <div class="container-fluid d-flex justify-content-between">
+      <nav class="pull-left">
+        <ul class="nav">
+        </ul>
+      </nav>
+      <div class="copyright">
+        copyright@
+        <a target="_blank" class="text-dark" href="">2025mayb2uc.com</a>.
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+<!-- SweetAlert2 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<script>
+  document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Show loading screen
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we update your profile.',
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    // Create FormData object to send the form data
+    const formData = new FormData(this);
+
+    // Send the form data using fetch
+    fetch('{% url "edit_profile" %}', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+      Swal.close(); // Close the loading screen
+      if (data.success) {
+        // Show success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Profile Updated!',
+          text: 'Your profile has been successfully updated.',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          window.location.href = '{% url "profile" %}'; // Redirect to profile page
+        });
+      } else {
+        // Show error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: data.error || 'An error occurred while updating your profile.',
+          confirmButtonText: 'OK'
+        });
+      }
+    })
+    .catch(error => {
+      Swal.close(); // Close the loading screen
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An unexpected error occurred. Please try again later.',
+        confirmButtonText: 'OK'
+      });
+    });
+  });
+</script>
+
+{% endblock contents %}

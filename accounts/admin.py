@@ -329,9 +329,9 @@ class DepositAdmin(UnfoldModelAdmin):
 @admin.register(Transfer)
 class TransferAdmin(UnfoldModelAdmin):
     list_display = (
-        "reference", "user", "beneficiary_display", "amount", "currency", "status", "date", "confirm_button", "cancel_button"
+        "reference", "user", "beneficiary_display", "amount", "balance", "status", "date", "confirm_button", "cancel_button"
     )
-    list_filter = ("status", "currency", "date", "beneficiary")
+    list_filter = ("status", "balance", "date", "beneficiary")
     search_fields = (
         "reference", 
         "user__username", 
@@ -345,7 +345,7 @@ class TransferAdmin(UnfoldModelAdmin):
     fieldsets = (
         ("Transfer Details", {
             "fields": (
-                "reference", "user", "beneficiary", "amount", "currency", "charge", "reason", "status"
+                "reference", "user", "beneficiary", "amount", "balance", "charge", "reason", "status"
             )
         }),
     )
@@ -474,7 +474,7 @@ class ExchangeRateAdmin(UnfoldModelAdmin):
 @admin.register(Beneficiary)
 class BeneficiaryAdmin(UnfoldModelAdmin):
     list_display = (
-        "id", "user", "full_name", "account_number", "bank_name", "swift_code", "created_at"
+        "id", "user", "full_name", "account_number", "bank_name", "swift_code","routing_transit_number","bank_address","created_at"
     )
     list_filter = ("user", "bank_name", "created_at")
     search_fields = ("full_name", "account_number", "bank_name")

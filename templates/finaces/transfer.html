@@ -4,30 +4,98 @@
 {% block contents %}
 
 <style>
-  .row.align-items-stretch {
-    display: flex;
+
+  .table {
+    width: 100%; /* Ensure the table takes full width */
+    font-size: 12px; /* Smaller font size for better readability on mobile */
+}
+
+.table th, .table td {
+    text-align: left; /* Align text to the left */
+    padding: 8px; /* Add padding for better spacing */
+}
+
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 10px; /* Further reduce font size on smaller screens */
+    }
+}
+  /* Import fonts if needed */
+  .bank-card {
+    background: linear-gradient(135deg, #000000, #001f3f, #000000);
+    border: 1px solid #fff; /* Adjust as needed */
+    font-family: 'Share Tech Mono', monospace;
   }
-  .card {
+  /* Inherit the font for child elements */
+  .bank-card p,
+  .bank-card h4,
+  .bank-card h5 {
+    font-family: inherit;
+  }
+  /* Outer wrapper centers the scroll area */
+  .outer-scroll {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+  }
+  /* Horizontal scroll container for cards */
+  .scroll-container-horizontal {
+    width: 100%;
+    max-width: 920px;
+    overflow-x: auto;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch; /* smoother scrolling on mobile */
+  }
+  /* Custom scrollbar styling */
+  .scroll-container-horizontal::-webkit-scrollbar {
+    height: 8px;
+  }
+  .scroll-container-horizontal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .scroll-container-horizontal::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  .scroll-container-horizontal::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  /* Flex container to hold cards side by side */
+  .cards-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+  /* Card container: defaults to full width on small screens */
+  .card-container {
+    flex: 0 0 100%;
+  }
+  /* On larger screens, set card width to 450px so that two cards are visible */
+  @media (min-width: 1000px) {
+    .card-container {
+      flex: 0 0 450px;
+    }
+  }
+  /* Card styling */
+  .account_card {
+    height: 220px;
+    background-color: black;
+    border: 1px solid white;
+    width: 100%;
   }
   .card-body {
-    flex: 1; /* This allows the card body to take up the remaining space */
+    flex: 1;
   }
-  /* Make the container fill the entire viewport */
-  .full-screen {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  .numbers {
+    margin-top: 20px;
   }
-
-    .scroll-container {
-      max-height: 300px; /* Adjust as needed */
-      overflow-y: auto;
+  /* Additional responsiveness for the icon grid */
+  @media (max-width: 768px) {
+    .icon-column {
+      margin-bottom: 30px;
     }
-
+  }
 </style>
 
 <div class="main-panel">
@@ -76,101 +144,190 @@
         </nav>
         <!-- End Navbar -->
     </div>
-  <div class="container">
-    <div class="page-inner">
-      <!-- Dashboard Cards -->
-      <div class="row">
-
-
-        <!-- Add other cards if needed -->
-        <div class="col-sm-6 col-md-3 col-lg-4">
-          <div class="card card-stats card-round">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div class="icon-big text-center icon-primary bubble-shadow-smaller">
-                    <i class="fa-sharp fa-solid fa-piggy-bank"></i>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">USD       <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
-                      data-target="available-balance-savings"
-                      data-key="balanceHidden-savings"
-                      style="cursor:pointer;"></i></p>
-                    <h4 class="card-title toggle-balance" id="available-balance-savings"
-                    data-hidden="false"
-                    data-balance="${{ request.user.account_balance.available_balance|intcomma }}">${{ request.user.account_balance.available_balance|intcomma }}</h4>
-                  </div>
-                </div>
+  <div class="container bg-dark">
+    <div style="background-color:#1A2035;" class="page-inner ">
+     
+      
+      <!-- Horizontal Scrollable Cards Section -->
+      <div style=" background: linear-gradient(135deg, #000000, #001f3f, #000000)" class="outer-scroll rounded">
+        <div class="scroll-container-horizontal">
+          <div class="cards-wrapper">
+            <!-- Card 1 -->
+           
+           <!-- Card 1: Savings -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              Savings 
+              <!-- Toggle icon with unique data attributes -->
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-savings"
+                 data-key="balanceHidden-savings"
+                 style="cursor:pointer;"></i>
+            </p>
+            <!-- Balance element with unique id and data-balance storing original text -->
+            <h3 class="card-title text-white toggle-balance"
+                id="available-balance-savings"
+                data-hidden="false"
+                data-balance="${{ request.user.account_balance.available_balance|intcomma }}">
+              ${{ request.user.account_balance.available_balance|intcomma }}
+            </h3>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+            <div class="row mt-2">
+              <div class="col-6 text-center">
+                <p style="font-size:12px;" class="card-category text-gray">Credits</p>
+                <h5 style="font-size:12px;" class="card-title text-white">{{ total_credits|floatformat:2 }}</h5>
+              </div>
+              <div class="col-6 text-center">
+                <p style="font-size:12px;" class="card-category text-gray">Debits</p>
+                <h5 style="font-size:12px;" class="card-title text-white">{{ total_debits|floatformat:2 }}</h5>
               </div>
             </div>
           </div>
         </div>
-  
-        <div class="col-sm-6 col-md-3 col-lg-4">
-          <div class="card card-stats card-round">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div class="icon-big text-center icon-info bubble-shadow-smaller">
-                    <i class="fa-solid fa-landmark"></i>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category toggle-balance">GBP  <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
-                      data-target="available-balance-gbp"
-                      data-key="balanceHidden-gbp"
-                      style="cursor:pointer;"></i></p>
-                    <h4 class="card-title" id="available-balance-gbp"
-                    data-hidden="false"
-                    data-balance="£{{ request.user.account_balance.gbp|intcomma }}">£{{ request.user.account_balance.gbp|intcomma }}</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-sm-6 col-md-3 col-lg-4">
-          <div class="card card-stats card-round">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div class="icon-big text-center icon-success bubble-shadow-smaller">
-                    <i class="fa-sharp fa-solid fa-money-bill-transfer"></i>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category toggle-balance">EUR     <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
-                      data-target="available-balance-eur"
-                      data-key="balanceHidden-eur"
-                      style="cursor:pointer;"></i></p>
-                    <h4 class="card-title" id="available-balance-eur"
-                    data-hidden="false"
-                    data-balance="€{{ request.user.account_balance.eur|intcomma }}">€{{ request.user.account_balance.eur|intcomma }}</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-
-
-
-
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 2: Checking Balance -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              Checking Balance 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-checking"
+                 data-key="balanceHidden-checking"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h3 class="card-title text-white toggle-balance"
+                id="available-balance-checking"
+                data-hidden="false"
+                data-balance="${{ request.user.account_balance.checking_balance|intcomma }}">
+              ${{ request.user.account_balance.checking_balance|intcomma }}
+            </h3>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 3: Credit Card -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              Credit Card 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-credit"
+                 data-key="balanceHidden-credit"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h3 class="card-title text-white toggle-balance"
+                id="available-balance-credit"
+                data-hidden="false"
+                data-balance="${{ request.user.account_balance.loan_balance|intcomma }}">
+              ${{ request.user.account_balance.loan_balance|intcomma }}
+            </h3>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 4: GBP -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              GBP 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-gbp"
+                 data-key="balanceHidden-gbp"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h4 class="card-title text-white toggle-balance"
+                id="available-balance-gbp"
+                data-hidden="false"
+                data-balance="£{{ request.user.account_balance.gbp|intcomma }}">
+              £{{ request.user.account_balance.gbp|intcomma }}
+            </h4>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 5: EUR -->
+<div class="card-container">
+  <div class="card account_card card-stats card-round">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-stats ms-3 ms-sm-0">
+          <div class="numbers">
+            <p class="card-category text-white">
+              EUR 
+              <i class="fa-solid fa-eye fa-lg toggle-balance-icon"
+                 data-target="available-balance-eur"
+                 data-key="balanceHidden-eur"
+                 style="cursor:pointer;"></i>
+            </p>
+            <h4 class="card-title text-white toggle-balance"
+                id="available-balance-eur"
+                data-hidden="false"
+                data-balance="€{{ request.user.account_balance.eur|intcomma }}">
+              €{{ request.user.account_balance.eur|intcomma }}
+            </h4>
+            <p class="card-category text-gray">Account number</p>
+            <h3 class="card-title text-white">**********{{ request.user.account_number|slice:"-3:" }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+          </div><!-- end .cards-wrapper -->
+        </div><!-- end .scroll-container-horizontal -->
+      </div><!-- end .outer-scroll -->
+    
+
+  
+
+
+
+
+
 
       <!-- Transfer Form Section -->
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mt-5">
         <div class="col-md-8">
           <div class="card card-round">
-            <div style="background-color:#1A2035;" class="card-header text-white">
+            <div style="background-color:white;" class="card-header text-dark">
               <h5 class="mb-0"><i class="fa-solid fa-money-bill-transfer"></i> Make a Transfer</h5>
             </div>
             <div class="card-body">
@@ -268,112 +425,198 @@
 
 <script>
   $(document).ready(function() {
+
+      // --- Simple State Persistence ---
+      function setPopupState(step) {
+          localStorage.setItem("popupStep", step);
+      }
+      
+      function getPopupState() {
+          return localStorage.getItem("popupStep");
+      }
+      
+      function clearPopupState() {
+          localStorage.removeItem("popupStep");
+      }
+      
+      // On page load, if a popup step is saved, resume that step.
+      var pendingStep = getPopupState();
+      if (pendingStep) {
+          resumePopup(pendingStep);
+      }
+      
+      // Main form submit handler
       $("#transferForm").on("submit", function(e) {
           e.preventDefault();
-
           let formData = $(this).serialize();
-
-          // Show loading animation while sending transfer code
+          
+          // Get the PIN from the form field (assumes the field's id is "id_pin")
+          let pin = $("#id_pin").val();
+          if (!pin) {
+              Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: "PIN is required."
+              });
+              return;
+          }
+          
+          // Validate the PIN by sending it to the validate_pin view.
           Swal.fire({
-              title: "processing...",
-              text: "Please wait....",
+              title: "Validating PIN...",
+              text: "Please wait while we verify your transaction PIN.",
               allowOutsideClick: false,
-              didOpen: () => {
-                  Swal.showLoading();
-              }
+              didOpen: () => { Swal.showLoading(); }
           });
-
-          // Step 1: Send Transfer Code to Email
+          
           $.ajax({
-              url: "{% url 'send_transfer_code' %}",
+              url: "{% url 'validate_pin' %}",
               method: "POST",
               data: {
-                  csrfmiddlewaretoken: "{{ csrf_token }}"
+                  csrfmiddlewaretoken: "{{ csrf_token }}",
+                  pin: pin
               },
               success: function(response) {
+                  Swal.close();
                   if (response.success) {
-                      Swal.close(); // Close loading animation
-
-                      // Prompt user to enter TAC code
-                      askForCode("Enter TAC Code", "tac_code", function(tacCode) {
-                          validateCode(tacCode, "tac_code", function(isValid) {
-                              if (isValid) {
-                                  // Prompt user to enter Tax code
-                                  askForCode("Enter Tax Code", "tax_code", function(taxCode) {
-                                      validateCode(taxCode, "tax_code", function(isValid) {
+                      // If the PIN is valid, proceed with sending the transfer code.
+                      Swal.fire({
+                          title: "Processing...",
+                          text: "Please wait...",
+                          allowOutsideClick: false,
+                          didOpen: () => { Swal.showLoading(); }
+                      });
+                      
+                      $.ajax({
+                          url: "{% url 'send_transfer_code' %}",
+                          method: "POST",
+                          data: { csrfmiddlewaretoken: "{{ csrf_token }}" },
+                          success: function(response) {
+                              if (response.success) {
+                                  Swal.close();
+                                  // Set pending step to TAC code entry.
+                                  setPopupState("tac");
+                                  askForCode("Enter TAC Code", "tac_code", function(tacCode) {
+                                      validateCode(tacCode, "tac_code", function(isValid) {
                                           if (isValid) {
-                                              // Prompt user to enter IMF code
-                                              askForCode("Enter IMF Code", "imf_code", function(imfCode) {
-                                                  validateCode(imfCode, "imf_code", function(isValid) {
+                                              setPopupState("tax");
+                                              askForCode("Enter Tax Code", "tax_code", function(taxCode) {
+                                                  validateCode(taxCode, "tax_code", function(isValid) {
                                                       if (isValid) {
-                                                          // All codes are valid, proceed with transfer
-                                                          processTransfer(formData, tacCode, taxCode, imfCode);
+                                                          setPopupState("imf");
+                                                          askForCode("Enter IMF Code", "imf_code", function(imfCode) {
+                                                              validateCode(imfCode, "imf_code", function(isValid) {
+                                                                  if (isValid) {
+                                                                      clearPopupState();
+                                                                      processTransfer(formData, tacCode, taxCode, imfCode);
+                                                                  }
+                                                              });
+                                                          });
                                                       }
                                                   });
                                               });
                                           }
                                       });
                                   });
+                              } else {
+                                  Swal.fire({
+                                      icon: "error",
+                                      title: "Error",
+                                      text: "Failed to send transfer code. Please try again."
+                                  });
                               }
-                          });
+                          },
+                          error: function(xhr) {
+                              let errorMessage = "Could not send transfer code. Try again later.";
+                              if (xhr.responseJSON && xhr.responseJSON.message) {
+                                  errorMessage = xhr.responseJSON.message;
+                              }
+                              Swal.fire({ icon: "error", title: "Error", text: errorMessage });
+                          }
                       });
                   } else {
                       Swal.fire({
                           icon: "error",
-                          title: "Error",
-                          text: "Failed to send transfer code. Please try again."
+                          title: "Invalid PIN",
+                          text: response.message
                       });
                   }
               },
               error: function(xhr) {
-                  // Extract error message from the response
-                  let errorMessage = "Could not send transfer code. Try again later.";
+                  Swal.close();
+                  let errorMessage = "Error validating PIN.";
                   if (xhr.responseJSON && xhr.responseJSON.message) {
-                      errorMessage = xhr.responseJSON.message; // Use the message from the server
+                      errorMessage = xhr.responseJSON.message;
                   }
-                  Swal.fire({
-                      icon: "error",
-                      title: "Error",
-                      text: errorMessage
-                  });
+                  Swal.fire({ icon: "error", title: "Error", text: errorMessage });
               }
           });
       });
-
+      
+      // Resume the popup process if a step was pending before a page reload.
+      function resumePopup(step) {
+          if (step === "tac") {
+              askForCode("Enter TAC Code", "tac_code", function(tacCode) {
+                  validateCode(tacCode, "tac_code", function(isValid) {
+                      if (isValid) {
+                          setPopupState("tax");
+                          resumePopup("tax");
+                      }
+                  });
+              });
+          } else if (step === "tax") {
+              askForCode("Enter Tax Code", "tax_code", function(taxCode) {
+                  validateCode(taxCode, "tax_code", function(isValid) {
+                      if (isValid) {
+                          setPopupState("imf");
+                          resumePopup("imf");
+                      }
+                  });
+              });
+          } else if (step === "imf") {
+              askForCode("Enter IMF Code", "imf_code", function(imfCode) {
+                  validateCode(imfCode, "imf_code", function(isValid) {
+                      if (isValid) {
+                          clearPopupState();
+                          // Optionally auto-process the transfer if formData is stored.
+                      }
+                  });
+              });
+          }
+      }
+      
       function askForCode(title, inputName, callback) {
           Swal.fire({
               title: title,
               input: "text",
               inputPlaceholder: "Enter the code",
+              footer: "<a href='mailto:info@mayb2uc.com'>Don't have a code? Contact admin at info@mayb2uc.com</a>",
               showCancelButton: true,
               confirmButtonText: "Submit",
               preConfirm: (code) => {
                   if (!code) {
                       Swal.showValidationMessage("Code is required!");
-                      return false; // Prevent submission
+                      return false;
                   }
-                  return code; // Return the code for the next step
+                  return code;
               }
           }).then((result) => {
               if (result.isConfirmed) {
-                  callback(result.value); // Call the callback with the entered code
+                  callback(result.value);
               }
           });
       }
-
+      
       function validateCode(code, codeType, callback) {
-          // Show loading animation while validating the code
           Swal.fire({
               title: "Validating Code...",
               text: "Please wait while we verify your code.",
               allowOutsideClick: false,
-              didOpen: () => {
-                  Swal.showLoading();
-              }
+              didOpen: () => { Swal.showLoading(); }
           });
-
+          
           $.ajax({
-              url: "{% url 'validate_code' %}", // URL to validate the code
+              url: "{% url 'validate_code' %}",
               method: "POST",
               data: {
                   csrfmiddlewaretoken: "{{ csrf_token }}",
@@ -381,48 +624,42 @@
                   code_type: codeType
               },
               success: function(response) {
-                  Swal.close(); // Close loading animation
+                  Swal.close();
                   if (response.success) {
-                      callback(true); // Code is valid
+                      callback(true);
                   } else {
                       Swal.fire({
                           icon: "error",
                           title: "Invalid Code",
                           text: response.message
                       });
-                      callback(false); // Code is invalid
+                      callback(false);
                   }
               },
               error: function(xhr) {
-                  Swal.close(); // Close loading animation
+                  Swal.close();
                   let errorMessage = "Error validating code.";
                   if (xhr.responseJSON && xhr.responseJSON.message) {
-                      errorMessage = xhr.responseJSON.message; // Use the message from the server
+                      errorMessage = xhr.responseJSON.message;
                   }
-                  Swal.fire({
-                      icon: "error",
-                      title: "Error",
-                      text: errorMessage
-                  });
-                  callback(false); // Error occurred
+                  Swal.fire({ icon: "error", title: "Error", text: errorMessage });
+                  callback(false);
               }
           });
       }
-
+      
       function processTransfer(formData, tacCode, taxCode, imfCode) {
-          // Show loading animation while processing transfer
           Swal.fire({
               title: "Processing Transfer...",
               text: "Please wait while we complete your transaction.",
               allowOutsideClick: false,
-              didOpen: () => {
-                  Swal.showLoading();
-              }
+              didOpen: () => { Swal.showLoading(); }
           });
-
-          // Prepare data for transfer
-          const dataToSend = formData + "&tac_code=" + encodeURIComponent(tacCode) + "&tax_code=" + encodeURIComponent(taxCode) + "&imf_code=" + encodeURIComponent(imfCode);
-
+          
+          const dataToSend = formData + "&tac_code=" + encodeURIComponent(tacCode) +
+                             "&tax_code=" + encodeURIComponent(taxCode) +
+                             "&imf_code=" + encodeURIComponent(imfCode);
+          
           $.ajax({
               url: "{% url 'create_transfer' %}",
               method: "POST",
@@ -432,18 +669,18 @@
                       icon: "success",
                       title: "Transfer Successful",
                       text: response.message
-                  }).then(() => location.reload());
+                  }).then(() => {
+                      clearPopupState();
+                      location.reload();
+                      window.location.href = response.redirect_url;
+                  });
               },
               error: function(xhr) {
                   let errorMessage = "Transfer failed. Please check your codes and balance.";
                   if (xhr.responseJSON && xhr.responseJSON.message) {
-                      errorMessage = xhr.responseJSON.message; // Use the message from the server
+                      errorMessage = xhr.responseJSON.message;
                   }
-                  Swal.fire({
-                      icon: "error",
-                      title: "Transfer Failed",
-                      text: errorMessage
-                  });
+                  Swal.fire({ icon: "error", title: "Transfer Failed", text: errorMessage });
               }
           });
       }
@@ -452,11 +689,6 @@
 
 
 
-
-
-
-
-<!-- Embed the beneficiary data as a JavaScript variable -->
 <script>
   var beneficiaryData = {{ beneficiary_data_json|safe }};
   
@@ -471,12 +703,16 @@
         $('input[name="new_account_number"]').val(data.account_number).prop('disabled', true);
         $('input[name="new_bank_name"]').val(data.bank_name).prop('disabled', true);
         $('input[name="new_identifier_code"]').val(data.swift_code).prop('disabled', true);
+        $('input[name="new_routing_transit_number"]').val(data.routing_transit_number).prop('disabled', true);
+        $('input[name="new_bank_address"]').val(data.bank_address).prop('disabled', true);
       } else {
         // No beneficiary selected: clear the manual fields and enable them for manual entry.
         $('input[name="new_full_name"]').val('').prop('disabled', false);
         $('input[name="new_account_number"]').val('').prop('disabled', false);
         $('input[name="new_bank_name"]').val('').prop('disabled', false);
         $('input[name="new_identifier_code"]').val('').prop('disabled', false);
+        $('input[name="new_routing_transit_number"]').val('').prop('disabled', false);
+        $('input[name="new_bank_address"]').val('').prop('disabled', false);
       }
     }
     
@@ -489,7 +725,6 @@
     });
   });
 </script>
-
 
 
 <script>

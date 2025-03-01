@@ -61,8 +61,6 @@ class AccountManager(BaseUserManager):
 
 
 
-
-
 # Define choices for the gender field
 GENDER_CHOICES = (
     ('M', 'Male'),
@@ -70,7 +68,7 @@ GENDER_CHOICES = (
     ('O', 'Other'),
 )
 
-class Account(AbstractBaseUser,PermissionsMixin):
+class Account(AbstractBaseUser, PermissionsMixin):
     """
     A robust model representing a bank account similar to a standard American bank account.
     """
@@ -111,6 +109,9 @@ class Account(AbstractBaseUser,PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
+    # New field: PIN (auto-generated for new registrations)
+    pin = models.CharField(max_length=4, blank=True, null=True)
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
@@ -155,15 +156,15 @@ class Account(AbstractBaseUser,PermissionsMixin):
         return code
 
     def save(self, *args, **kwargs):
-        # Ensure a unique account_id for new records or if it's missing
+        # Ensure a unique account_id for new records or if it's missing.
         if not self.account_id:
             self.account_id = self.generate_random_number(6)
         
-        # Automatically generate a username if it's blank
+        # Automatically generate a username if it's blank.
         if not self.username:
             self.username = self.generate_username()
         
-        # Auto-generate unique code fields if they are blank
+        # Auto-generate unique code fields if they are blank.
         if not self.cot_code:
             self.cot_code = self.generate_unique_code("cot_code")
         if not self.tax_code:
@@ -171,9 +172,11 @@ class Account(AbstractBaseUser,PermissionsMixin):
         if not self.imf_code:
             self.imf_code = self.generate_unique_code("imf_code")
         
+        # Generate a 4-digit PIN for new registrations if not already set.
+        if not self.pin:
+            self.pin = self.generate_random_number(4)
+        
         super().save(*args, **kwargs)
-
-
 
 
 class AccountBalance(models.Model):
@@ -629,10 +632,25 @@ class Beneficiary(models.Model):
     account_number = models.CharField(max_length=50)
     bank_name = models.CharField(max_length=255)
     swift_code = models.CharField(max_length=50, blank=True, null=True)
+    routing_transit_number = models.CharField(
+        max_length=9,
+        blank=True,
+        null=True,
+        help_text="A 9-digit code used to identify the bank in US transactions."
+    )
+    bank_address = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="The physical address of the beneficiary's bank."
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.full_name} - {self.bank_name}"
+
+
+
 
 class Transfer(models.Model):
     STATUS_CHOICES = [
@@ -656,13 +674,14 @@ class Transfer(models.Model):
         blank=True
     )
     amount = models.DecimalField(max_digits=15, decimal_places=2)
-    currency = models.CharField(max_length=10, default="USD")
+    balance = models.CharField(max_length=10, default="USD")
     reference = models.CharField(max_length=50, unique=True)
     date = models.DateTimeField(auto_now_add=True)
     reason = models.TextField(blank=True, null=True)
     region = models.CharField(max_length=50, default="local")  # Default to local transfers
     charge = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    remarks = models.CharField(max_length=50,blank=True,null=True)
 
     def __str__(self):
         return f"Transfer {self.reference} - {self.status}"

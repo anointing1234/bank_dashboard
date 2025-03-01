@@ -96,7 +96,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bank_dash.wsgi.application'
  
-
+ 
 
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.AccountBackend',  # Custom backend for user login
@@ -282,7 +282,7 @@ UNFOLD = {
                         "link": reverse_lazy("admin:accounts_transfer_changelist"),
                     },
                       {
-                        "title": _("Transfercode"),
+                        "title": _("Transfer codes"),
                         "icon": "swap_horiz",
                         "link": reverse_lazy("admin:accounts_transfercode_changelist"),
                     },

@@ -13,6 +13,8 @@ urlpatterns = [
     path('logout_view/',views.logout_view,name='logout_view'),
     path('deposit/',views.deposit_view,name='deposit'),
     path('transfer/',views.transfer_view,name='transfer'),
+    path('validate_pin/',views.validate_pin, name='validate_pin'),
+    path('Accounts/transaction_receipt/<str:reference>/',views.transaction_receipt, name='transaction_receipt'),
     path('get_payment_gateway/',views.get_payment_gateway,name='get_payment_gateway'),
     path('create_deposit/',views.create_deposit,name='create_deposit'),
     path("send-transfer-code/",views.send_transfer_code, name="send_transfer_code"),
@@ -31,6 +33,7 @@ urlpatterns = [
     path('validate_code/',views.validate_code,name='validate_code'),
     path('add_beneficiary/',views.add_beneficiary, name='add_beneficiary'),
     path('emails/',views.emails,name='emails'),
+    path('edit_profile/',views.edit_profile,name='edit_profile'),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

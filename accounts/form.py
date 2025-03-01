@@ -155,33 +155,51 @@ class LoginForm(forms.Form):
 
 
 
+def mask_account_number(account_number, account_type):
+    """
+    Mask the account number based on the account type.
+    - For 'savings': shows '*******' followed by the last 5 digits.
+    - For 'checking': shows '****' followed by the last 7 digits.
+    - For 'gbp' or 'eur': mask all but the last 4 digits.
+    """
+    if not account_number:
+        return ""
+    if account_type == 'savings' and len(account_number) >= 5:
+        return '*******' + account_number[-5:]
+    elif account_type == 'checking' and len(account_number) >= 7:
+        return '****' + account_number[-7:]
+    else:
+        # For gbp, eur, or any other type, mask all but the last 4 digits.
+        return '*' * (len(account_number) - 4) + account_number[-4:]
+
+
 class TransferForm(forms.ModelForm):
-    # Field to select an existing beneficiary (optional)
+    # Existing beneficiary field.
     beneficiary = forms.ModelChoiceField(
         queryset=Beneficiary.objects.none(),
         required=False,
         widget=forms.Select(attrs={"class": "form-control", "id": "id_beneficiary"})
     )
-    # Fields for manually entering beneficiary details if none is selected
+    # Manual beneficiary fields.
     new_full_name = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
             "class": "form-control manual-beneficiary-field",
-            "placeholder": "Enter recipient's full name"
+            "placeholder": "Enter beneficiary full name"
         })
     )
     new_account_number = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
             "class": "form-control manual-beneficiary-field",
-            "placeholder": "Enter recipient's account number"
+            "placeholder": "Enter beneficiary account number"
         })
     )
     new_bank_name = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
             "class": "form-control manual-beneficiary-field",
-            "placeholder": "Enter recipient's bank name"
+            "placeholder": "Enter beneficiary bank name"
         })
     )
     new_identifier_code = forms.CharField(
@@ -191,11 +209,41 @@ class TransferForm(forms.ModelForm):
             "placeholder": "Enter SWIFT/BIC (optional)"
         })
     )
+    new_routing_transit_number = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control manual-beneficiary-field",
+            "placeholder": "Enter Routing Transit Number"
+        })
+    )
+    new_bank_address = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "form-control manual-beneficiary-field",
+            "placeholder": "Enter Bank Address"
+        })
+    )
+    
+    # New field: From account dropdown.
+    from_account = forms.ChoiceField(
+        choices=[],  # Will be set dynamically in __init__
+        widget=forms.Select(attrs={"class": "form-control", "required": True}),
+        label="From"
+    )
 
+    pin = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            "class": "form-control",
+            "placeholder": "Enter PIN"
+        })
+    )
+    
     class Meta:
         model = Transfer
+        # Remove "currency" and add "from_account" instead.
         fields = [
-            "beneficiary", "amount", "currency", "reason", "region"
+            "beneficiary", "amount", "reason", "region", "from_account"
         ]
         widgets = {
             "amount": forms.NumberInput(attrs={
@@ -204,11 +252,6 @@ class TransferForm(forms.ModelForm):
                 "step": "0.01",
                 "required": True
             }),
-            "currency": forms.Select(choices=[
-                ("USD", "USD"),
-                ("EUR", "EUR"),
-                ("GBP", "GBP")
-            ], attrs={"class": "form-control", "required": True}),
             "reason": forms.TextInput(attrs={
                 "class": "form-control",
                 "placeholder": "Purpose of transfer",
@@ -223,14 +266,52 @@ class TransferForm(forms.ModelForm):
                 attrs={"class": "form-control", "required": True}
             ),
         }
-
+    
     def __init__(self, *args, **kwargs):
-        # Expect the current user to be passed in so we can filter beneficiaries.
+        # Expect the current user (an Account instance) to be passed in.
         user = kwargs.pop('user', None)
         self.user = user
         super(TransferForm, self).__init__(*args, **kwargs)
         if user:
             self.fields['beneficiary'].queryset = Beneficiary.objects.filter(user=user)
+            try:
+                # Get the user's account balance.
+                account_balance = user.account_balance
+                # Retrieve balances.
+                savings_balance = account_balance.available_balance
+                checking_balance = account_balance.checking_balance
+                gbp_balance = account_balance.gbp
+                eur_balance = account_balance.eur
+                
+                # Use the user's account_number for masking (adjust if needed).
+                account_number = user.account_number or ""
+                
+                # Create labels for each option.
+                savings_label = f"Savings ({mask_account_number(account_number, 'savings')}) - ${savings_balance}"
+                checking_label = f"Checking ({mask_account_number(account_number, 'checking')}) - ${checking_balance}"
+                gbp_label = f"GBP ({mask_account_number(account_number, 'gbp')}) - £{gbp_balance}"
+                eur_label = f"EUR ({mask_account_number(account_number, 'eur')}) - €{eur_balance}"
+                
+                # Define choices.
+                choices = [
+                    ('savings', savings_label),
+                    ('checking', checking_label),
+                    ('gbp', gbp_label),
+                    ('eur', eur_label),
+                ]
+                self.fields['from_account'].choices = choices
+            except Exception:
+                # If account_balance is not available or another error occurs.
+                self.fields['from_account'].choices = []
+      
+    def clean_pin(self):
+        pin = self.cleaned_data.get('pin')
+        if self.user and pin:
+            # Assumes the user's model (Account) has a field named 'transaction_pin'.
+            if self.user.pin != pin:
+                raise ValidationError("Incorrect PIN.")
+        return pin            
+    
 
     def clean(self):
         cleaned_data = super().clean()
@@ -239,12 +320,15 @@ class TransferForm(forms.ModelForm):
             new_full_name = cleaned_data.get('new_full_name')
             new_account_number = cleaned_data.get('new_account_number')
             new_bank_name = cleaned_data.get('new_bank_name')
-            if not (new_full_name and new_account_number and new_bank_name):
+            new_routing_transit_number = cleaned_data.get('new_routing_transit_number')
+            new_bank_address = cleaned_data.get('new_bank_address')
+            # Require all beneficiary details if no existing beneficiary is selected.
+            if not (new_full_name and new_account_number and new_bank_name and new_routing_transit_number and new_bank_address):
                 raise forms.ValidationError(
                     "Please select an existing beneficiary or fill in all beneficiary details manually."
                 )
         return cleaned_data
-
+    
     def save(self, commit=True):
         transfer = super().save(commit=False)
         if not self.cleaned_data.get('beneficiary'):
@@ -252,33 +336,35 @@ class TransferForm(forms.ModelForm):
             new_account_number = self.cleaned_data.get('new_account_number')
             new_bank_name = self.cleaned_data.get('new_bank_name')
             new_identifier_code = self.cleaned_data.get('new_identifier_code')
-            
-            # Check if a beneficiary with these details already exists for the user.
+            new_routing_transit_number = self.cleaned_data.get('new_routing_transit_number')
+            new_bank_address = self.cleaned_data.get('new_bank_address')
+            # Check if a beneficiary with these details already exists.
             existing_beneficiary = Beneficiary.objects.filter(
                 user=self.user,
                 full_name=new_full_name,
                 account_number=new_account_number,
-                bank_name=new_bank_name
+                bank_name=new_bank_name,
+                routing_transit_number=new_routing_transit_number,
+                bank_address=new_bank_address
             ).first()
-            
             if existing_beneficiary:
-                # Use the existing beneficiary.
                 transfer.beneficiary = existing_beneficiary
-                # Optionally, you might clear manual fields here if needed.
             else:
-                # Create a new beneficiary since none exists.
                 beneficiary = Beneficiary.objects.create(
                     user=self.user,
                     full_name=new_full_name,
                     account_number=new_account_number,
                     bank_name=new_bank_name,
-                    swift_code=new_identifier_code
+                    swift_code=new_identifier_code,
+                    routing_transit_number=new_routing_transit_number,
+                    bank_address=new_bank_address
                 )
                 transfer.beneficiary = beneficiary
+        # Save the chosen from_account (e.g., 'savings', 'checking', 'gbp', or 'eur').
+        transfer.from_account = self.cleaned_data.get('from_account')
         if commit:
             transfer.save()
         return transfer
-
 
 
 
@@ -333,6 +419,10 @@ class CardForm(forms.ModelForm):
 
 
 
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Account  # Use your user model
+        fields = ['email', 'country', 'city','gender']  # Add fields you want to edit
 
 
 

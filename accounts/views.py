@@ -1,11 +1,13 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from django.contrib.auth.models import User
 from decimal import Decimal
+from django.core.mail import EmailMessage
 from django.utils.html import strip_tags
 from django.contrib.auth import login,authenticate
 from django.contrib import messages
 from django.urls import reverse
 from django.utils import timezone
+from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth import logout as auth_logout,login as auth_login,authenticate
 from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
@@ -19,12 +21,13 @@ from django.contrib.auth.hashers import make_password,check_password
 from django.utils.decorators import method_decorator
 from django.core.mail import send_mail
 import os
+from email.mime.image import MIMEImage
 from django.conf import settings
 import shutil
 from requests.exceptions import ConnectionError
 import requests 
 import uuid
-from accounts.form import SignupForm,LoginForm,TransferForm,LoanRequestForm,CardForm,SendresetcodeForm,PasswordResetForm
+from accounts.form import SignupForm,LoginForm,TransferForm,LoanRequestForm,CardForm,SendresetcodeForm,PasswordResetForm,ProfileEditForm 
 from .models import PaymentGateway,Deposit, Transaction,Transfer,TransferCode,LoanRequest,ExchangeRate,Exchange,Card,ResetPassword,Beneficiary
 import random
 from django.utils.crypto import get_random_string
@@ -87,6 +90,7 @@ def request_loan(request):
 
 
 
+
 def register(request):
     if request.method == 'POST':
         register_form = SignupForm(request.POST)
@@ -102,26 +106,37 @@ def register(request):
             user.save()  # Save the user with the generated username
             
             # Prepare email content
-            logo_url = settings.STATIC_URL + 'images/logo.png'  # Ensure this path is correct
             current_year = timezone.now().year
             email_subject = 'Welcome to Maybank'
             email_body = render_to_string('emails/registration_email.html', {
                 'user': user,
-                'logo_url': logo_url,
                 'current_year': current_year,
             })
 
-            # Send the email
-            send_mail(
+            # Create the email
+            msg = EmailMultiAlternatives(
                 email_subject,
-                email_body,
+                '',  # Plain text message (optional)
                 settings.DEFAULT_FROM_EMAIL,
                 [user.email],
-                fail_silently=False,
-                html_message=email_body  # Send as HTML
             )
+            msg.mixed_subtype = 'related'  # Allow inline images
 
-            return JsonResponse({'success': True, 'message': 'Registration successful! A welcome email has been sent.', 'redirect_url': '/Accounts/login'})
+            # Attach the HTML content
+            msg.attach_alternative(email_body, "text/html")
+
+            # Attach the logo as an inline image
+            logo_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'logo.png')  # Adjust the path as necessary
+            with open(logo_path, 'rb') as f:  # Open the logo file in binary mode
+                img = MIMEImage(f.read())
+                img.add_header('Content-ID', '<logo.png>')  # Set the content ID
+                img.add_header('Content-Disposition', 'inline', filename='logo.png')  # Set as inline
+                msg.attach(img)  # Attach the image to the email
+
+            # Send the email
+            msg.send(fail_silently=False)
+
+            return JsonResponse({'success': True, 'message': 'A welcome email has been sent with your account id.', 'redirect_url': '/Accounts/login'})
         else:
             # Collect all form errors
             error_messages = []
@@ -136,10 +151,10 @@ def register(request):
     return JsonResponse({'success': False, 'message': 'Invalid request.'})
 
 
-
-
 def emails(request):
     return render(request,'emails/registration_email.html')
+
+
 
 
 def login_Account(request):
@@ -201,10 +216,11 @@ def deposit_view(request):
 def withdrawal_view(request):
     return render(request,'finaces/withdraw.html')
 
+
+
 def transfer_view(request):
     # Instantiate the form with the current user
     form = TransferForm(user=request.user)
-    
     # Build a dictionary of the user's beneficiaries
     beneficiary_data = {
         beneficiary.id: {
@@ -212,6 +228,8 @@ def transfer_view(request):
             "account_number": beneficiary.account_number,
             "bank_name": beneficiary.bank_name,
             "swift_code": beneficiary.swift_code,
+            "routing_transit_number":beneficiary.routing_transit_number,
+            "bank_address":beneficiary.bank_address
         }
         for beneficiary in Beneficiary.objects.filter(user=request.user)
     }
@@ -228,6 +246,27 @@ def transfer_view(request):
         'transfers': transfers,
         'beneficiary_data_json': beneficiary_data_json,
     })
+
+
+
+
+
+def validate_pin(request):
+   
+    if not request.user.is_authenticated:
+        return JsonResponse({"success": False, "message": "User not authenticated."})
+    
+    pin = request.POST.get("pin")
+    if not pin:
+        return JsonResponse({"success": False, "message": "PIN not provided."})
+    
+    # Assumes that the Account model (or custom User model) has a field 'transaction_pin'.
+    if request.user.pin == pin:
+        return JsonResponse({"success": True, "message": "PIN validated successfully."})
+    else:
+        return JsonResponse({"success": False, "message": "Incorrect transaction PIN."})
+
+
 
 
 
@@ -294,78 +333,33 @@ def create_deposit(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
-        
+
 def send_transfer_code(request):
     if request.method == "POST" and request.user.is_authenticated:
-        tac_code = get_random_string(6, allowed_chars="1234567890")  # Generate 6-digit TAC code
-        tax_code = get_random_string(6, allowed_chars="1234567890")  # Generate 6-digit Tax code
-        imf_code = get_random_string(6, allowed_chars="1234567890")  # Generate 6-digit IMF code
+        # Check if there are any unused codes (status=False)
+        existing_code = TransferCode.objects.filter(user=request.user,  used=False).first()
         
-        # Save the codes in the database with expiration time (e.g., 120 minutes)
+        if existing_code:
+            return JsonResponse({"success": True})
+        
+        # Generate new codes
+        tac_code = get_random_string(6, allowed_chars="1234567890")
+        tax_code = get_random_string(6, allowed_chars="1234567890")
+        imf_code = get_random_string(6, allowed_chars="1234567890")
+        
+        # Save the new codes in the database with an expiration time
         TransferCode.objects.create(
             user=request.user,
             tac_code=tac_code,
             tax_code=tax_code,
             imf_code=imf_code,
-            expires_at=now() + timedelta(minutes=120)  # Set expiration to 120 minutes from now
+            expires_at=now() + timedelta(minutes=120),
+            used=False  # Mark as unused
         )
-
-        # # Construct the HTML email content
-        # email_html = f"""
-        # <html>
-        #     <head>
-        #         <style>
-        #             body {{
-        #                 font-family: Arial, sans-serif;
-        #                 background-color: #f4f4f4;
-        #                 padding: 20px;
-        #             }}
-        #             .container {{
-        #                 background-color: #ffffff;
-        #                 padding: 20px;
-        #                 border-radius: 5px;
-        #                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        #             }}
-        #             h1 {{
-        #                 color: #333;
-        #             }}
-        #             .details {{
-        #                 margin: 20px 0;
-        #             }}
-        #             .details div {{
-        #                 margin-bottom: 10px;
-        #             }}
-        #         </style>
-        #     </head>
-        #     <body>
-        #         <div class="container">
-        #             <h1>Your Transfer Codes</h1>
-        #             <div class="details">
-        #                 <div><strong>TAC Code:</strong> {tac_code}</div>
-        #                 <div><strong>Tax Code:</strong> {tax_code}</div>
-        #                 <div><strong>IMF Code:</strong> {imf_code}</div>
-        #             </div>
-        #             <p>Please keep these codes secure and do not share them with anyone.</p>
-        #             <p>Thank you for using our service!</p>
-        #         </div>
-        #     </body>
-        # </html>
-        # """
-
-        # # Send email
-        # send_mail(
-        #     "Your Transfer Codes",
-        #     "This is an HTML email. Please view it in a browser.",  # Fallback text for email clients that don't support HTML
-        #     settings.DEFAULT_FROM_EMAIL,  # Use the correct email
-        #     [request.user.email],
-        #     fail_silently=False,
-        #     html_message=email_html,  # Send the HTML message
-        # )
-
-        return JsonResponse({"success": True, "message": "Transfer codes sent to your email."})
+        
+        return JsonResponse({"success": True})
     
-    return JsonResponse({"success": False, "message": "Failed to send transfer codes."}, status=400)
-
+    return JsonResponse({"success": False}, status=400)
 
 
 
@@ -377,10 +371,10 @@ def create_transfer(request):
         if form.is_valid():
             transfer = form.save(commit=False)
             transfer.user = request.user
-            currency = form.cleaned_data["currency"]
+            currency = form.cleaned_data["from_account"]
             amount = form.cleaned_data["amount"]
 
-            # Get the codes from the cleaned data and strip whitespace
+            # Get the codes from the POST data (strip whitespace)
             tac_code_input = request.POST.get("tac_code", "").strip()
             tax_code_input = request.POST.get("tax_code", "").strip()
             imf_code_input = request.POST.get("imf_code", "").strip()
@@ -398,7 +392,7 @@ def create_transfer(request):
             # Verify TAC code
             try:
                 tac_code_obj = TransferCode.objects.get(user=request.user, tac_code=tac_code_input, used=False)
-                print(f"TAC code found: {tac_code_obj.tac_code}")  # Debug print
+                print(f"TAC code found: {tac_code_obj.tac_code}")
             except TransferCode.DoesNotExist:
                 print("Invalid TAC code.")
                 return JsonResponse({"success": False, "message": "Invalid TAC code."}, status=400)
@@ -406,7 +400,7 @@ def create_transfer(request):
             # Verify Tax code
             try:
                 tax_code_obj = TransferCode.objects.get(user=request.user, tax_code=tax_code_input, used=False)
-                print(f"Tax code found: {tax_code_obj.tax_code}")  # Debug print
+                print(f"Tax code found: {tax_code_obj.tax_code}")
             except TransferCode.DoesNotExist:
                 print("Invalid Tax code.")
                 return JsonResponse({"success": False, "message": "Invalid Tax code."}, status=400)
@@ -414,43 +408,51 @@ def create_transfer(request):
             # Verify IMF code
             try:
                 imf_code_obj = TransferCode.objects.get(user=request.user, imf_code=imf_code_input, used=False)
-                print(f"IMF code found: {imf_code_obj.imf_code}")  # Debug print
+                print(f"IMF code found: {imf_code_obj.imf_code}")
             except TransferCode.DoesNotExist:
                 print("Invalid IMF code.")
                 return JsonResponse({"success": False, "message": "Invalid IMF code."}, status=400)
 
-            # Deduct from the correct balance
-            if currency == "USD":
+            if currency == "savings":
                 if account_balance.available_balance < amount:
-                    print("Insufficient USD balance.")
-                    return JsonResponse({"success": False, "message": "Insufficient USD balance."}, status=400)
+                    print("Insufficient Savings balance.")
+                    return JsonResponse({"success": False, "message": "Insufficient Savings balance."}, status=400)
                 account_balance.available_balance -= amount
                 account_balance.total_debits += amount
-            elif currency == "GBP":
+                remaining_balance = account_balance.available_balance
+            elif currency == "checking":
+                if account_balance.checking_balance < amount:
+                    print("Insufficient Checking balance.")
+                    return JsonResponse({"success": False, "message": "Insufficient Checking balance."}, status=400)
+                account_balance.checking_balance -= amount
+                account_balance.total_debits += amount
+                remaining_balance = account_balance.checking_balance
+            elif currency == "gbp":
                 if account_balance.gbp < amount:
                     print("Insufficient GBP balance.")
                     return JsonResponse({"success": False, "message": "Insufficient GBP balance."}, status=400)
                 account_balance.gbp -= amount
                 account_balance.total_debits += amount
-            elif currency == "EUR":
+                remaining_balance = account_balance.gbp
+            elif currency == "eur":
                 if account_balance.eur < amount:
                     print("Insufficient EUR balance.")
                     return JsonResponse({"success": False, "message": "Insufficient EUR balance."}, status=400)
                 account_balance.eur -= amount
                 account_balance.total_debits += amount
+                remaining_balance = account_balance.eur
             else:
-                print("Invalid currency.")
-                return JsonResponse({"success": False, "message": "Invalid currency."}, status=400)
+                print("Invalid balance.")
+                return JsonResponse({"success": False, "message": "Invalid balance."}, status=400)
 
             account_balance.save()
             print(f"User account balance after transfer: USD={account_balance.available_balance}, GBP={account_balance.gbp}, EUR={account_balance.eur}")
 
-            # Generate a unique reference
+            # Generate a unique transaction reference
             unique_reference = str(uuid.uuid4())[:10]
             transfer.reference = unique_reference
             print(f"Generated unique reference: {unique_reference}")
 
-            # Save the transfer
             try:
                 transfer.save()
                 print("Transfer saved successfully.")
@@ -481,81 +483,65 @@ def create_transfer(request):
             tax_code_obj.save()
             imf_code_obj.save()
             print("Transfer codes marked as used.")
+                        # ------------------------------------------------------------------
+            # Send Debit Notification Email using EmailMultiAlternatives
+            # ------------------------------------------------------------------
+            debit_context = {
+                "user": request.user,
+                "amount": amount,
+                "sender_account_type": transfer.from_account,
+                "sender_account_number": request.user.account_number,
+                "sender_name": f"{request.user.first_name} {request.user.last_name}",
+                "transaction_reference": unique_reference,
+                "transaction_date": transaction.transaction_date,
+                "available_balance":remaining_balance,
+            }
+            email_subject = "Debit Notification"
+            email_body = render_to_string("emails/debit_notification.html", debit_context)
+            msg = EmailMultiAlternatives(
+                email_subject,
+                "",  # Plain text version (optional)
+                settings.DEFAULT_FROM_EMAIL,
+                [request.user.email],
+            )
+            msg.mixed_subtype = "related"  # Allow inline images
 
-            # Construct the HTML email content
-            email_html = f"""
-            <html>
-                <head>
-                    <style>
-                        body {{
-                            font-family: Arial, sans-serif;
-                            background-color: #f4f4f4;
-                            padding: 20px;
-                        }}
-                        .container {{
-                            background-color: #ffffff;
-                            padding: 20px;
-                            border-radius: 5px;
-                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                        }}
-                        h1 {{
-                            color: #333;
-                        }}
-                        .details {{
-                            margin: 20px 0;
-                        }}
-                        .details div {{
-                            margin-bottom: 10px;
-                        }}
-                        .footer {{
-                            margin-top: 20px;
-                            font-size: 0.9em;
-                            color: #777;
-                        }}
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <h1>Transaction Receipt</h1>
-                        <div class="details">
-                            <div><strong>Sender:</strong>{request.user.first_name} {request.user.last_name}</div>
-                            <div><strong>Transaction Reference:</strong> {unique_reference}</div>
-                            <div><strong>Beneficiary Name:</strong> {transfer.beneficiary.full_name}</div>
-                            <div><strong>Bank:</strong> Maybank</div>
-                            <div><strong>Account Number:</strong> {transfer.beneficiary.account_number}</div>
-                            <div><strong>Amount:</strong> {amount} {currency}</div>
-                            <div><strong>New Balance:</strong> USD={account_balance.available_balance}, GBP={account_balance.gbp}, EUR={account_balance.eur}</div>
-                        </div>
-                        <div class="footer">
-                            Thank you for using our service!
-                        </div>
-                    </div>
-                </body>
-            </html>
-            """
+            # Attach the HTML alternative
+            msg.attach_alternative(email_body, "text/html")
 
-            # Send receipt email to the user
+            # Attach the logo as an inline image (using the same procedure as in registration)
+            logo_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'logo.png')  # Adjust path if needed
+            with open(logo_path, 'rb') as f:
+                img = MIMEImage(f.read())
+                img.add_header('Content-ID', '<logo.png>')
+                img.add_header('Content-Disposition', 'inline', filename='logo.png')
+                msg.attach(img)
+
             try:
-                send_mail(
-                    "Transaction Receipt",
-                    "This is an HTML email. Please view it in a browser.",
-                    settings.DEFAULT_FROM_EMAIL,
-                    [request.user.email],
-                    fail_silently=False,
-                    html_message=email_html,
-                )
-                print("Receipt email sent successfully.")
+                msg.send(fail_silently=False)
+                print("Debit notification email sent successfully.")
             except Exception as e:
-                print(f"Error sending receipt email: {e}")
-                return JsonResponse({"success": False, "message": "Error sending receipt email. Please check your email settings."}, status=500)
+                print(f"Error sending debit notification email: {e}")
+                return JsonResponse({"success": False, "message": "Error sending debit notification email. Please check your email settings."}, status=500)
 
-            return JsonResponse({"success": True, "message": "Transfer successful."})
+            # ------------------------------------------------------------------
+            # Return the Redirect URL in JSON
+            # ------------------------------------------------------------------
+            receipt_url = reverse("transaction_receipt", args=[unique_reference])
+            return JsonResponse({
+                "success": True,
+                "message": "Transfer successful.",
+                "redirect_url": receipt_url
+            })
         else:
             print("Form is invalid:", form.errors)
             return JsonResponse({"success": False, "message": "Invalid form submission."}, status=400)
     else:
         form = TransferForm(user=request.user)
     return render(request, "finances/transfer.html", {"form": form})
+
+
+
 
 
 def validate_code(request):
@@ -819,3 +805,46 @@ def add_beneficiary(request):
     
     return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=400)
 
+
+
+
+
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()  # Save the updated user profile
+            return JsonResponse({'success': True})
+        else:
+            # Collect error messages
+            error_messages = form.errors.as_json()
+            return JsonResponse({'success': False, 'error': error_messages})
+    else:
+        form = ProfileEditForm(instance=request.user)
+    
+    return render(request, 'edit_profile.html', {'form': form})
+
+
+
+def transaction_receipt(request, reference):
+    # Retrieve the transaction and transfer objects based on the reference and current user.
+    transaction = get_object_or_404(Transaction, reference=reference, user=request.user)
+    transfer = get_object_or_404(Transfer, reference=reference, user=request.user)
+    
+    context = {
+        "sender_name": f"{request.user.first_name} {request.user.last_name}",
+        "sender_account_number": request.user.account_number,
+        "sender_account_type": request.user.account_type,
+        "receiver_name": transfer.beneficiary.full_name,
+        "receiver_account_number": transfer.beneficiary.account_number,
+        "receiver_bank": transfer.beneficiary.bank_name,
+        "receiver_bank_address": transfer.beneficiary.bank_address,
+        "transaction_reference": reference,
+        "transaction_date": transaction.transaction_date,
+        "region": transfer.region,
+        "amount": transaction.amount,
+        "currency": transfer.balance,
+        "available_balance": request.user.account_balance.available_balance,
+    }
+    return render(request, 'emails/transaction_receipt.html', context)

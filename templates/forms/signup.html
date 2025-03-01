@@ -201,7 +201,7 @@
               Swal.fire({
                 icon: 'success',
                 title: 'Registration Successful!',
-                text: data.message || 'You have successfully registered!',
+                text: data.message || '',
                 confirmButtonText: 'Okay'
               }).then(() => {
                 window.location.href = data.redirect_url; // Redirect to the next page
