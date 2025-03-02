@@ -34,6 +34,8 @@ urlpatterns = [
     path('add_beneficiary/',views.add_beneficiary, name='add_beneficiary'),
     path('emails/',views.emails,name='emails'),
     path('edit_profile/',views.edit_profile,name='edit_profile'),
+    path('statements/deposit/',views.deposit_statements, name='deposit_statements'),
+    path('statements/transfer/',views.transfer_statements, name='transfer_statements'),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

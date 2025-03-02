@@ -1,0 +1,117 @@
+{% extends 'core/base/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block contents %}
+
+<style>
+  .row.align-items-stretch {
+    display: flex;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-body {
+    flex: 1; /* This allows the card body to take up the remaining space */
+  }
+  /* Make the container fill the entire viewport */
+  .full-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .scroll-container {
+    max-height: 300px; /* Adjust this value as needed */
+    overflow-y: auto;
+    margin-top: 20px; /* Add some space above the scroll container */
+  }
+</style>
+
+<div class="main-panel">
+  <div class="main-header">
+    <div class="main-header-logo"> 
+      <!-- Logo Header -->
+      <div class="logo-header" data-background-color="dark">
+        <a href="index.html" class="logo">
+          <img src="{% static 'assets/img/bank_logo.png' %}" alt="navbar brand" class="navbar-brand" height="20" />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
+        </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+      <!-- End Logo Header -->
+    </div>
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-header navbar-header-dark bg-dark navbar-expand-lg border-bottom">
+      <div class="container-fluid">
+        <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+          <h2 class="text-white fw-bold">Statement Of Account</h2>
+        </nav>
+        <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+          <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"></li>
+          <li class="nav-item topbar-user dropdown hidden-caret">
+            <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+              <div class="avatar-sm">
+                <img src="{% static 'assets/img/bank_logo.png' %}" alt="..." class="avatar-img rounded-circle" />
+              </div>
+              <span class="profile-username">
+                <span class="op-7 text-light">Hi,</span>
+                <span class="fw-bold text-light">{{ request.user.username }}</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+  </div>
+
+  <div class="container">
+    <div class="page-inner">
+      <div class="container">
+        <h2>Transfer Statements</h2>
+        <div class="scroll-container">
+          <table class="table table-bordered table-responsive">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for transaction in transactions %}
+                <tr>
+                  <td>{{ transaction.transaction_date|date:"Y-m-d" }}</td>
+                  <td>{{ transaction.description }}</td>
+                  <td>{{ transaction.amount|floatformat:2 }}</td>
+                  <td>{{ transaction.status }}</td>
+                  <td>{{ transaction.reference }}</td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="5" class="text-center">No transfer transactions found.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock contents %}

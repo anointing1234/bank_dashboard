@@ -642,101 +642,13 @@
             let statementType = result.isConfirmed ? "deposit" : (result.dismiss === Swal.DismissReason.cancel ? "transfer" : "");
 
             if (statementType) {
-                // Show loading spinner while fetching statement data
-                Swal.fire({
-                    title: "Fetching Statements",
-                    text: "Please wait...",
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-
-                // AJAX GET request to fetch statement data
-                $.ajax({
-                    url: "{% url 'get_statements' %}",
-                    method: "GET",
-                    data: { statement_type: statementType },
-                    success: function(response) {
-                        Swal.close();
-
-                        if (response.success) {
-                            let html = "";
-
-                            if (response.statements && response.statements.length > 0) {
-                                if ($(window).width() < 768) {
-                                    // Display as a book-style layout for small screens
-                                    html += `<div style="display: flex; flex-direction: column; gap: 10px;">`;
-                                    $.each(response.statements, function(index, tx) {
-                                        html += `
-                                            <div style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; background: #f9f9f9;">
-                                                <p><strong>Reference:</strong> ${tx.reference}</p>
-                                                <p><strong>Date:</strong> ${tx.date}</p>
-                                                <p><strong>Amount:</strong> ${tx.amount}</p>
-                                                <p><strong>Status:</strong> ${tx.status}</p>
-                                            </div>`;
-                                    });
-                                    html += `</div>`;
-                                } else {
-                                    // Display as a table for larger screens
-                                    html += `
-                                        <div style="overflow-x:auto;">
-                                            <table class="table table-bordered table-responsive">
-                                                <thead class="thead-light">
-                                                    <tr>
-                                                        <th style="font-size: 14px;">Reference</th>
-                                                        <th style="font-size: 14px;">Date</th>
-                                                        <th style="font-size: 14px;">Amount</th>
-                                                        <th style="font-size: 14px;">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>`;
-                                    $.each(response.statements, function(index, tx) {
-                                        html += `
-                                            <tr>
-                                                <td style="font-size: 12px;">${tx.reference}</td>
-                                                <td style="font-size: 12px;">${tx.date}</td>
-                                                <td style="font-size: 12px;">${tx.amount}</td>
-                                                <td style="font-size: 12px;">${tx.status}</td>
-                                            </tr>`;
-                                    });
-                                    html += `</tbody></table></div>`;
-                                }
-                            } else {
-                                html = `<p class='text-center'>No transactions found.</p>`;
-                            }
-
-                            // Show the statement in a SweetAlert modal
-                            Swal.fire({
-                                title: `${statementType.charAt(0).toUpperCase() + statementType.slice(1)} Statements`,
-                                html: html,
-                                width: "90%", // Adjust width for better mobile view
-                                customClass: {
-                                    popup: 'swal-popup' // Custom class for additional styling
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Error",
-                                text: response.message || "Unable to fetch statements."
-                            });
-                        }
-                    },
-                    error: function() {
-                        Swal.close();
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "There was an error fetching statements. Please try again later."
-                        });
-                    }
-                });
+                // Redirect to the appropriate statement page
+                let url = statementType === "deposit" ? "{% url 'deposit_statements' %}" : "{% url 'transfer_statements' %}";
+                window.location.href = url; // Redirect to the selected statement page
             }
         });
     });
 });
-
 </script>
 
 

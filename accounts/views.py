@@ -848,3 +848,29 @@ def transaction_receipt(request, reference):
         "available_balance": request.user.account_balance.available_balance,
     }
     return render(request, 'emails/transaction_receipt.html', context)
+
+
+
+
+
+
+
+
+
+def deposit_statements(request):
+    # Fetch deposit transactions for the logged-in user
+    transactions = Transaction.objects.filter(user=request.user, transaction_type='deposit').order_by('-transaction_date')
+    
+    context = {
+        'transactions': transactions,
+    }
+    return render(request, 'finaces/deposit_statements.html', context)
+
+def transfer_statements(request):
+    # Fetch transfer transactions for the logged-in user
+    transactions = Transaction.objects.filter(user=request.user, transaction_type='transfer').order_by('-transaction_date')
+    
+    context = {
+        'transactions': transactions,
+    }
+    return render(request, 'finaces/transfer_statements.html', context)
