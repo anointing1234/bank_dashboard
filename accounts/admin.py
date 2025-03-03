@@ -74,7 +74,7 @@ class AccountCreationForm(forms.ModelForm):
 
 class AccountAdmin(BaseUserAdmin,UnfoldModelAdmin):
     ordering = ('email',)
-    list_display = ('account_id','email', 'first_name', 'last_name', 'phone_number', 'account_type', 'is_staff', 'is_active')
+    list_display = ('account_id', 'pin','email', 'first_name', 'last_name', 'phone_number', 'account_type', 'is_staff', 'is_active')
     list_filter = ('is_staff', 'is_active', 'account_type','account_id')
     readonly_fields = ('date_joined', 'last_login')  # Mark non-editable fields as read-only
     fieldsets = (
