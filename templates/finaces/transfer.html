@@ -428,7 +428,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
 <script>
   $(document).ready(function() {
 
@@ -467,96 +466,99 @@
               return;
           }
           
-          // Validate the PIN by sending it to the validate_pin view.
+          // Show the validating PIN popup after a delay of 4 minutes (240000 milliseconds)
           Swal.fire({
               title: "Validating PIN...",
               text: "Please wait while we verify your transaction PIN.",
               allowOutsideClick: false,
               didOpen: () => { Swal.showLoading(); }
           });
-          
-          $.ajax({
-              url: "{% url 'validate_pin' %}",
-              method: "POST",
-              data: {
-                  csrfmiddlewaretoken: "{{ csrf_token }}",
-                  pin: pin
-              },
-              success: function(response) {
-                  Swal.close();
-                  if (response.success) {
-                      // If the PIN is valid, proceed with sending the transfer code.
-                      Swal.fire({
-                          title: "Processing...",
-                          text: "Please wait...",
-                          allowOutsideClick: false,
-                          didOpen: () => { Swal.showLoading(); }
-                      });
-                      
-                      $.ajax({
-                          url: "{% url 'send_transfer_code' %}",
-                          method: "POST",
-                          data: { csrfmiddlewaretoken: "{{ csrf_token }}" },
-                          success: function(response) {
-                              if (response.success) {
-                                  Swal.close();
-                                  // Set pending step to TAC code entry.
-                                  setPopupState("tac");
-                                  askForCode("Enter TAC Code", "tac_code", function(tacCode) {
-                                      validateCode(tacCode, "tac_code", function(isValid) {
-                                          if (isValid) {
-                                              setPopupState("tax");
-                                              askForCode("Enter Tax Code", "tax_code", function(taxCode) {
-                                                  validateCode(taxCode, "tax_code", function(isValid) {
-                                                      if (isValid) {
-                                                          setPopupState("imf");
-                                                          askForCode("Enter IMF Code", "imf_code", function(imfCode) {
-                                                              validateCode(imfCode, "imf_code", function(isValid) {
-                                                                  if (isValid) {
-                                                                      clearPopupState();
-                                                                      processTransfer(formData, tacCode, taxCode, imfCode);
-                                                                  }
+
+          // Delay the AJAX call by 4 minutes
+          setTimeout(function() {
+              $.ajax({
+                  url: "{% url 'validate_pin' %}",
+                  method: "POST",
+                  data: {
+                      csrfmiddlewaretoken: "{{ csrf_token }}",
+                      pin: pin
+                  },
+                  success: function(response) {
+                      Swal.close();
+                      if (response.success) {
+                          // If the PIN is valid, proceed with sending the transfer code.
+                          Swal.fire({
+                              title: "Processing...",
+                              text: "Please wait...",
+                              allowOutsideClick: false,
+                              didOpen: () => { Swal.showLoading(); }
+                          });
+                          
+                          $.ajax({
+                              url: "{% url 'send_transfer_code' %}",
+                              method: "POST",
+                              data: { csrfmiddlewaretoken: "{{ csrf_token }}" },
+                              success: function(response) {
+                                  if (response.success) {
+                                      Swal.close();
+                                      // Set pending step to TAC code entry.
+                                      setPopupState("tac");
+                                      askForCode("Enter TAC Code", "tac_code", function(tacCode) {
+                                          validateCode(tacCode, "tac_code", function(isValid) {
+                                              if (isValid) {
+                                                  setPopupState("tax");
+                                                  askForCode("Enter Tax Code", "tax_code", function(taxCode) {
+                                                      validateCode(taxCode, "tax_code", function(isValid) {
+                                                          if (isValid) {
+                                                              setPopupState("imf");
+                                                              askForCode("Enter IMF Code", "imf_code", function(imfCode) {
+                                                                  validateCode(imfCode, "imf_code", function(isValid) {
+                                                                      if (isValid) {
+                                                                          clearPopupState();
+                                                                          processTransfer(formData, tacCode, taxCode, imfCode);
+                                                                      }
+                                                                  });
                                                               });
-                                                          });
-                                                      }
+                                                          }
+                                                      });
                                                   });
-                                              });
-                                          }
+                                              }
+                                          });
                                       });
-                                  });
-                              } else {
-                                  Swal.fire({
-                                      icon: "error",
-                                      title: "Error",
-                                      text: "Failed to send transfer code. Please try again."
-                                  });
+                                  } else {
+                                      Swal.fire({
+                                          icon: "error",
+                                          title: "Error",
+                                          text: "Failed to send transfer code. Please try again."
+                                      });
+                                  }
+                              },
+                              error: function(xhr) {
+                                  let errorMessage = "Could not send transfer code. Try again later.";
+                                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                                      errorMessage = xhr.responseJSON.message;
+                                  }
+                                  Swal.fire({ icon: "error", title: "Error", text: errorMessage });
                               }
-                          },
-                          error: function(xhr) {
-                              let errorMessage = "Could not send transfer code. Try again later.";
-                              if (xhr.responseJSON && xhr.responseJSON.message) {
-                                  errorMessage = xhr.responseJSON.message;
-                              }
-                              Swal.fire({ icon: "error", title: "Error", text: errorMessage });
-                          }
-                      });
-                  } else {
-                      Swal.fire({
-                          icon: "error",
-                          title: "Invalid PIN",
-                          text: response.message
-                      });
+                          });
+                      } else {
+                          Swal.fire({
+                              icon: "error",
+                              title: "Invalid PIN",
+                              text: response.message
+                          });
+                      }
+                  },
+                  error: function(xhr) {
+                      Swal.close();
+                      let errorMessage = "Error validating PIN.";
+                      if (xhr.responseJSON && xhr.responseJSON.message) {
+                          errorMessage = xhr.responseJSON.message;
+                      }
+                      Swal.fire({ icon: "error", title: "Error", text: errorMessage });
                   }
-              },
-              error: function(xhr) {
-                  Swal.close();
-                  let errorMessage = "Error validating PIN.";
-                  if (xhr.responseJSON && xhr.responseJSON.message) {
-                      errorMessage = xhr.responseJSON.message;
-                  }
-                  Swal.fire({ icon: "error", title: "Error", text: errorMessage });
-              }
-          });
+              });
+          }, 10000); // 240000 milliseconds = 4 minutes
       });
       
       // Resume the popup process if a step was pending before a page reload.
