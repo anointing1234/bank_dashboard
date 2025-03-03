@@ -15,7 +15,6 @@ urlpatterns = [
     path('transfer/',views.transfer_view,name='transfer'),
     path('validate_pin/',views.validate_pin, name='validate_pin'),
     path('Accounts/transaction_receipt/<str:reference>/',views.transaction_receipt, name='transaction_receipt'),
-    path('get_payment_gateway/',views.get_payment_gateway,name='get_payment_gateway'),
     path('create_deposit/',views.create_deposit,name='create_deposit'),
     path("send-transfer-code/",views.send_transfer_code, name="send_transfer_code"),
     path("create_transfer/",views.create_transfer, name="create_transfer"),

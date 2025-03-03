@@ -316,97 +316,47 @@
         return;
       }
   
-      // Show loading spinner while fetching payment gateway details
+      // Show loading spinner while creating the deposit
       Swal.fire({
-        title: "Fetching Payment Details",
+        title: "Processing Deposit",
         text: "Please wait...",
         allowOutsideClick: false,
         didOpen: () => {
           Swal.showLoading();
         }
       });
-  
-      // AJAX GET request to fetch PaymentGateway data
+      
+      // AJAX POST request to create deposit & transaction, including the account field
       $.ajax({
-        url: "{% url 'get_payment_gateway' %}",
-        method: "GET",
+        url: "{% url 'create_deposit' %}",
+        method: "POST",
         data: {
-          network: selectedNetwork
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          network: selectedNetwork,
+          amount: depositAmount,
+          account: selectedAccount   // New field included here
         },
-        success: function(response) {
+        success: function(finalResponse) {
           Swal.close();
-  
-          const depositAddress = response.deposit_address;
-          const instructions = response.instructions || "No instructions provided.";
-  
           Swal.fire({
-            title: "Payment Details",
-            html: `
-              <div style="text-align:left;">
-                <p><strong>Address:</strong> ${depositAddress}</p>
-                <p><strong>Instructions:</strong> ${instructions}</p>
-              </div>
-            `,
-            icon: "info",
-            showCancelButton: true,
-            confirmButtonText: "Confirm Deposit",
-            cancelButtonText: "Cancel"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Show loading spinner while creating the deposit
-              Swal.fire({
-                title: "Processing Deposit",
-                text: "Please wait...",
-                allowOutsideClick: false,
-                didOpen: () => {
-                  Swal.showLoading();
-                }
-              });
-              
-              // AJAX POST request to create deposit & transaction, including the account field
-              $.ajax({
-                url: "{% url 'create_deposit' %}",
-                method: "POST",
-                data: {
-                  csrfmiddlewaretoken: "{{ csrf_token }}",
-                  network: selectedNetwork,
-                  amount: depositAmount,
-                  account: selectedAccount   // New field included here
-                },
-                success: function(finalResponse) {
-                  Swal.close();
-                  Swal.fire({
-                    icon: "success",
-                    title: "Deposit Successful",
-                    text: finalResponse.message || "Your deposit has been recorded. Your account will be credited shortly."
-                  }).then(() => {
-                    location.reload();
-                  });
-                },
-                error: function() {
-                  Swal.close();
-                  Swal.fire({
-                    icon: "error",
-                    title: "Deposit Error",
-                    text: "There was an issue processing your deposit. Please try again."
-                  });
-                }
-              });
-            }
+            icon: "success",
+            title: "Deposit Successful",
+            text: finalResponse.message || "Your deposit has been recorded. Your account will be credited shortly."
+          }).then(() => {
+            location.reload();
           });
         },
         error: function() {
           Swal.close();
           Swal.fire({
             icon: "error",
-            title: "Gateway Error",
-            text: "Could not fetch the payment gateway details. Please try again."
+            title: "Deposit Error",
+            text: "There was an issue processing your deposit. Please try again."
           });
         }
       });
     });
   });
-  
 </script>
 
 

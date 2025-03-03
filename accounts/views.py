@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from django.contrib.auth.models import User
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from django.core.mail import EmailMessage
 from django.utils.html import strip_tags
 from django.contrib.auth import login,authenticate
@@ -28,7 +28,7 @@ from requests.exceptions import ConnectionError
 import requests 
 import uuid
 from accounts.form import SignupForm,LoginForm,TransferForm,LoanRequestForm,CardForm,SendresetcodeForm,PasswordResetForm,ProfileEditForm 
-from .models import PaymentGateway,Deposit, Transaction,Transfer,TransferCode,LoanRequest,ExchangeRate,Exchange,Card,ResetPassword,Beneficiary
+from .models import PaymentGateway,Deposit, Transaction,Transfer,TransferCode,LoanRequest,ExchangeRate,Exchange,Card,ResetPassword,Beneficiary,AccountBalance
 import random
 from django.utils.crypto import get_random_string
 from django.utils.timezone import now, timedelta
@@ -37,8 +37,11 @@ from django.contrib.admin import AdminSite
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
+import logging
 
 
+
+logger = logging.getLogger(__name__)
 
 
 
@@ -269,37 +272,22 @@ def validate_pin(request):
 
 
 
-
-def get_payment_gateway(request):
-    network = request.GET.get('network')
-    try:
-        gateway = PaymentGateway.objects.get(network=network)
-        data = {
-            "deposit_address": gateway.deposit_address,
-            "instructions": gateway.instructions or ""
-        }
-        return JsonResponse(data)
-    except PaymentGateway.DoesNotExist:
-        return JsonResponse({"error": "No gateway found"}, status=404)
-
-
 def create_deposit(request):
     user = request.user
     network = request.POST.get('network')
     amount = request.POST.get('amount')
-    account = request.POST.get('account')
+    account_type = request.POST.get('account')
+
+    logger.debug(f":User  {user}, Network: {network}, Amount: {amount}, Account Type: {account_type}")
 
     # Basic validation
-    if not network or not amount:
+    if not network or not amount or not account_type:
         return JsonResponse({"error": "Missing required fields."}, status=400)
-    
-    try:
-        # Retrieve the PaymentGateway record for the selected network
-        gateway = PaymentGateway.objects.get(network=network)
-    except PaymentGateway.DoesNotExist:
-        return JsonResponse({"error": "No payment gateway configured for this network."}, status=400)
 
     try:
+        # Convert amount to Decimal
+        amount = Decimal(amount)
+
         # Generate a unique transaction reference (TNX)
         txn_ref = str(uuid.uuid4()).replace('-', '')[:10].upper()
 
@@ -309,8 +297,8 @@ def create_deposit(request):
             amount=amount,
             network=network,
             TNX=txn_ref,
-            status="pending",
-            account=account,
+            status="completed",
+            account=account_type,
         )
 
         # 2) Create corresponding Transaction record
@@ -318,20 +306,34 @@ def create_deposit(request):
             user=user,
             amount=amount,
             transaction_type="deposit",
-            status="pending",  # or "completed" if processed immediately
+            status="pending",
             description=f"Deposit via {network}",
             reference=txn_ref,
-            # Use PaymentGateway details for additional fields
-            institution="Payment Gateway",  # Customize if needed
-            region="International",  # Fill in if applicable
-            from_account=gateway.deposit_address,  # The deposit address for the network
-            to_account=user.email  # You could use the user's account number if available
+            institution="Payment Gateway",
+            region="International",
+            from_account="N/A",
+            to_account=user.email
         )
 
-        return JsonResponse({"status": "ok", "message": "Deposit created successfully."})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        # 3) Update the appropriate balance based on account type
+        account_balance = get_object_or_404(AccountBalance, account=user)
 
+        if account_type == 'Savings_Account':
+            account_balance.available_balance += amount
+            account_balance.total_credits += amount
+        elif account_type == 'Checking_Account':
+            account_balance.checking_balance += amount
+            account_balance.total_credits += amount
+
+        account_balance.save()
+
+        return JsonResponse({"status": "ok", "message": "Deposit created successfully."})
+    except InvalidOperation:
+        logger.error("Invalid amount provided.")
+        return JsonResponse({"error": "Invalid amount."}, status=400)
+    except Exception as e:
+        logger.error(f"Error occurred: {str(e)}")
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 def send_transfer_code(request):
