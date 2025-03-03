@@ -853,12 +853,6 @@ def transaction_receipt(request, reference):
 
 
 
-
-
-
-
-
-
 def deposit_statements(request):
     # Fetch deposit transactions for the logged-in user
     transactions = Transaction.objects.filter(user=request.user, transaction_type='deposit').order_by('-transaction_date')
